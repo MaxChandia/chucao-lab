@@ -7,12 +7,25 @@ const Navbar = () => {
     return (
         <nav className=" h-20 w-full flex items-center justify-between px-10 bg-transparent border-b border-gray-100 text-white shadow-lg font-jetbrains">
             <div className="logo text-black">ChucaoLab</div>
-            <div className="sections gap-20 flex text-black">
-                <Link href="/investigacion">INVESTIGACIÓN</Link>
-                <Link href="/docencia">DOCENCIA</Link>
+            <ul className="sections gap-20 flex text-black cursor-pointer">
+                <li className='relative group '><h2 className='text-black group-hover:text-blue-500'>INVESTIGACIÓN</h2>
+                    <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
+                        <li className='block  text-sm px-10 py-2 hover:bg-gray-100'>Ecosistemas y Biodiversidad</li>
+                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Áreas Verdes Urbanas</li>
+                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Diseño y Creación</li>
+                    </ul>   
+                </li>
+                <li className='relative group'>
+                    <h2 className='text-black group-hover:text-blue-500'>DOCENCIA</h2>
+                    <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
+                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Pregrado</li>
+                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Postgrado</li>
+                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Prácticas, Pasantías y Tesis</li>
+                    </ul>
+                </li>
                 <Link href="/vinculacion">VINCULACIÓN</Link>
                 <Link href="/quienes-somos">QUIÉNES SOMOS</Link>
-            </div>
+            </ul>
             <div className="socialMedia flex gap-4">
                 <div className='text-black p-2'>ENG</div>
                 <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700" href="https://www.linkedin.com/company/chucaolab/" target="_blank" rel="noopener noreferrer">
