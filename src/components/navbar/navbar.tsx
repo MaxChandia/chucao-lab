@@ -6,7 +6,7 @@ import { faYoutube, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-s
 const Navbar = () => {
     return (
         <nav className=" h-20 w-full flex items-center justify-between px-10 bg-transparent border-b border-gray-100 text-white shadow-lg font-jetbrains">
-            <div className="logo text-black">ChucaoLab</div>
+            <div className="logo text-black"><Link href="/">ChucaoLab</Link></div>
             <ul className="sections gap-20 flex text-black cursor-pointer">
                 <li className='relative group '><h2 className='text-black group-hover:text-blue-500'>INVESTIGACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
@@ -18,12 +18,19 @@ const Navbar = () => {
                 <li className='relative group'>
                     <h2 className='text-black group-hover:text-blue-500'>DOCENCIA</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
-                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Pregrado</li>
-                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Postgrado</li>
-                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Prácticas, Pasantías y Tesis</li>
+                        <Link href="/docencia/pregrado"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Pregrado</li></Link>
+                        <Link href="/docencia/postgrado"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Postgrado</li></Link>
+                        <Link href="/docencia/practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Prácticas, Pasantías y Tesis</li></Link>
                     </ul>
                 </li>
-                <Link href="/vinculacion">VINCULACIÓN</Link>
+                <li className='relative group'>
+                    <h2 className='text-black group-hover:text-blue-500'>VINCULACIÓN</h2>
+                    <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
+                        <Link href="/vinculacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
+                        <Link href="/vinculacion/colaboraciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
+                        <Link href="/vinculacion/servicios"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Recomendaciones para Políticas Públicas</li></Link>
+                    </ul>
+                </li>
                 <Link href="/quienes-somos">QUIÉNES SOMOS</Link>
             </ul>
             <div className="socialMedia flex gap-4">
