@@ -10,8 +10,7 @@ import { equipo } from "@/lib/equipo";
 const QuienesSomos = () => {
 
    const [startIndex, setStartIndex] = useState(0);
-    const membersPerPage = 5; // Miembros a mostrar por página
-
+    const membersPerPage = 5;
     const handleNext = () => {
         if (startIndex + membersPerPage < equipo.length) {
             setStartIndex(startIndex + membersPerPage);

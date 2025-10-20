@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* tus opciones de configuración irán aquí */
 };
-module.exports = require('tailwindcss')(nextConfig);
+
 export default nextConfig;
