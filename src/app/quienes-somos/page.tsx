@@ -65,7 +65,7 @@ const QuienesSomos = () => {
             <ul className="mt-10 px-5 flex items-center justify-center gap-[120px] flex-wrap">
                 {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
                     <li key={miembro.id} className="flex flex-col items-center justify-center font-karla gap-5">
-                        <span className="inline-block h-[150px] w-[150px] rounded-full bg-gray-300"></span>
+                        <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
                         <div className="flex flex-col align-center justify-center text-sm">
                             <p className="font-bold">{miembro.nombre}</p>
                             <p>{miembro.rol}</p>
