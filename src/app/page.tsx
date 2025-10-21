@@ -3,6 +3,7 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
+import { ejesChucao } from "@/lib/ejes";
 
 export default function Home() {
   return (
@@ -39,9 +40,14 @@ export default function Home() {
           <h3 className="text-sm font-jetbrains">EJES DE INVESTIGACIÓN</h3>
         </div>
         <div className="newsContainer flex gap-10">
-          <div className="newsItem w-1/3 h-60 bg-gray-200"></div>
-          <div className="newsItem w-1/3 h-60 bg-gray-200"></div>
-          <div className="newsItem w-1/3 h-60 bg-gray-200"></div>
+          {ejesChucao.slice(0,3).map((ejes)=>(
+            <div key={ejes.id} className="newsItem w-1/3 " >
+              <span className="rounded-sm h-60 w-80 bg-gray-300 inline-block"></span>
+              <div>
+                <h2 className="font-bold font-jetbrains">{ejes.titulo}</h2>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
       <section className="news h-[70vh] w-full flex flex-col mt-20 px-20">
