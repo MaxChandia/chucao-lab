@@ -12,17 +12,16 @@ const Navbar = () => {
             <ul className="sections gap-20 flex text-black cursor-pointer">
                 <li className='relative group '><h2 className='text-black group-hover:text-blue-500'>INVESTIGACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
-                        <li className='block  text-sm px-10 py-2 hover:bg-gray-100'>Ecosistemas y Biodiversidad</li>
-                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Áreas Verdes Urbanas</li>
-                        <li className='block text-sm px-10 py-2 hover:bg-gray-100'>Diseño y Creación</li>
+                        <Link href="/investigacion/proyectos"><li className='block  text-sm px-10 py-2 hover:bg-gray-100'>Proyectos</li></Link>
+                        <Link href="/investigacion/publicaciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Publicaciones</li></Link>
+                        <Link href="/investigacion/infraestructura-y-equipamiento"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Infraestructura y equipamiento</li></Link>
                     </ul>   
                 </li>
                 <li className='relative group'>
                     <h2 className='text-black group-hover:text-blue-500'>DOCENCIA</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
-                        <Link href="/docencia/pregrado"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Pregrado</li></Link>
-                        <Link href="/docencia/postgrado"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Postgrado</li></Link>
-                        <Link href="/docencia/practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Prácticas, Pasantías y Tesis</li></Link>
+                        <Link href="/docencia/cursos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Cursos</li></Link>
+                        <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y prácticas</li></Link>
                     </ul>
                 </li>
                 <li className='relative group'>
@@ -30,10 +29,12 @@ const Navbar = () => {
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
                         <Link href="/vinculacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
                         <Link href="/vinculacion/colaboraciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
-                        <Link href="/vinculacion/servicios"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Recomendaciones para Políticas Públicas</li></Link>
+                        <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
+                        <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
+                        <Link href="/vinculacion/contacto"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos </li></Link>
                     </ul>
                 </li>
-                <Link href="/quienes-somos">QUIÉNES SOMOS</Link>
+                <Link className="text-black hover:text-blue-500" href="/quienes-somos">QUIÉNES SOMOS</Link>
             </ul>
             <div className="socialMedia flex gap-4">
                 <div className='text-black p-2'>ENG</div>
