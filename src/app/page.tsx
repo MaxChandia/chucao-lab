@@ -16,7 +16,7 @@ export default function Home() {
                 fill
                 className="object-cover z-0"
             />
-          <div className="px-20 flex flex-col gap-20 w-full absolute inset-0 h-full justify-center items-center z-10">
+          <div className="px-20 flex flex-col gap-20 w-full absolute inset-0 h-full justify-center items-start z-10">
               <div className="textHero flex flex-col gap-2 -lg:gap-0">
                   <h1 className="text-lg lg:text-2xl font-bold">
                       ChucaoLab es un laboratorio interdisciplinario de gestión, diseño y creación del paisaje sonoro ambiental
