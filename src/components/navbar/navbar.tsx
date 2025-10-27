@@ -11,7 +11,7 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 const Navbar = () => {
     
     const [isOpen, setIsOpen] = useState(false);
-    const [isOpenSection, setIsOpenSection] = useState<String | null>(null);
+    const [isOpenSection, setIsOpenSection] = useState<string | null>(null);
 
     
     const handleCloseMenu = () => {
