@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'; // <-- (1) Importar useState
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logoImage from '@/assets/logo-chucaolab.png';
@@ -58,11 +58,11 @@ const Navbar = () => {
                 <li className='relative group'>
                     <h2 className='group-hover:text-blue-500'>VINCULACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
-                        <Link href="/vinculacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
-                        <Link href="/vinculacion/colaboraciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
+                        <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
+                        <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                         <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
                         <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
-                        <Link href="/vinculacion/contacto"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
+                        <Link href="/vinculacion/contactanos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
                     </ul>
                 </li>
                 {/* Link Quienes Somos */}
