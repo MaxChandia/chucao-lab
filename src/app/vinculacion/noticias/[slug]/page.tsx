@@ -11,18 +11,17 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
-interface Props {
-  params: { slug: string };
-}
-
 export async function generateStaticParams() {
-    
   return noticias.map((n) => ({
     slug: n.slug,
   }));
 }
 
-export default async function NoticiaDetalle({ params }: Props) {
+export default async function NoticiaDetalle({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
   const noticia = noticias.find((n) => n.slug === slug);
 
