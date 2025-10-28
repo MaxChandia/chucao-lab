@@ -11,19 +11,23 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 
-export async function generateStaticParams() {
-  return noticias.map((n) => ({ slug: n.slug }));
+interface Props {
+  params: Promise<{ slug: string }>; // ✅ Ahora es una Promise
 }
 
-export default async function NoticiaDetalle({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params;
+export async function generateStaticParams() {
+  return noticias.map((n) => ({
+    slug: n.slug,
+  }));
+}
+
+export default async function NoticiaDetalle({ params }: Props) {
+  const { slug } = await params; // ✅ Await params aquí
   const noticia = noticias.find((n) => n.slug === slug);
 
-  if (!noticia) return notFound();
+  if (!noticia) {
+    return notFound();
+  }
 
   // 🔹 Últimas noticias (excluye la actual)
   const ultimasNoticias = noticias
