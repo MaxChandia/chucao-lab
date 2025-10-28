@@ -61,7 +61,7 @@ export default function Home() {
         </div>
         <div className="newsContainer flex flex-col lg:flex-row gap-20">
           {noticias.slice(0,3).map((moticias) => (
-            <Link key={moticias.id} href={`/noticias/${moticias.id}`} className="newsItem  min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
+            <Link key={moticias.id} href={`/vinculacion/noticias/${moticias.slug}`} className="newsItem  min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
               <Image src={moticias.newsImage} alt={moticias.title} width={400} height={250} className="rounded-md"/>
               <div className="mt-3 flex flex-col flex-1 p-3">
                 <div className="flex gap-2 min-h-[60px]">
