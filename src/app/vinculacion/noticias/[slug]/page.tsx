@@ -16,13 +16,15 @@ interface Props {
 }
 
 export async function generateStaticParams() {
+    
   return noticias.map((n) => ({
     slug: n.slug,
   }));
 }
 
-export default function NoticiaDetalle({ params }: Props) {
-  const noticia = noticias.find((n) => n.slug === params.slug);
+export default async function NoticiaDetalle({ params }: Props) {
+  const { slug } = await params;
+  const noticia = noticias.find((n) => n.slug === slug);
 
   if (!noticia) {
     return notFound();
