@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 }
 
 export default async function NoticiaDetalle({ params }: Props) {
-  const { slug } = await params;
+  const { slug } = params;
   const noticia = noticias.find((n) => n.slug === slug);
 
   if (!noticia) {
