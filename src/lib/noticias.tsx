@@ -60,7 +60,7 @@ Durante cinco sesiones las personas participantes aprendieron de nueve profesion
 
 Otro aspecto que se destacó durante las sesiones es que el paisaje sonoro tiene la potencialidad de generar efectos restauradores de la salud humana. Si los sonidos que rodean a las personas son naturales, pueden ayudar a disminuir el estrés, a procesar emociones, incrementar las capacidades cognitivas, e incluso mejorar el ánimo. 
 
-Teoría y práctica
+<b>Teoría y práctica</b>
 
 Las actividades teóricas se realizaron durante el mes de junio en OpenBeauchef, espacio de la Facultad de Ciencias Físicas y Matemáticas de la Universidad de Chile que promueve la innovación en investigación.
 
@@ -79,7 +79,7 @@ El profesor Guillermo Eisner, director del Departamento de Sonido, destaca la im
 
 “Es muy valioso que las actividades que nacen desde unidades alojadas dentro de la Facultad de Artes, como los es ChucaoLab, puedan expandir sus ámbitos y espacios de acción, de manera de vincularse con otras unidades académicas y otras/os interlocutoras/es, fomentando y profundizando el diálogo interdisciplinar, y difundiendo las propuestas de investigación y creación con una fuerte visión desde el arte”.
 
-En búsqueda de un diálogo interdisciplinario 
+<b>En búsqueda de un diálogo interdisciplinario</b>
 
 Uno de los focos de este workshop es promover el diálogo de diferentes disciplinas y profesionales, creando equipos de trabajo que propongan ideas para el diseño de un área verde específica como caso de estudio. 
 
