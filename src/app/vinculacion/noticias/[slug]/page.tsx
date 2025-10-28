@@ -12,9 +12,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 export async function generateStaticParams() {
-  return noticias.map((n) => ({
-    slug: n.slug,
-  }));
+  return noticias.map((n) => ({ slug: n.slug }));
 }
 
 export default async function NoticiaDetalle({
@@ -25,9 +23,7 @@ export default async function NoticiaDetalle({
   const { slug } = params;
   const noticia = noticias.find((n) => n.slug === slug);
 
-  if (!noticia) {
-    return notFound();
-  }
+  if (!noticia) return notFound();
 
   // 🔹 Últimas noticias (excluye la actual)
   const ultimasNoticias = noticias
