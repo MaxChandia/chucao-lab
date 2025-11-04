@@ -6,10 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
-import {Noticia} from "@/lib/Noticia";
+import {Noticia} from "@/lib/sanityClasses";
 import { useEffect, useState } from "react";
 import { sanityService } from "@/lib/sanityService";
 import { PortableText } from '@portabletext/react';
+import { urlFor } from "@/lib/sanityImage";
 
 
 export default function Home() {
@@ -20,17 +21,11 @@ export default function Home() {
     const fetchNoticia = async () => {
       const data = await sanityService.getAllNoticias();
       console.log('Noticias obtenidas:', data);
-      setNoticias(data.map((item: Noticia ) => ({
-        id: item.id,
-        title: item.title,
-        slug: item.slug,
-        author: item.author,
-        categories: item.categories,
-        publishedAt: item.publishedAt,
-        mainImage: item.mainImage,
-        upperBody: item.upperBody,
-        body: item.body,
-      })));
+      setNoticias(data);
+
+      if (data.length > 0) {
+        console.log('Primer noticia:', data[0]);
+      }
     }
 
     fetchNoticia();
@@ -88,21 +83,38 @@ export default function Home() {
       <section className="news min-h-screen lg:min-h-[70vh] w-full flex flex-col mt-20 px-10 py-10 lg:px-20">
         <div className="sectionHeader flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
           <h3 className="text-md font-jetbrains">NOVEDADES</h3>
-          <div className="h-10 w-20 gap-8 flex"><FontAwesomeIcon icon={faArrowLeft} className="text-black cursor-pointer"/><FontAwesomeIcon icon={faArrowRight} className="text-black cursor-pointer" /></div>
+          <div className="h-10 w-20 gap-8 flex">
+            <FontAwesomeIcon icon={faArrowLeft} className="text-black cursor-pointer"/>
+            <FontAwesomeIcon icon={faArrowRight} className="text-black cursor-pointer" />
+          </div>
         </div>
         <div className="newsContainer flex flex-col lg:flex-row gap-20">
-          {noticias.slice(0,3).map((noticia) => (
-            <Link key={noticia.id} href={`/vinculacion/noticias/${noticia.slug}`} className="newsItem  min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
-              <Image src={noticia.mainImage} alt={noticia.title} width={400} height={250} className="rounded-md"/>
+          {noticias.slice(0, 3).map((noticia) => (
+            <Link 
+              key={noticia._id} 
+              href={`/vinculacion/noticias/${noticia.slug.current}`}  // ← Usa slug.current
+              className="newsItem min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300"
+            >
+              {noticia.imagenDestacadaUrl && (
+                <Image 
+                  src={noticia.imagenDestacadaUrl}
+                  alt={noticia.titulo} 
+                  width={400} 
+                  height={250} 
+                  className="rounded-md"
+                />
+              )}
               <div className="mt-3 flex flex-col flex-1 p-3">
                 <div className="flex gap-2 min-h-[60px]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                   </svg>
-                  <h2 className="font-bold font-jetbrains text-justify lg:text-left text-sm leading-tight">{noticia.title}</h2>
+                  <h2 className="font-bold font-jetbrains text-justify lg:text-left text-sm leading-tight">
+                    {noticia.titulo}
+                  </h2>
                 </div>
-               <div className="mt-1 text-justify lg:text-justify text-sm font-karla">
-                  {noticia.upperBody && (typeof noticia.upperBody === 'string' ? <div>{noticia.upperBody}</div> : <PortableText value={noticia.upperBody} />)}
+                <div className="mt-1 text-justify lg:text-justify text-sm font-karla">
+                  {noticia.bajada}  {/* ← Simplificado: es un string */}
                 </div>
               </div>
             </Link>
