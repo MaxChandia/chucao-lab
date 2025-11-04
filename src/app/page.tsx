@@ -9,8 +9,7 @@ import { ejesChucao } from "@/lib/ejes";
 import {Noticia} from "@/lib/sanityClasses";
 import { useEffect, useState } from "react";
 import { sanityService } from "@/lib/sanityService";
-import { PortableText } from '@portabletext/react';
-import { urlFor } from "@/lib/sanityImage";
+
 
 
 export default function Home() {
