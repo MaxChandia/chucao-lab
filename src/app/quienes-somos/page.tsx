@@ -6,6 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { equipo } from "@/lib/equipo";
+import Link from "next/link";
 
 const QuienesSomos = () => {
 
@@ -61,12 +62,19 @@ const QuienesSomos = () => {
             </div>
         </div>
         <div className="w-full">
-            <ul className="mt-10 px-5 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
+            <ul className="mt-10 px-3 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
                 {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
+                    <Link href={`/equipo/${miembro.slug}`}>
                     <li key={miembro.id} className="flex flex-col items-center justify-center font-karla gap-5">
                         <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
-                        <div className="flex flex-col align-center justify-center text-sm">
-                            <p className="font-bold">{miembro.nombre}</p>
+                        <div className="flex flex-col align-center justify-center text-center text-sm">
+                            
+                                        <p 
+                                            className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors"
+                                        >
+                                            {miembro.nombre}
+                                        </p>
+                                    
                             <p>{miembro.rol}</p>
                             <p>{miembro.departamento}</p>
                             <p>{miembro.facultad}</p>
@@ -75,7 +83,7 @@ const QuienesSomos = () => {
                                 <p>{miembro.email}</p>
                             </div>
                         </div>
-                    </li>
+                    </li></Link>
                 ))}
                    
             </ul>
