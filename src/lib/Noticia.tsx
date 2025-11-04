@@ -6,7 +6,7 @@ interface Noticia {
     categories: string[];
     publishedAt: string;
     mainImage: string;
-    additionalImages?: images[];
+    additionalImages?: AdditionalImage[];
     upperBody: string;
     body: string;
 }
