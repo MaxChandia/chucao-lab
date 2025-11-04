@@ -8,7 +8,6 @@ import  heroImage  from '@/assets/hero_sections.webp';
 import Image from "next/image";
 import { Noticia, AdditionalImage } from "@/lib/Noticia";
 import Link from "next/link";
-import { getSanityImageUrl } from "@/lib/sanityImageUrl";
 
 export default async function NoticiaPage({params}: {params: Promise<{slug: string}>}) {
     
@@ -49,22 +48,32 @@ export default async function NoticiaPage({params}: {params: Promise<{slug: stri
             <div className="max-w-4xl mx-auto my-10 px-4">
                 {noticia.body && <PortableText value={noticia.body} components={PortableTextComponents}/>}
             </div>
-            <div className="max-w-4xl mx-auto grid grid-cols-2">
-              {noticia.additionalImages && noticia.additionalImages.map((img: AdditionalImage, index: number) => {
-                const imageUrl = img.url || (img.asset ? getSanityImageUrl(img.asset._ref) : '');
-                return (
-                  <div key={index} className="max-w-4xl mx-auto my-10 px-4">
-                    <Image
-                      src={imageUrl}
-                      alt={img.alt || 'Imagen adicional'}
-                      width={400}
-                      height={300}
-                      className="rounded-lg object-cover"
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            
+            {noticia.additionalImages && noticia.additionalImages.length > 0 && (
+              <div className="max-w-4xl mx-auto grid grid-cols-2 gap-4 px-4 my-10">
+                {noticia.additionalImages.map((img: AdditionalImage, index: number) => {
+                  // Ahora la URL viene directamente de Sanity
+                  if (!img.url) return null;
+                  
+                  return (
+                    <div key={index}>
+                      <Image
+                        src={img.url}
+                        alt={img.alt || 'Imagen adicional'}
+                        width={400}
+                        height={300}
+                        className="rounded-lg object-cover w-full"
+                      />
+                      {img.caption && (
+                        <p className="text-sm text-gray-600 text-center mt-2 italic">
+                          {img.caption}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           
               <section className="max-w-4xl mx-auto my-10 px-4">
                 <h2 className="font-bold text-xl mb-4">Comparte esta noticia</h2>

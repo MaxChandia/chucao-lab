@@ -1,9 +1,5 @@
 interface AdditionalImage {
-    asset?: {
-        url?: string;
-        _ref: string;
-    };
-    url?: string;
+    url: string;
     alt?: string;
     caption?: string;
 }
