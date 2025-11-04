@@ -64,8 +64,8 @@ const QuienesSomos = () => {
         <div className="w-full">
             <ul className="mt-10 px-3 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
                 {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
-                    <Link href={`/equipo/${miembro.slug}`}>
-                    <li key={miembro.id} className="flex flex-col items-center justify-center font-karla gap-5">
+                    <Link href={`/equipo/${miembro.slug}`} key={miembro.id} >
+                    <li className="flex flex-col items-center justify-center font-karla gap-5">
                         <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
                         <div className="flex flex-col align-center justify-center text-center text-sm">
                             
