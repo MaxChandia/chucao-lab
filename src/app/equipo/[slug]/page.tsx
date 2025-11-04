@@ -4,11 +4,19 @@ import Link from 'next/link';
 // Asegúrate de que la ruta de importación sea correcta
 import { equipo } from '@/lib/equipo'; 
 
-// 1. Eliminar la interfaz ProfilePageProps y tipificar params directamente.
-// Usamos el formato 'export default function NombreComponente({ params }: { params: { slug: string } })'
-// para la definición más robusta en el App Router.
+// 1. Definimos la estructura completa de PageProps (MiembroPageProps)
+// Incluye 'searchParams' (que es requerido por Next.js para compilar)
+type MiembroPageProps = {
+  params: {
+    slug: string; // Parámetro dinámico
+  };
+  // Propiedad requerida por Next.js App Router para satisfacer la restricción PageProps
+  searchParams: { [key: string]: string | string[] | undefined }; 
+};
 
-export default function PerfilPage({ params }: { params: { slug: string } }) {
+
+// Usamos el type MiembroPageProps en el componente
+export default function PerfilPage({ params }: MiembroPageProps) {
     
     // 1. Buscar el miembro usando el slug
     const miembro = equipo.find(m => m.slug === params.slug);
@@ -38,12 +46,13 @@ export default function PerfilPage({ params }: { params: { slug: string } }) {
             <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg border border-gray-200">
                 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8 border-b pb-4">
+                    {/* Placeholder para la imagen de perfil */}
                     <span className="inline-block h-[120px] w-[120px] rounded-full bg-gray-300 flex-shrink-0"></span>
                     <div>
                         <h1 className="text-3xl font-bold text-gray-800">{miembro.nombre}</h1>
                         <p className="text-lg text-gray-600 mt-1">{miembro.rol}</p>
                         <div className="mt-3 text-sm text-gray-500">
-                             <p>**{miembro.facultad}**</p>
+                             <p className="font-semibold">{miembro.facultad}</p>
                              <p>{miembro.departamento}</p>
                              <div className="flex items-center gap-2 mt-1">
                                  <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
