@@ -36,6 +36,7 @@ export default async function PerfilPage({ params }: MiembroPageProps) {
     // 3. Renderizar el perfil si se encuentra
     return (
         <div className="min-h-screen pt-20 pb-16 px-5 sm:px-10 lg:px-20 font-karla bg-gray-50">
+            <section className="mt-[100px]">
             <Link href="/quienes-somos" className="flex items-center text-black hover:text-blue-600 transition-colors mb-8 w-fit">
                 <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4 mr-2"/>
                 Volver al equipo
@@ -67,6 +68,7 @@ export default async function PerfilPage({ params }: MiembroPageProps) {
                 </div>
                 
             </div>
+            </section>
         </div>
     );
 }
