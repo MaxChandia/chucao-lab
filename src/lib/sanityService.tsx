@@ -5,17 +5,12 @@ export const sanityService = {
     async getAllNoticias() {
         try{
             const query = `*[_type == "noticia"] | order(publishedAt desc){
-               __id,
+               _id,
                 titulo,
                 slug {
                     current
                 },
-                imagenDestacada {
-                    asset->,
-                    alt,
-                    caption,
-                    hotspot
-                },
+                "imagenDestacadaUrl": imagenDestacada.asset->url,
                 autor,
                 fecha,
                 categoria,
