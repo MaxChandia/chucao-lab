@@ -1,20 +1,14 @@
-// app/equipo/[slug]/page.tsx
-// Nota: El nombre de la carpeta dinámica debe coincidir con el nombre del parámetro: [slug]
-
 import { faEnvelope, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
-// Asegúrate de que la ruta de importación sea correcta para tus datos
+// Asegúrate de que la ruta de importación sea correcta
 import { equipo } from '@/lib/equipo'; 
 
-// Define la interfaz de props para la página dinámica
-interface ProfilePageProps {
-  params: {
-    slug: string; // ✨ Ahora se espera un 'slug'
-  };
-}
+// 1. Eliminar la interfaz ProfilePageProps y tipificar params directamente.
+// Usamos el formato 'export default function NombreComponente({ params }: { params: { slug: string } })'
+// para la definición más robusta en el App Router.
 
-const PerfilPage = ({ params }: ProfilePageProps) => {
+export default function PerfilPage({ params }: { params: { slug: string } }) {
     
     // 1. Buscar el miembro usando el slug
     const miembro = equipo.find(m => m.slug === params.slug);
@@ -22,7 +16,7 @@ const PerfilPage = ({ params }: ProfilePageProps) => {
     // 2. Manejar el caso de que el miembro no exista
     if (!miembro) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-10 font-karla">
+            <div className="min-h-screen flex flex-col items-center justify-center p-10 font-karla bg-gray-50">
                 <h1 className="text-2xl font-bold mb-4">Perfil no encontrado</h1>
                 <p className="text-lg mb-6">El perfil que buscas no existe o fue movido.</p>
                 <Link href="/quienes-somos" className="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
@@ -33,10 +27,9 @@ const PerfilPage = ({ params }: ProfilePageProps) => {
         );
     }
 
-    // 3. Renderizar el perfil si se encuentra (cuerpo de la página sin cambios)
+    // 3. Renderizar el perfil si se encuentra
     return (
         <div className="min-h-screen pt-20 pb-16 px-5 sm:px-10 lg:px-20 font-karla bg-gray-50">
-           <section className="mt-[100px]">
             <Link href="/quienes-somos" className="flex items-center text-black hover:text-blue-600 transition-colors mb-8 w-fit">
                 <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4 mr-2"/>
                 Volver al equipo
@@ -50,7 +43,7 @@ const PerfilPage = ({ params }: ProfilePageProps) => {
                         <h1 className="text-3xl font-bold text-gray-800">{miembro.nombre}</h1>
                         <p className="text-lg text-gray-600 mt-1">{miembro.rol}</p>
                         <div className="mt-3 text-sm text-gray-500">
-                             <p>{miembro.facultad}</p>
+                             <p>**{miembro.facultad}**</p>
                              <p>{miembro.departamento}</p>
                              <div className="flex items-center gap-2 mt-1">
                                  <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
@@ -61,14 +54,12 @@ const PerfilPage = ({ params }: ProfilePageProps) => {
                 </div>
 
                 <div className="profile-details">
-                    <h2 className="text-xl font-semibold mb-4 border-l-4 border-sage-green pl-3">Trayectoria y Rol</h2>
+                    <h2 className="text-xl font-semibold mb-4 border-l-4 border-gray-400 pl-3">Trayectoria y Rol</h2>
+                    {/* Usamos whitespace-pre-line para respetar los saltos de línea del texto de perfil */}
                     <p className="text-gray-700 whitespace-pre-line leading-relaxed">{miembro.perfil}</p>
                 </div>
                 
             </div>
-            </section>
         </div>
     );
-};
-
-export default PerfilPage;
+}
