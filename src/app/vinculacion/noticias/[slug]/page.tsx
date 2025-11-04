@@ -52,7 +52,6 @@ export default async function NoticiaPage({params}: {params: Promise<{slug: stri
             {noticia.additionalImages && noticia.additionalImages.length > 0 && (
               <div className="max-w-4xl mx-auto grid grid-cols-2 gap-4 px-4 my-10">
                 {noticia.additionalImages.map((img: AdditionalImage, index: number) => {
-                  // Ahora la URL viene directamente de Sanity
                   if (!img.url) return null;
                   
                   return (

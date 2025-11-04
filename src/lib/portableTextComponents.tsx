@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { PortableTextComponents as PortableTextComponentsType } from '@portabletext/react';
-import { getSanityImageUrl } from './sanityImageUrl';
 
 interface ImageValue {
   asset: {
@@ -26,16 +25,14 @@ export const PortableTextComponents: PortableTextComponentsType = {
 
   types: {
     image: ({ value }: { value: ImageValue }) => {
-      if (!value?.asset?._ref) {
+      if (!value?.asset?.url) {
         return null;
       }
-      
-      const imageUrl = value.asset.url || getSanityImageUrl(value.asset._ref);
       
       return (
         <div className="my-4">
           <Image
-            src={imageUrl}
+            src={value.asset.url}
             alt={value.alt || 'Imagen'}
             width={400}
             height={300}
@@ -54,11 +51,12 @@ export const PortableTextComponents: PortableTextComponentsType = {
       <div className="my-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {value.images?.map((img, i) => {
-            const imageUrl = img.asset.url || getSanityImageUrl(img.asset._ref);
+            if (!img.asset?.url) return null;
+            
             return (
               <Image
                 key={i}
-                src={imageUrl}
+                src={img.asset.url}
                 alt={img.alt || 'Imagen de galería'}
                 width={400}
                 height={300}

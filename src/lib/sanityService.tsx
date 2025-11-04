@@ -35,8 +35,24 @@ export const sanityService = {
                         alt,
                         caption
                     },
-                    upperBody,
-                    body,
+                    upperBody[]{
+                        ...,
+                        _type == "image" => {
+                            ...,
+                            "asset": {
+                                "url": asset->url
+                            }
+                        }
+                    },
+                    body[]{
+                        ...,
+                        _type == "image" => {
+                            ...,
+                            "asset": {
+                                "url": asset->url
+                            }
+                        }
+                    },
                 }
             `;
 
