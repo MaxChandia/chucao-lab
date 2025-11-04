@@ -1,186 +1,119 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { noticias } from "@/lib/noticias";
-import heroImage from "@/assets/hero_sections.webp";
+import { sanityService } from "@/lib/sanityService";
+import { PortableText } from '@portabletext/react';
+import { PortableTextComponents } from "@/lib/portableTextComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookF,
-  faXTwitter,
-  faWhatsapp,
-  faLinkedinIn,
-} from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import  heroImage  from '@/assets/hero_sections.webp';
+import Image from "next/image";
+import { Noticia } from "@/lib/Noticia";
+import Link from "next/link";
 
-interface Props {
-  params: Promise<{ slug: string }>; // ✅ Ahora es una Promise
-}
+export default async function NoticiaPage({params}: {params: Promise<{slug: string}>}) {
+    // Unwrap params usando await
+    const { slug } = await params;
 
-export async function generateStaticParams() {
-  return noticias.map((n) => ({
-    slug: n.slug,
-  }));
-}
+    const noticia = await sanityService.getNoticiaBySlug(slug);
+    
+    if (!noticia) {
+        notFound();
+    }
 
-export default async function NoticiaDetalle({ params }: Props) {
-  const { slug } = await params; // ✅ Await params aquí
-  const noticia = noticias.find((n) => n.slug === slug);
+    // Obtener todas las noticias y filtrar la actual
+    const todasLasNoticias = await sanityService.getAllNoticias();
+    const otrasNoticias = todasLasNoticias
+        .filter((n: Noticia) => n.slug !== slug)
+        .slice(0, 5); // Limitar a 5 noticias
 
-  if (!noticia) {
-    return notFound();
-  }
-
-  // 🔹 Últimas noticias (excluye la actual)
-  const ultimasNoticias = noticias
-    .filter((n) => n.slug !== noticia.slug)
-    .slice(0, 3);
-
-  // 🔹 URL actual para compartir
-  const currentUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `https://chucaolab.cl/vinculacion/noticias/${noticia.slug}`;
-
-  return (
-    <div>
-      {/* 🔹 Hero Section */}
-      <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full font-karla relative">
-        <Image
-          src={heroImage}
-          alt="Hero Section"
-          fill
-          className="object-cover z-0"
-        />
-        <div className="absolute inset-0 flex items-center justify-center z-10 bg-white/40">
-          <h2 className="lg:text-5xl md:text-3xl font-bold text-black text-center px-6 drop-shadow-md">
-            {noticia.title}
-          </h2>
-        </div>
-        <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
-      </section>
-
-      {/* 🔹 Contenido + Sidebar */}
-      <section className="w-full min-h-screen px-6 md:px-20 py-10 flex flex-col lg:flex-row gap-10 font-karla">
-        {/* 🔹 Columna principal */}
-        <div className="flex-1 flex flex-col gap-10">
-          <p className="text-lg font-bold text-center lg:text-left">
-            {noticia.bajada}
-          </p>
-
-          {/* 🔹 Contenido principal */}
-          <article className="prose max-w-none leading-relaxed whitespace-pre-line text-justify">
-            <div dangerouslySetInnerHTML={{ __html: noticia.content }} />
-          </article>
-
-          {/* 🔹 Video */}
-          {noticia.youtubeEmbed && (
-            <div className="w-full flex justify-center mt-10">
-              <iframe
-                width="560"
-                height="315"
-                src={noticia.youtubeEmbed.replace(
-                  "youtu.be/",
-                  "www.youtube.com/embed/"
-                )}
-                title="YouTube video"
-                allowFullScreen
-                className="rounded-xl w-full max-w-[800px] h-[450px]"
-              />
-            </div>
-          )}
-
-          {/* 🔹 Galería */}
-          {noticia.gallery && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-              {noticia.gallery.map((img, index) => (
+    return (
+        <div>
+           <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full font-karla relative">
                 <Image
-                  key={index}
-                  src={img}
-                  alt={`Imagen ${index + 1} de ${noticia.title}`}
-                  className="rounded-lg object-cover"
+                    src={heroImage}
+                    alt="Hero Section"
+                    fill
+                    className="object-cover z-0"
                 />
+                <div className="absolute inset-0 flex items-center justify-center z-10 px-10 text-center">
+                    <h2 className="lg:text-4xl md:text-3xl font-bold text-black">
+                        {noticia.title}
+                    </h2>
+                </div>
+                <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
+            </section>
+          <main className="text-justify max-w-7xl mx-auto my-10 px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <article className="lg:col-span-2">
+            <div className="max-w-4xl mx-auto my-10 px-4 font-bold">
+              {noticia.upperBody && <PortableText value={noticia.upperBody} components={PortableTextComponents}/>}
+            </div>
+            <div className="max-w-4xl mx-auto my-10 px-4">
+                {noticia.body && <PortableText value={noticia.body} components={PortableTextComponents}/>}
+            </div>
+            <div className="max-w-4xl mx-auto grid grid-cols-2">
+              {noticia.aditionalImages && noticia.aditionalImages.map((img: any, index: number) => (
+                <div key={index} className="max-w-4xl mx-auto my-10 px-4">
+                  <Image
+                    src={
+                      img.asset.url ||
+                      `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${img.asset._ref
+                        .replace('image-', '')
+                        .replace('-webp', '.webp')
+                        .replace('-jpg', '.jpg')
+                        .replace('-png', '.png')}`
+                    }
+                    alt={img.alt || 'Imagen adicional'}
+                    width={400}
+                    height={300}
+                    className="rounded-lg object-cover"
+                  />
+                </div>
               ))}
             </div>
-          )}
-
-          {/* 🔹 Compartir */}
-          <div className="flex flex-col mt-10 border-t border-gray-300 pt-6">
-            <h4 className="font-bold mb-3 text-lg">Compartir esta noticia:</h4>
-            <div className="flex gap-5">
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  currentUrl
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-700 hover:scale-110 transition-transform"
-              >
-                <FontAwesomeIcon icon={faFacebookF} size="lg" />
-              </a>
-              <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                  currentUrl
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-black hover:scale-110 transition-transform"
-              >
-                <FontAwesomeIcon icon={faXTwitter} size="lg" />
-              </a>
-              <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-                  currentUrl
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-green-600 hover:scale-110 transition-transform"
-              >
-                <FontAwesomeIcon icon={faWhatsapp} size="lg" />
-              </a>
-              <a
-                href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-                  currentUrl
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:scale-110 transition-transform"
-              >
-                <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* 🔹 Sidebar de últimas noticias */}
-        <aside className="w-full lg:w-[30%] flex flex-col gap-6">
-          <h3 className="text-xl font-bold border-b-2 border-gray-300 pb-2">
-            Últimas noticias
-          </h3>
-
-          {ultimasNoticias.map((n) => (
-            <Link
-              key={n.slug}
-              href={`/vinculacion/noticias/${n.slug}`}
-              className="flex gap-4 items-start group"
-            >
-              <Image
-                src={n.newsImage}
-                alt={n.title}
-                width={100}
-                height={70}
-                className="rounded-md object-cover flex-shrink-0"
-              />
-              <div>
-                <h4 className="font-semibold text-sm group-hover:text-sage-green transition-colors">
-                  {n.title}
-                </h4>
-                <p className="text-xs text-gray-600 mt-1 line-clamp-3">
-                  {n.bajada}
-                </p>
+          
+              <section className="max-w-4xl mx-auto my-10 px-4">
+                <h2 className="font-bold text-xl mb-4">Comparte esta noticia</h2>
+                <div className="flex gap-4 mt-2">
+                  <FontAwesomeIcon icon={faFacebook} className="text-2xl cursor-pointer hover:text-blue-600" />
+                  <FontAwesomeIcon icon={faTwitter} className="text-2xl cursor-pointer hover:text-blue-400" />
+                  <FontAwesomeIcon icon={faLinkedin} className="text-2xl cursor-pointer hover:text-blue-700" />
+                </div>    
+              </section>
+            </article>
+            <aside className="my-9 px-4">
+              <h2 className="font-bold text-xl mb-4">Otras Noticias</h2>
+              <div className="space-y-4">
+                {otrasNoticias.map((otraNoticia: Noticia) => (
+                  <Link 
+                    key={otraNoticia.id} 
+                    href={`/vinculacion/noticias/${otraNoticia.slug}`}
+                    className="block p-4 border rounded-lg hover:shadow-lg transition-shadow"
+                  >
+                    {otraNoticia.mainImage && (
+                      <Image
+                        src={otraNoticia.mainImage}
+                        alt={otraNoticia.title}
+                        width={300}
+                        height={200}
+                        className="rounded-lg object-cover w-full h-40 mb-2"
+                      />
+                    )}
+                    <h3 className="font-semibold text-base line-clamp-2">
+                      {otraNoticia.title}
+                    </h3>
+                    {otraNoticia.publishedAt && (
+                      <p className="text-sm text-gray-500 mt-1">
+                        {new Date(otraNoticia.publishedAt).toLocaleDateString('es-ES', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    )}
+                  </Link>
+                ))}
               </div>
-            </Link>
-          ))}
-        </aside>
-      </section>
-    </div>
-  );
+            </aside>
+          </main>
+        </div>
+    );
 }
