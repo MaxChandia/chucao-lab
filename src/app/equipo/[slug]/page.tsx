@@ -1,25 +1,23 @@
 import { faEnvelope, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
-// Asegúrate de que la ruta de importación sea correcta
 import { equipo } from '@/lib/equipo'; 
 
-// 1. Definimos la estructura completa de PageProps (MiembroPageProps)
-// Incluye 'searchParams' (que es requerido por Next.js para compilar)
+// Next.js 15 requires params to be a Promise
 type MiembroPageProps = {
-  params: {
-    slug: string; // Parámetro dinámico
-  };
-  // Propiedad requerida por Next.js App Router para satisfacer la restricción PageProps
-  searchParams: { [key: string]: string | string[] | undefined }; 
+  params: Promise<{
+    slug: string;
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>; 
 };
 
-
-// Usamos el type MiembroPageProps en el componente
-export default function PerfilPage({ params }: MiembroPageProps) {
+// Make the component async to await params
+export default async function PerfilPage({ params }: MiembroPageProps) {
+    // Await the params Promise
+    const { slug } = await params;
     
     // 1. Buscar el miembro usando el slug
-    const miembro = equipo.find(m => m.slug === params.slug);
+    const miembro = equipo.find(m => m.slug === slug);
 
     // 2. Manejar el caso de que el miembro no exista
     if (!miembro) {
