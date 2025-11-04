@@ -1,15 +1,23 @@
 import { PortableTextBlock as PortableTextBlockType } from "@portabletext/react";
 
-export interface SanityImage {
-  _type: 'image';
-  asset: {
-    _ref: string;
-    _type: 'reference';
+
+export interface SanityAsset {
+  url: string;
+  _id?: string;
+  metadata?: {
+    dimensions: {
+      width: number;
+      height: number;
+    };
   };
-  alt?: string;
-  caption?: string;
 }
 
+export interface SanityImage {
+  _type: 'image';
+  asset: SanityAsset;
+  alt?: string | null;
+  caption?: string | null;
+}
 export interface Slug {
   current: string;
 }
@@ -51,8 +59,8 @@ export interface Noticia {
     autor: string;
     categoria: 'investigacion' | 'eventos' | 'noticias' | 'publicaciones';
     fecha: string;
-    bajada: Array<PortableTextBlock>;
-    imagenPrincipal: SanityImage;
+    bajada: string;
+    imagenDestacadaUrl: string; 
     cuerpo: Array<PortableTextBlock | SanityImage | YouTubeEmbed>;
     galeria?: SanityImage[];
 
