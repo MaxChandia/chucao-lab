@@ -1,13 +1,44 @@
+"use client";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
-import { noticias } from "@/lib/noticias";
+import {Noticia} from "@/lib/Noticia";
+import { useEffect, useState } from "react";
+import { sanityService } from "@/lib/sanityService";
+import { PortableText } from '@portabletext/react';
+
 
 export default function Home() {
+
+  const [noticias, setNoticias] = useState<Noticia[]>([]);
+
+  useEffect(() => {
+    const fetchNoticia = async () => {
+      const data = await sanityService.getAllNoticias();
+      console.log('Noticias obtenidas:', data);
+      setNoticias(data.map((item: any) => ({
+        id: item._id,
+        title: item.title,
+        slug: item.slug,
+        author: item.author,
+        categories: item.categories,
+        publishedAt: item.publishedAt,
+        mainImage: item.mainImage,
+        upperBody: item.upperBody,
+        body: item.body,
+      })));
+    }
+
+    fetchNoticia();
+  }, [])
+
   return (
+
+
     <div>
       {/*Hero section*/}
     <section className="hero min-h-screen relative lg:min-h-[90vh] w-full flex flex-col items-center font-karla">
@@ -56,21 +87,23 @@ export default function Home() {
       </section>
       <section className="news min-h-screen lg:min-h-[70vh] w-full flex flex-col mt-20 px-10 py-10 lg:px-20">
         <div className="sectionHeader flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
-          <h3 className="text-sm font-jetbrains">NOVEDADES</h3>
+          <h3 className="text-md font-jetbrains">NOVEDADES</h3>
           <div className="h-10 w-20 gap-8 flex"><FontAwesomeIcon icon={faArrowLeft} className="text-black cursor-pointer"/><FontAwesomeIcon icon={faArrowRight} className="text-black cursor-pointer" /></div>
         </div>
         <div className="newsContainer flex flex-col lg:flex-row gap-20">
-          {noticias.slice(0,3).map((moticias) => (
-            <Link key={moticias.id} href={`/vinculacion/noticias/${moticias.slug}`} className="newsItem  min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
-              <Image src={moticias.newsImage} alt={moticias.title} width={400} height={250} className="rounded-md"/>
+          {noticias.slice(0,3).map((noticia) => (
+            <Link key={noticia.id} href={`/vinculacion/noticias/${noticia.slug}`} className="newsItem  min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
+              <Image src={noticia.mainImage} alt={noticia.title} width={400} height={250} className="rounded-md"/>
               <div className="mt-3 flex flex-col flex-1 p-3">
                 <div className="flex gap-2 min-h-[60px]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                   </svg>
-                  <h2 className="font-bold font-jetbrains text-justify lg:text-left text-sm leading-tight">{moticias.title}</h2>
+                  <h2 className="font-bold font-jetbrains text-justify lg:text-left text-sm leading-tight">{noticia.title}</h2>
                 </div>
-                <p className="mt-5 text-justify lg:text-left text-sm font-karla">{moticias.bajada}</p>
+               <div className="mt-1 text-justify lg:text-justify text-sm font-karla">
+                  {noticia.upperBody && <PortableText value={noticia.upperBody} />}
+                </div>
               </div>
             </Link>
           ))}
