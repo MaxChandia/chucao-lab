@@ -31,7 +31,7 @@ export const sanityService = {
                     categories,
                     publishedAt,
                     "additionalImages": additionalImages[]{
-                        "url": asset->url,
+                        "url": image.asset->url,
                         alt,
                         caption
                     },

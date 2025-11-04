@@ -14,6 +14,13 @@ export default async function NoticiaPage({params}: {params: Promise<{slug: stri
     const { slug } = await params;
 
     const noticia = await sanityService.getNoticiaBySlug(slug);
+
+     console.log('=== DEBUG NOTICIA ===');
+    console.log('Noticia completa:', JSON.stringify(noticia, null, 2));
+    console.log('additionalImages:', noticia.additionalImages);
+    console.log('Tipo de additionalImages:', typeof noticia.additionalImages);
+    console.log('Es array?:', Array.isArray(noticia.additionalImages));
+    console.log('Longitud:', noticia.additionalImages?.length);
     
     if (!noticia) {
         notFound();
