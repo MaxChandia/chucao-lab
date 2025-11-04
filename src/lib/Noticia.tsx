@@ -1,3 +1,12 @@
+interface AdditionalImage {
+    asset: {
+        url?: string;
+        _ref: string;
+    };
+    alt?: string;
+    caption?: string;
+}
+
 interface Noticia {
     id: string;
     title: string;
@@ -11,4 +20,4 @@ interface Noticia {
     body: string;
 }
 
-export type { Noticia };
+export type { Noticia, AdditionalImage };
