@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { PortableTextComponents as PortableTextComponentsType } from '@portabletext/react';
-
-/* Componente para ajustar estilos de bloque de texto en Portable Text */
+import { getSanityImageUrl } from './sanityImageUrl';
 
 interface ImageValue {
   asset: {
@@ -31,17 +30,12 @@ export const PortableTextComponents: PortableTextComponentsType = {
         return null;
       }
       
+      const imageUrl = value.asset.url || getSanityImageUrl(value.asset._ref);
+      
       return (
         <div className="my-4">
           <Image
-            src={
-              value.asset.url ||
-              `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${value.asset._ref
-                .replace('image-', '')
-                .replace('-webp', '.webp')
-                .replace('-jpg', '.jpg')
-                .replace('-png', '.png')}`
-            }
+            src={imageUrl}
             alt={value.alt || 'Imagen'}
             width={400}
             height={300}
@@ -59,23 +53,19 @@ export const PortableTextComponents: PortableTextComponentsType = {
     gallery: ({ value }: { value: GalleryValue }) => (
       <div className="my-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {value.images?.map((img, i) => (
-            <Image
-              key={i}
-              src={
-                img.asset.url ||
-                `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${img.asset._ref
-                  .replace('image-', '')
-                  .replace('-webp', '.webp')
-                  .replace('-jpg', '.jpg')
-                  .replace('-png', '.png')}`
-              }
-              alt={img.alt || 'Imagen de galería'}
-              width={400}
-              height={300}
-              className="rounded-lg object-cover w-full h-auto"
-            />
-          ))}
+          {value.images?.map((img, i) => {
+            const imageUrl = img.asset.url || getSanityImageUrl(img.asset._ref);
+            return (
+              <Image
+                key={i}
+                src={imageUrl}
+                alt={img.alt || 'Imagen de galería'}
+                width={400}
+                height={300}
+                className="rounded-lg object-cover w-full h-auto"
+              />
+            );
+          })}
         </div>
         {value.caption && (
           <p className="text-sm text-gray-600 text-center mt-2 italic">
