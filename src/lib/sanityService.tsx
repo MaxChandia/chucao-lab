@@ -2,59 +2,89 @@ import {client} from './sanity'
 
 export const sanityService = {
 
-    /* Método para obtener noticias desde Sanity */
-    async getAllNoticias(){
-        return await client.fetch(
-            `*[_type == "noticias"] | order(publishedAt desc){ 
-                _id,
-                title,
-                "slug": slug.current,
-                author,
-                "mainImage": mainImage.asset->url,
-                categories,
-                publishedAt,
-                upperBody,
-                body,
+    async getAllNoticias() {
+        try{
+            const query = `*[_type == "noticia"] | order(publishedAt desc){
+               __id,
+                titulo,
+                slug {
+                    current
+                },
+                imagenDestacada {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                },
+                autor,
+                fecha,
+                categoria,
+                bajada,
+                cuerpo[] {
+                    ...,
+                    _type == "image" => {
+                    asset->,
+                    alt,
+                    caption
+                    },
+                    _type == "youtube" => {
+                    url
+                    }
+                },
+                galeria[] {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                }
             }`
-        )
+            const data = await client.fetch(query);
+            console.log('Noticias obtenidas:', data);
+            return data;
+        }catch (error){
+            console.error('Error no se encontraron las noticias', error);
+            return [];
+        }
+        
+
     },
 
     async getNoticiaBySlug(slug: string) {
         try {
-            const query = `
-                *[_type == "noticias" && slug.current == $slug][0]{
-                    _id,
-                    title,
-                    "slug": slug.current,
-                    author,
-                    "mainImage": mainImage.asset->url,
-                    categories,
-                    publishedAt,
-                    "additionalImages": additionalImages[]{
-                        "url": image.asset->url,
-                        alt,
-                        caption
+            const query = `*[_type == "noticia" && slug.current == $slug][0]{
+               __id,
+                titulo,
+                slug {
+                    current
+                },
+                imagenDestacada {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                },
+                autor,
+                fecha,
+                categoria,
+                bajada,
+                cuerpo[] {
+                    ...,
+                    _type == "image" => {
+                    asset->,
+                    alt,
+                    caption
                     },
-                    upperBody[]{
-                        ...,
-                        _type == "image" => {
-                            ...,
-                            "asset": {
-                                "url": asset->url
-                            }
-                        }
-                    },
-                    body[]{
-                        ...,
-                        _type == "image" => {
-                            ...,
-                            "asset": {
-                                "url": asset->url
-                            }
-                        }
-                    },
+                    _type == "youtube" => {
+                    url
+                    }
+                },
+                galeria[] {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
                 }
-            `;
+            }`
 
             const data = await client.fetch(query, { slug });
 
