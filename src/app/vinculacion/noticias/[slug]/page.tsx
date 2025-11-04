@@ -10,7 +10,7 @@ import { Noticia } from "@/lib/Noticia";
 import Link from "next/link";
 
 export default async function NoticiaPage({params}: {params: Promise<{slug: string}>}) {
-    // Unwrap params usando await
+    
     const { slug } = await params;
 
     const noticia = await sanityService.getNoticiaBySlug(slug);
@@ -19,11 +19,19 @@ export default async function NoticiaPage({params}: {params: Promise<{slug: stri
         notFound();
     }
 
-    // Obtener todas las noticias y filtrar la actual
+    interface AdditionalImage {
+  asset: {
+    url?: string;
+    _ref: string;
+  };
+  alt?: string;
+}
+
+    
     const todasLasNoticias = await sanityService.getAllNoticias();
     const otrasNoticias = todasLasNoticias
         .filter((n: Noticia) => n.slug !== slug)
-        .slice(0, 5); // Limitar a 5 noticias
+        .slice(0, 5); 
 
     return (
         <div>
@@ -50,7 +58,7 @@ export default async function NoticiaPage({params}: {params: Promise<{slug: stri
                 {noticia.body && <PortableText value={noticia.body} components={PortableTextComponents}/>}
             </div>
             <div className="max-w-4xl mx-auto grid grid-cols-2">
-              {noticia.aditionalImages && noticia.aditionalImages.map((img: any, index: number) => (
+              {noticia.additionalImages && noticia.additionalImages.map((img:AdditionalImage , index: number) => (
                 <div key={index} className="max-w-4xl mx-auto my-10 px-4">
                   <Image
                     src={
