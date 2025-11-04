@@ -20,8 +20,8 @@ export default function Home() {
     const fetchNoticia = async () => {
       const data = await sanityService.getAllNoticias();
       console.log('Noticias obtenidas:', data);
-      setNoticias(data.map((item: any) => ({
-        id: item._id,
+      setNoticias(data.map((item: Noticia ) => ({
+        id: item.id,
         title: item.title,
         slug: item.slug,
         author: item.author,
@@ -102,7 +102,7 @@ export default function Home() {
                   <h2 className="font-bold font-jetbrains text-justify lg:text-left text-sm leading-tight">{noticia.title}</h2>
                 </div>
                <div className="mt-1 text-justify lg:text-justify text-sm font-karla">
-                  {noticia.upperBody && <PortableText value={noticia.upperBody} />}
+                  {noticia.upperBody && (typeof noticia.upperBody === 'string' ? <div>{noticia.upperBody}</div> : <PortableText value={noticia.upperBody} />)}
                 </div>
               </div>
             </Link>

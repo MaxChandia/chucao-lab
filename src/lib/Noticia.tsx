@@ -6,8 +6,9 @@ interface Noticia {
     categories: string[];
     publishedAt: string;
     mainImage: string;
-    upperBody: any;
-    body: any;
+    additionalImages?: images[];
+    upperBody: string;
+    body: string;
 }
 
 export type { Noticia };
