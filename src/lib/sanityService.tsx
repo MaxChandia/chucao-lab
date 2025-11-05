@@ -97,7 +97,7 @@ export const sanityService = {
 
     async getAllMiembros(){
         try{
-            const query = `*[_type == "miembro"] | {
+            const query = `*[_type == "miembro" ] {
                 _id,
                 nombreCompleto,
                 slug,
@@ -120,7 +120,7 @@ export const sanityService = {
 
     async getMiembroBySlug(slug: string) {
         try {
-            const query = `*[_type == "miembro"] | {
+            const query = `*[_type == "miembro" && slug.current == $slug][0] {
                 _id,
                 nombreCompleto,
                 "slug": slug.current,
