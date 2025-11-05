@@ -1,39 +1,26 @@
+
+
+import { MiembroEquipo } from "@/lib/sanityClasses";
+import { sanityService } from "@/lib/sanityService";
 import { faEnvelope, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Link from 'next/link';
-import { equipo } from '@/lib/equipo'; 
+import { PortableText } from "@portabletext/react";
 
-// Next.js 15 requires params to be a Promise
-type MiembroPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>; 
-};
 
-// Make the component async to await params
-export default async function PerfilPage({ params }: MiembroPageProps) {
-    // Await the params Promise
+
+export default async function MiembroPage({params}:{params: Promise<{slug: string}>}) {
     const { slug } = await params;
-    
-    // 1. Buscar el miembro usando el slug
-    const miembro = equipo.find(m => m.slug === slug);
 
-    // 2. Manejar el caso de que el miembro no exista
+    const miembro: MiembroEquipo | null = await sanityService.getMiembroBySlug(slug);
+
+
     if (!miembro) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-10 font-karla bg-gray-50">
-                <h1 className="text-2xl font-bold mb-4">Perfil no encontrado</h1>
-                <p className="text-lg mb-6">El perfil que buscas no existe o fue movido.</p>
-                <Link href="/quienes-somos" className="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-                    <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4 mr-2"/>
-                    Volver al equipo
-                </Link>
-            </div>
-        );
+        return <div className="p-10 text-center">Miembro no encontrado</div>;
     }
+    
 
-    // 3. Renderizar el perfil si se encuentra
     return (
         <div className="min-h-screen pt-20 pb-16 px-5 sm:px-10 lg:px-20 font-karla bg-gray-50">
             <section className="mt-[100px]">
@@ -48,14 +35,14 @@ export default async function PerfilPage({ params }: MiembroPageProps) {
                     {/* Placeholder para la imagen de perfil */}
                     <span className="inline-block h-[120px] w-[120px] rounded-full bg-gray-300 flex-shrink-0"></span>
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-800">{miembro.nombre}</h1>
+                        <h1 className="text-3xl font-bold text-gray-800">{miembro.nombreCompleto}</h1>
                         <p className="text-lg text-gray-600 mt-1">{miembro.rol}</p>
                         <div className="mt-3 text-sm text-gray-500">
                              <p className="font-semibold">{miembro.facultad}</p>
                              <p>{miembro.departamento}</p>
                              <div className="flex items-center gap-2 mt-1">
                                  <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
-                                 <p>{miembro.email}</p>
+                                 <p>{miembro.mail}</p>
                              </div>
                         </div>
                     </div>
@@ -63,10 +50,10 @@ export default async function PerfilPage({ params }: MiembroPageProps) {
 
                 <div className="profile-details">
                     <h2 className="text-xl font-semibold mb-4 border-l-4 border-gray-400 pl-3">Trayectoria y Rol</h2>
-                    {/* Usamos whitespace-pre-line para respetar los saltos de línea del texto de perfil */}
-                    <p className="text-gray-700 whitespace-pre-line leading-relaxed">{miembro.perfil}</p>
+                <div className="text-gray-700 space-y-4">
+                    {miembro.descripcion && <PortableText value={miembro.descripcion} />}
                 </div>
-                
+                </div>
             </div>
             </section>
         </div>
