@@ -2,6 +2,8 @@ import {client} from './sanity'
 
 export const sanityService = {
 
+/* Servicios Noticias*/
+
     async getAllNoticias() {
         try{
             const query = `*[_type == "noticia"] | order(publishedAt desc){
@@ -47,7 +49,7 @@ export const sanityService = {
     async getNoticiaBySlug(slug: string) {
         try {
             const query = `*[_type == "noticia" && slug.current == $slug][0]{
-               __id,
+               _id,
                 titulo,
                 slug {
                     current
@@ -89,5 +91,53 @@ export const sanityService = {
             console.error('❌ Error en getNoticiaBySlug:', error);
             return null;
         }
-    }
+    },
+
+    /*Servicios Equipo*/
+
+    async getAllMiembros(){
+        try{
+            const query = `*[_type == "miembro"] | {
+                _id,
+                nombreCompleto,
+                slug,
+                rol,
+                universidad,
+                departamento,
+                facultad,
+                mail,
+                descripcion,
+                "foto": foto.asset->url,
+            }`
+            const data = await client.fetch(query);
+            console.log('Miembros del equipo obtenidos:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener miembros del equipo:', error);
+            return [];
+        }
+    },
+
+    async getMiembroBySlug(slug: string) {
+        try {
+            const query = `*[_type == "miembro"] | {
+                _id,
+                nombreCompleto,
+                "slug": slug.current,
+                rol,
+                universidad,
+                departamento,
+                facultad,
+                mail,
+                descripcion,
+                "foto": foto.asset->url,
+            }`
+            const data = await client.fetch(query, { slug });
+            console.log('Miembros del equipo obtenidos:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener miembros del equipo:', error);
+            return [];
+        }
+    },
 }
