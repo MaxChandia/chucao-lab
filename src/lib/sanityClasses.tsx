@@ -74,11 +74,12 @@ export interface MiembroEquipo {
     _createdAt: string;
     _updatedAt: string;
     nombreCompleto: string;
+    slug: Slug;
     rol: string;
     universidad: string;
     facultad: string;
     departamento: string;
-    email: string;
+    mail: string;
     foto: SanityImage;
     descripcion: Array<PortableTextBlock>;
 
