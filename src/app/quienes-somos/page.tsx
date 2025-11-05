@@ -2,15 +2,32 @@
 
 import { faEnvelope, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { sanityService } from "@/lib/sanityService";
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
-import { equipo } from "@/lib/equipo";
 import Link from "next/link";
+import { MiembroEquipo } from "@/lib/sanityClasses";
 
 const QuienesSomos = () => {
 
-   const [startIndex, setStartIndex] = useState(0);
+    const [equipo, setEquipo] = useState<MiembroEquipo[]>([]);
+
+    useEffect(() => {
+        const fetchEquipo = async () => {
+            try{
+                const data = await sanityService.getAllMiembros()
+                setEquipo(data)
+                console.log('equipo encontrado', data)
+            } catch (error) {
+                console.error('No existe data')
+            }
+
+        }
+        fetchEquipo()
+    }, [])
+
+    const [startIndex, setStartIndex] = useState(0);
     const membersPerPage = 5;
     const handleNext = () => {
         if (startIndex + membersPerPage < equipo.length) {
@@ -64,7 +81,7 @@ const QuienesSomos = () => {
         <div className="w-full">
             <ul className="mt-10 px-3 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
                 {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
-                    <Link href={`/equipo/${miembro.slug}`} key={miembro.id} >
+                    <Link href={`/equipo/${miembro.slug.current}`} key={miembro._id} >
                     <li className="flex flex-col items-center justify-center font-karla gap-5">
                         <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
                         <div className="flex flex-col align-center justify-center text-center text-sm">
@@ -72,7 +89,7 @@ const QuienesSomos = () => {
                                         <p 
                                             className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors"
                                         >
-                                            {miembro.nombre}
+                                            {miembro.nombreCompleto}
                                         </p>
                                     
                             <p>{miembro.rol}</p>
@@ -80,7 +97,7 @@ const QuienesSomos = () => {
                             <p>{miembro.facultad}</p>
                             <div className="flex items-center gap-1">
                                 <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
-                                <p>{miembro.email}</p>
+                                <p>{miembro.mail}</p>
                             </div>
                         </div>
                     </li></Link>
