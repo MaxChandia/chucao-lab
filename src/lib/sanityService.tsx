@@ -140,4 +140,74 @@ export const sanityService = {
             return [];
         }
     },
+
+    /*Servicios Proyectos*/
+
+    async getAllProyectos(){
+        try{
+            const query = `*[_type == "publicacion"] {
+                _id,
+                _createdAt,
+                titulo,
+                autor,
+                slug,
+                fecha,
+                imagenDestacada {
+                    "url": asset->url,
+                    alt,
+                    caption
+                },
+                cuerpo[] {
+                    ..., // Mantiene todos los campos del bloque o imagen
+                    // Si el bloque es una imagen, extrae la URL
+                    _type == "image" => {
+                    "url": asset->url,
+                    alt,
+                    caption
+                    }
+                }
+                }`
+            const data = await client.fetch(query)
+            console.log('Proyectos obtenido:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los proyecto:', error)
+            return [];
+        }
+
+    },
+
+    async getAllProyectosBySlug(slug: string){
+        try{
+            const query = `*[_type == "publicacion" && slug.current == $slug][0] {
+                _id,
+                _createdAt,
+                titulo,
+                autor,
+                "slug": slug.current,
+                fecha,
+                imagenDestacada {
+                    "url": asset->url,
+                    alt,
+                    caption
+                },
+                cuerpo[] {
+                    ..., // Mantiene todos los campos del bloque o imagen
+                    // Si el bloque es una imagen, extrae la URL
+                    _type == "image" => {
+                    "url": asset->url,
+                    alt,
+                    caption
+                    }
+                }
+                }`
+            const data = await client.fetch(query, { slug})
+            console.log('Proyectos obtenido:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los proyecto:', error)
+            return [];
+        }
+
+    }
 }
