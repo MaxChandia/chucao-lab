@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import heroImage from "@/assets/hero_sections.webp";
 import { Noticia } from "@/lib/sanityClasses";
+import ShareButtons from "@/components/share-buttons/shareButtons";
 
 export default async function NoticiaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -33,6 +34,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
           <div className="max-w-4xl mx-auto my-10 px-4">
             {noticia?.cuerpo && <PortableText value={noticia.cuerpo} components={PortableTextComponents} />}
           </div>
+          <ShareButtons title={noticia?.titulo} />
         </article>
 
         
