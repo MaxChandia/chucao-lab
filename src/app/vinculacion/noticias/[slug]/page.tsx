@@ -6,7 +6,7 @@ import Link from "next/link";
 import heroImage from "@/assets/hero_sections.webp";
 import { Noticia } from "@/lib/sanityClasses";
 
-export default async function NoticiaPage({ params }: { params: { slug: string } }) {
+export default async function NoticiaPage({ params }: { params: { slug: string } }) : Promise<React.ReactElement> {
   const noticia = await sanityService.getNoticiaBySlug(params.slug);
   const otrasNoticias = await sanityService.getAllNoticias();
 
