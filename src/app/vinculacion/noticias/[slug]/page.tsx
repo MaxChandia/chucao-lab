@@ -6,14 +6,15 @@ import Link from "next/link";
 import heroImage from "@/assets/hero_sections.webp";
 import { Noticia } from "@/lib/sanityClasses";
 
-export default async function NoticiaPage({ params }: { params: { slug: string } }) : Promise<React.ReactElement> {
-  const noticia = await sanityService.getNoticiaBySlug(params.slug);
+export default async function NoticiaPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  const noticia = await sanityService.getNoticiaBySlug(slug);
   const otrasNoticias = await sanityService.getAllNoticias();
 
   if (!noticia) {
     return <div className="p-10 text-center">Noticia no encontrada</div>;
   }
-
   return (
     <div>
       {/* Sección hero */}
