@@ -1,86 +1,66 @@
+import React from "react";
 import Image from "next/image";
-import { PortableTextComponents as PortableTextComponentsType } from '@portabletext/react';
+import type { PortableTextComponents as PTComponentsType } from "@portabletext/react";
 
-interface ImageValue {
-  asset: {
-    _ref: string;
-    url?: string;
-  };
-  alt?: string;
-  caption?: string;
+/* simple extractor de ID de YouTube */
+function getYouTubeID(url?: string) {
+  if (!url) return null;
+  // soporta URLs como youtu.be, youtube.com/watch?v=..., /embed/...
+  const re =
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+  const match = url.match(re);
+  return match ? match[1] : null;
 }
 
-interface GalleryValue {
-  images?: ImageValue[];
-  caption?: string;
-}
-
-export const PortableTextComponents: PortableTextComponentsType = {
-  block: {
-    normal: ({ children }) => <p className="mb-4">{children}</p>,
-    h1: ({ children }) => <h1 className="text-4xl font-bold my-6">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-3xl font-bold my-5">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-2xl font-bold my-4">{children}</h3>,
-  },
-
+export const PortableTextComponents: PTComponentsType = {
   types: {
-    image: ({ value }: { value: ImageValue }) => {
-      if (!value?.asset?.url) {
-        return null;
-      }
-      
+    image: ({ value }) => {
+      const src = value?.asset?.url || "";
+      const alt = value?.alt || "";
+      if (!src) return null;
       return (
-        <div className="my-4">
+        <div className="my-6 flex flex-col items-center ">
           <Image
-            src={value.asset.url}
-            alt={value.alt || 'Imagen'}
-            width={400}
-            height={300}
-            className="rounded-lg object-cover"
+            src={src}
+            alt={alt}
+            width={500}
+            height={200}
+            className="rounded object-cover"
           />
-          {value.caption && (
-            <p className="text-sm text-gray-600 text-center mt-2 italic">
-              {value.caption}
-            </p>
+          {value?.caption && (
+            <p className="text-sm text-gray-500 mt-2">{value.caption}</p>
           )}
         </div>
       );
     },
-
-    gallery: ({ value }: { value: GalleryValue }) => (
-      <div className="my-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {value.images?.map((img, i) => {
-            if (!img.asset?.url) return null;
-            
-            return (
-              <Image
-                key={i}
-                src={img.asset.url}
-                alt={img.alt || 'Imagen de galería'}
-                width={400}
-                height={300}
-                className="rounded-lg object-cover w-full h-auto"
-              />
-            );
-          })}
+    youtube: ({ value }) => {
+      const id = getYouTubeID(value?.url);
+      if (!id) return null;
+      const src = `https://www.youtube.com/embed/${id}`;
+      return (
+        <div className="my-6 h-[450px] w-full">
+          <iframe
+            src={src}
+            title="YouTube video"
+            frameBorder={0}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
         </div>
-        {value.caption && (
-          <p className="text-sm text-gray-600 text-center mt-2 italic">
-            {value.caption}
-          </p>
-        )}
-      </div>
-    ),
+      );
+    },
   },
-
-  list: {
-    bullet: ({ children }) => <ul className="list-disc ml-6 mb-4">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal ml-6 mb-4">{children}</ol>,
-  },
-  
-  listItem: {
-    bullet: ({ children }) => <li className="mb-1">{children}</li>,
-    number: ({ children }) => <li className="mb-1">{children}</li>,
+  marks: {
+    link: ({ children, value }) => {
+      const href = value?.href || value?.href; // ajusta según tu esquema de links
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="underline">
+          {children}
+        </a>
+      );
+    },
   },
 };
+
+export default PortableTextComponents;
