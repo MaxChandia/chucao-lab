@@ -1,6 +1,5 @@
 import { PortableTextBlock as PortableTextBlockType } from "@portabletext/react";
 
-
 export interface SanityAsset {
   url: string;
   _id?: string;
@@ -18,11 +17,11 @@ export interface SanityImage {
   alt?: string | null;
   caption?: string | null;
 }
+
 export interface Slug {
   current: string;
 }
 
-// Tipo simple para Portable Text sin dependencias
 export interface PortableTextBlock {
   _key: string;
   _type: string;
@@ -47,7 +46,19 @@ export interface YouTubeEmbed {
   url: string;
 }
 
-/*Noticia*/
+export interface Subseccion {
+  _key: string;
+  _type: 'subseccion';
+  titulo: string;
+  contenido: Array<PortableTextBlock | SanityImage | YouTubeEmbed>;
+}
+
+export interface Seccion {
+  _key: string;
+  _type: 'seccion';
+  tituloSeccion: string;
+  subsecciones: Subseccion[];
+}
 
 export interface Noticia {
     _id: string;
@@ -63,11 +74,9 @@ export interface Noticia {
     imagenDestacadaUrl: string; 
     cuerpo: Array<PortableTextBlock | SanityImage | YouTubeEmbed>;
     galeria?: SanityImage[];
-
 }
 
 /*Equipo*/
-
 export interface MiembroEquipo {
     _id: string;
     _type: 'miembro';
@@ -82,20 +91,18 @@ export interface MiembroEquipo {
     mail: string;
     foto: SanityImage;
     descripcion: Array<PortableTextBlock>;
-
 }
 
-/*Publicacion*/
-
-export interface Publicacion {
+export interface Proyecto {
     _id: string;
-    _type: 'publicacion';
+    _type: 'proyecto';
     _createdAt: string;
     _updatedAt: string;
     titulo: string;
+    slug: Slug;
     autor: string;
     imagenDestacada: SanityImage;
     fecha: string;
-    cuerpo: Array<PortableTextBlock | SanityImage>;
-
+    secciones?: Seccion[];
+    cuerpo?: Array<PortableTextBlock | SanityImage>;
 }
