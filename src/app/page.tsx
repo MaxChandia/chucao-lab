@@ -1,5 +1,3 @@
-"use client";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
@@ -7,28 +5,14 @@ import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
 import {Noticia} from "@/lib/sanityClasses";
-import { useEffect, useState } from "react";
 import { sanityService } from "@/lib/sanityService";
 
 
 
-export default function Home() {
+export default async function Home() {
 
-  const [noticias, setNoticias] = useState<Noticia[]>([]);
 
-  useEffect(() => {
-    const fetchNoticia = async () => {
-      const data = await sanityService.getAllNoticias();
-      console.log('Noticias obtenidas:', data);
-      setNoticias(data);
-
-      if (data.length > 0) {
-        console.log('Primer noticia:', data[0]);
-      }
-    }
-
-    fetchNoticia();
-  }, [])
+  const noticias: Noticia[] = await sanityService.getAllNoticias();
 
   return (
 
@@ -79,6 +63,31 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <section className="jardinSonoro w-full mt-20 px-10 py-20 lg:px-20 bg-gray-50">
+                <Link 
+                    href={`/investigacion/proyectos/proyecto-diseno-biofilico`} 
+                    className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 max-w-7xl mx-auto cursor-pointer group"
+                >
+                    <div className="w-full lg:w-1/2 relative h-64 lg:h-96 rounded-xl overflow-hidden shadow-2xl">
+                        
+                    </div>
+                    <div className="w-full lg:w-1/2 flex flex-col gap-6 p-4">
+                        <h2 className="text-3xl lg:text-4xl font-bold font-jetbrains text-black transition-colors duration-300 group-hover:text-sage-green">
+                            Proyecto Jardín Sonoro Santiago
+                        </h2>
+                        <p className="text-lg font-karla leading-relaxed">
+                            Escuchar los sonidos de la naturaleza puede tener un impacto positivo en nuestra salud y bienestar. Las áreas verdes en la ciudad pueden recrear paisajes sonoros que nos conectan con el entorno natural, brindándonos esos beneficios restauradores.
+                        </p>
+                        <p className="text-sm font-karla font-bold text-gray-700">
+                            Fondecyt Iniciación 2024-2027.
+                        </p>
+                        <button className="h-12 w-48 p-2 rounded-[30px] bg-black text-white font-jetbrains text-sm hover:bg-gray-700 flex items-center justify-center transition-colors duration-300 mt-4">
+                            VER PROYECTO COMPLETO
+
+                        </button>
+                    </div>
+                </Link>
+            </section>
       <section className="news min-h-screen lg:min-h-[70vh] w-full flex flex-col mt-20 px-10 py-10 lg:px-20">
         <div className="sectionHeader flex justify-between items-center  gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
           <h3 className="text-md font-jetbrains">NOVEDADES</h3>
@@ -120,6 +129,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      
     </div>
   );
 }
