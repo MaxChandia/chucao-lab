@@ -39,7 +39,8 @@ const Navbar = () => {
             <ul className="sections gap-10 xl:gap-20 hidden lg:flex cursor-pointer">
                 {/* Menú Investigación */}
                 <li className='relative group'>
-                    <h2 className='group-hover:text-blue-500'>INVESTIGACIÓN</h2>
+                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>INVESTIGACIÓN </h2><span className='text-[8px]'>▼</span></div>
+                    
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
                         <Link href="/investigacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Proyectos</li></Link>
                         <Link href="/investigacion/publicaciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Publicaciones</li></Link>
@@ -48,7 +49,7 @@ const Navbar = () => {
                 </li>
                 {/* Menú Docencia */}
                 <li className='relative group'>
-                    <h2 className='group-hover:text-blue-500'>DOCENCIA</h2>
+                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>DOCENCIA </h2><span className='text-[8px]'>▼</span></div>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
                         <Link href="/docencia/cursos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Cursos</li></Link>
                         <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y prácticas</li></Link>
@@ -56,7 +57,7 @@ const Navbar = () => {
                 </li>
                 {/* Menú Vinculación */}
                 <li className='relative group'>
-                    <h2 className='group-hover:text-blue-500'>VINCULACIÓN</h2>
+                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>VINCULACIÓN </h2><span className='text-[8px]'>▼</span></div>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
                         <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
                         <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
