@@ -145,7 +145,7 @@ export const sanityService = {
 
     async getAllProyectos(){
         try{
-            const query = `*[_type == "publicacion"] {
+            const query = `*[_type == "proyecto"] {
                 _id,
                 _createdAt,
                 titulo,
@@ -179,28 +179,61 @@ export const sanityService = {
 
     async getAllProyectosBySlug(slug: string){
         try{
-            const query = `*[_type == "publicacion" && slug.current == $slug][0] {
+            const query = `*[_type == "proyecto" && slug.current == $slug][0]{
                 _id,
+                _type,
                 _createdAt,
+                _updatedAt,
                 titulo,
+                slug,
                 autor,
-                "slug": slug.current,
-                fecha,
-                imagenDestacada {
-                    "url": asset->url,
-                    alt,
-                    caption
+                imagenDestacada{
+                _type,
+                asset->{
+                    url,
+                    _id,
+                    metadata {
+                    dimensions {
+                        width,
+                        height
+                    }
+                    }
                 },
-                cuerpo[] {
-                    ..., // Mantiene todos los campos del bloque o imagen
-                    // Si el bloque es una imagen, extrae la URL
-                    _type == "image" => {
-                    "url": asset->url,
-                    alt,
-                    caption
+                alt,
+                caption
+                },
+                fecha,
+                secciones[]{
+                _key,
+                _type,
+                tituloSeccion,
+                subsecciones[]{
+                    _key,
+                    _type,
+                    titulo,
+                    contenido[]{
+                    ...,
+                    _type == 'image' => {
+                        _type,
+                        _key,
+                        asset->{
+                        url,
+                        _id,
+                        metadata {
+                            dimensions {
+                            width,
+                            height
+                            }
+                        }
+                        },
+                        alt,
+                        caption
+                    }
                     }
                 }
-                }`
+                },
+                cuerpo
+            }`;
             const data = await client.fetch(query, { slug})
             console.log('Proyectos obtenido:', data);
             return data;
