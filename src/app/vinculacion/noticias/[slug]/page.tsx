@@ -43,7 +43,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
         <aside className="my-9 px-4">
           <h2 className="font-bold text-xl mb-4">Otras Noticias</h2>
           <div className="space-y-4">
-            {otrasNoticias.map((otra: Noticia) => (
+            {otrasNoticias.filter((otra: Noticia) => otra.slug.current === noticia.slug).map((otra: Noticia) => (
               <Link
                 key={otra._id}
                 href={`/vinculacion/noticias/${otra.slug.current}`}
