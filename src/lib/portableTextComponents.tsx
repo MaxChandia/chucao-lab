@@ -2,10 +2,8 @@ import React from "react";
 import Image from "next/image";
 import type { PortableTextComponents as PTComponentsType } from "@portabletext/react";
 
-/* simple extractor de ID de YouTube */
 function getYouTubeID(url?: string) {
   if (!url) return null;
-  // soporta URLs como youtu.be, youtube.com/watch?v=..., /embed/...
   const re =
     /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
   const match = url.match(re);
@@ -53,7 +51,7 @@ export const PortableTextComponents: PTComponentsType = {
   },
   marks: {
     link: ({ children, value }) => {
-      const href = value?.href || value?.href; // ajusta según tu esquema de links
+      const href = value?.href || value?.href; 
       return (
         <a href={href} target="_blank" rel="noopener noreferrer" className="underline">
           {children}
