@@ -2,6 +2,7 @@ import { sanityService } from "@/lib/sanityService";
 import heroImage from '@/assets/hero_sections.webp';
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import PortableTextComponents from "@/lib/portableTextComponents";
 import { Proyecto } from "@/lib/sanityClasses";
 
 export default async function ProyectoPage({params}:{params: Promise<{slug:string}>}) {
@@ -75,7 +76,7 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
                                             {subseccion.titulo}
                                         </h2>
                                         <div className="prose max-w-none font-karla text-justify">
-                                            <PortableText value={subseccion.contenido}/>
+                                            <PortableText value={subseccion.contenido} components={PortableTextComponents}/>
                                         </div>
                                     </section>
                                 ))}
