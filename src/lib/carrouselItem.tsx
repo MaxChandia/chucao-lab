@@ -47,23 +47,23 @@ export default function CarrouselItem({ equipo }: EquipoListProps) {
         <ul className="mt-10 px-3 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
           {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
            <Link href={`/equipo/${miembro.slug.current}`} key={miembro._id}>
-  <li className="flex flex-col items-center font-karla gap-5">
-    <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
-    <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
-      <p className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors">
-        {miembro.nombreCompleto}
-      </p>
-      <p>{miembro.rol}</p>
-      {miembro.departamento && <p>{miembro.departamento}</p>}
-      {miembro.facultad && <p>{miembro.facultad}</p>}
-      <p>{miembro.universidad}</p>
-      <div className="flex items-center gap-1 justify-center mt-1">
-        <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
-        <p>{miembro.mail}</p>
-      </div>
-    </div>
-  </li>
-</Link>
+              <li className="flex flex-col items-center font-karla gap-5">
+                <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
+                <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
+                  <p className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors">
+                    {miembro.nombreCompleto}
+                  </p>
+                  <p>{miembro.rol}</p>
+                  {miembro.departamento && <p>{miembro.departamento}</p>}
+                  {miembro.facultad && <p>{miembro.facultad}</p>}
+                  <p>{miembro.universidad}</p>
+                  <div className="flex items-center gap-1 justify-center mt-1">
+                    <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
+                    <p>{miembro.mail}</p>
+                  </div>
+                </div>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
