@@ -85,6 +85,7 @@ export interface MiembroEquipo {
     nombreCompleto: string;
     slug: Slug;
     rol: string;
+    ocupacion: string;
     universidad: string;
     facultad: string;
     departamento: string;
