@@ -37,13 +37,15 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
                     <div>
                         <h1 className="text-3xl font-bold text-gray-800">{miembro.nombreCompleto}</h1>
                         <p className="text-lg text-gray-600 mt-1">{miembro.rol}</p>
-                        <div className="mt-3 text-sm text-gray-500">
-                             <p className="font-semibold">{miembro.facultad}</p>
-                             <p>{miembro.departamento}</p>
-                             <div className="flex items-center gap-2 mt-1">
-                                 <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
-                                 <p>{miembro.mail}</p>
-                             </div>
+                        <div className="mt-3 text-sm text-gray-500 gap-1">
+                            <p className="font-semibold">{miembro.ocupacion}</p>
+                            <p >{miembro.facultad}</p>
+                            <p>{miembro.departamento}</p>
+                            <p>{miembro.universidad}</p>
+                            <div className="mt-2 flex items-center gap-2">
+                                <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
+                                <p>{miembro.mail}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
