@@ -97,7 +97,7 @@ export const sanityService = {
 
     async getAllMiembros(){
         try{
-            const query = `*[_type == "miembro" ] {
+            const query = `*[_type == "miembro" ] | order(_createdAt asc) {
                 _id,
                 nombreCompleto,
                 slug,
