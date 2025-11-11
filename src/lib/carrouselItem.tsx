@@ -55,7 +55,7 @@ export default function CarrouselItem({ equipo }: EquipoListProps) {
                   </p>
                   <p>{miembro.rol}</p>
                   <p>{miembro.departamento}</p>
-                  <p>{miembro.facultad}</p>
+                  <p>{miembro.universidad}</p>
                   <div className="flex items-center gap-1">
                     <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
                     <p>{miembro.mail}</p>
