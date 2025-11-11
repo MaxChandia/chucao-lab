@@ -31,14 +31,15 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
         </section>
         <section className="flex font-karla w-full p-20">
             <div className="Menu hidden lg:block w-[350px] p-10 shadow-lg">
-            {proyecto.secciones?.map((seccion) => 
-                <div key={seccion._key} className="mb-6 gap-5">
-                    <div className="flex gap-2">
+            <div className="flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="items-center bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                         </svg>
                         <h2 className="font-bold font-jetbrains text-lg mb-2">MENÚ</h2>
-                    </div>
+            </div>
+            {proyecto.secciones?.map((seccion) => 
+                <div key={seccion._key} className="mb-6 gap-5">
+                    
                     
                     <h3 className="font-bold text-gray-800 mb-2 border-b pb-1">
                         {seccion.tituloSeccion}
