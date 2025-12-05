@@ -68,7 +68,7 @@ export interface Noticia {
     titulo: string;
     slug: Slug;
     autor: string;
-    categoria: 'investigacion' | 'eventos' | 'noticias' | 'publicaciones';
+    categoria: 'Divulgación' | 'Eventos' | 'Caminatas Sonoras' | 'publicaciones';
     fecha: string;
     bajada: string;
     imagenDestacadaUrl: string; 
@@ -89,6 +89,17 @@ export interface Eje {
         alt?: string;
     }; 
 
+}
+
+export interface Documento {
+    _id: string;
+    titulo: string;
+    descripcion: string;
+    autor: string;
+    anio: number;
+    categoria: 'publicacion' | 'tesis';
+    pdfUrl?: string;    
+    imagenUrl?: string; 
 }
 
 /*Equipo*/

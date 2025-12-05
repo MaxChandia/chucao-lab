@@ -1,11 +1,11 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
+import { Documento } from "@/lib/sanityClasses";
 
 const TesisYPracticas = async () => {
 
-    // 1. Obtenemos solo las tesis
-    const documentos = await sanityService.getDocumentosPorCategoria('tesis');
+    const documentos: Documento[] = await sanityService.getDocumentosPorCategoria('tesis');
 
     return (
         <div>
@@ -29,7 +29,7 @@ const TesisYPracticas = async () => {
             <section className="container mx-auto px-6 py-16">
                 <div className="max-w-4xl mx-auto flex flex-col gap-10">
                     {documentos && documentos.length > 0 ? (
-                        documentos.map((doc: any) => (
+                        documentos.map((doc: Documento) => (
                             <div key={doc._id} className="border-b border-gray-200 pb-8 last:border-0">
                                 {/* Título */}
                                 <h3 className="text-2xl font-bold font-karla text-black mb-2 text-justify">

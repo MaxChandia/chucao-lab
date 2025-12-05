@@ -19,10 +19,10 @@
     "@sanity/types": "^4.13.0",
     "@tailwindcss/postcss": "^4.1.15",
     "lucide-react": "^0.552.0",
-    "next": "15.5.5",
+    "next": "^16.0.7",
     "next-sanity": "^11.5.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

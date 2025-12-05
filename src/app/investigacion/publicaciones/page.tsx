@@ -1,12 +1,14 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
+import { Documento } from "@/lib/sanityClasses";
 
 const Publicaciones = async () => {
 
     // 1. Obtenemos solo los documentos marcados como 'publicacion'
-    const documentos = await sanityService.getDocumentosPorCategoria('publicacion');
+    const documentos: Documento[] = await sanityService.getDocumentosPorCategoria('publicacion');
 
+    
     return (
         <div>
             {/* HERO SECTION */}
@@ -29,7 +31,7 @@ const Publicaciones = async () => {
              <section className="container mx-auto px-6 py-16">
                 <div className="flex flex-col gap-8 max-w-4xl mx-auto">
                     {documentos && documentos.length > 0 ? (
-                        documentos.map((doc: any) => (
+                        documentos.map((doc: Documento) => (
                             <div key={doc._id} className="flex flex-col md:flex-row gap-6 bg-white border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                                 
                                 {/* Portada (Opcional, si existe imagen) */}
