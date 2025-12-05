@@ -4,8 +4,8 @@ import { sanityService } from "@/lib/sanityService";
 import heroImage from '@/assets/hero-landing.png';
 
 
-export default async function EjeDetalle({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export default async function EjeDetalle({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const eje = await sanityService.getEjeBySlug(slug);
 
 {
@@ -21,7 +21,7 @@ export default async function EjeDetalle({ params }: { params: { slug: string } 
             />
         
         <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-          <h2 className="lg:text-6xl md:text-4xl text-3xl font-bold text-white text-center uppercase tracking-wider drop-shadow-md">
+          <h2 className="lg:text-6xl md:text-4xl text-3xl font-bold text-black text-center uppercase tracking-wider drop-shadow-md">
             {eje.nombreEje || "Nombre del Eje"}
           </h2>
         </div>
