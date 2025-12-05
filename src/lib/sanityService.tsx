@@ -244,5 +244,69 @@ export const sanityService = {
             return [];
         }
 
-    }
+    },
+
+    async getAllEjes() {
+        try {
+            const query = `*[_type == "eje"] | order(_createdAt asc) {
+                _id,
+                nombreEje,
+                slug { current },
+                "imagen": imagen.asset->{
+                url,
+                "width": metadata.dimensions.width,
+                "height": metadata.dimensions.height}
+            }`;
+            const data = await client.fetch(query);
+            console.log('Ejes obtenidos:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener ejes:', error);
+            return [];
+        }
+    },
+
+    async getEjeBySlug(slug: string) {
+        try {
+            // Nota: Aquí expandimos 'investigaciones' (->) para obtener los datos de la publicación referenciada
+            const query = `*[_type == "eje" && slug.current == $slug][0]{
+                __id,
+                nombreEje,
+                slug { current },
+                "imagen": imagen.asset->{
+                url,
+                "width": metadata.dimensions.width,
+                "height": metadata.dimensions.height}
+            }`;
+            
+            const data = await client.fetch(query, { slug });
+            console.log('Eje obtenido:', data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener el eje:', error);
+            return null;
+        }
+    },
+    async getDocumentosPorCategoria(categoria: 'publicacion' | 'tesis') {
+        try {
+            // Filtramos por el campo categoría y ordenamos por año descendente (más nuevo primero)
+            const query = `*[_type == "publicacion" && categoria == $categoria] | order(anio desc) {
+                _id,
+                titulo,
+                descripcion,
+                autor,
+                anio,
+                categoria,
+                "pdfUrl": archivoPdf.asset->url,
+                "imagenUrl": imagenDestacada.asset->url
+            }`;
+            
+            const data = await client.fetch(query, { categoria });
+            console.log(`Documentos (${categoria}) obtenidos:`, data);
+            return data;
+        } catch (error) {
+            console.error(`Error al obtener ${categoria}:`, error);
+            return [];}
+    },
+        
 }

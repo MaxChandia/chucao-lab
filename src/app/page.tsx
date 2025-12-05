@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
-import {Noticia} from "@/lib/sanityClasses";
+import {Eje, Noticia} from "@/lib/sanityClasses";
 import { sanityService } from "@/lib/sanityService";
 
 
@@ -13,6 +13,7 @@ export default async function Home() {
 
 
   const noticias: Noticia[] = await sanityService.getAllNoticias();
+  const ejes: Eje[] = await sanityService.getAllEjes();
 
   return (
 
@@ -49,20 +50,24 @@ export default async function Home() {
         <div className="sectionHeader flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
           <h3 className="text-sm font-jetbrains">EJES TEMÁTICOS</h3>
         </div>
-        <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20">
-          {ejesChucao.slice(0,3).map((ejes)=>(
-            <Link key={ejes.id} href={ejes.url} className="ejeItem w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
-              <Image src={ejes.image_url} alt={ejes.titulo} className="rounded-md "/>
+        <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20 group-hover:scale-110">
+          {ejes.map((eje)=>(
+            <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
+              <Image src={eje.imagen.url} 
+                alt={eje.nombreEje} 
+                width={eje.imagen.width} 
+                height={eje.imagen.height} className="rounded-md "/>
               <div className="flex gap-2 mt-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                 </svg>
-                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight">{ejes.titulo}</h2>
+                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight">{eje.nombreEje}</h2>
               </div>
             </Link>
           ))}
         </div>
       </section>
+      
       <section className="jardinSonoro w-full mt-20 px-10 py-20 lg:px-20">
                 <Link 
                     href={`/investigacion/proyectos/proyecto-diseno-biofilico`} 
@@ -103,7 +108,9 @@ export default async function Home() {
               href={`/vinculacion/noticias/${noticia.slug.current}`} 
               className="newsItem min-h-[480px] sm:min-h-[420px] lg:min-h-[480px] flex flex-col w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300"
             >
+              <div className=" transition-all duration-300 transform hover:-translate-y-2 hover:text-gray-500 ">
               {noticia.imagenDestacadaUrl && (
+                <div className="relative">
                 <Image 
                   src={noticia.imagenDestacadaUrl}
                   alt={noticia.titulo} 
@@ -111,6 +118,12 @@ export default async function Home() {
                   height={250} 
                   className="rounded-md"
                 />
+                <div className="absolute top-4 left-4">
+                                                <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-black">
+                                                  {noticia.categoria}
+                                                </span>
+                                            </div>
+                </div>
               )}
               <div className="mt-3 flex flex-col flex-1 py-3">
                 <div className="flex gap-2 min-h-[60px] lg:w-[400px]">
@@ -124,6 +137,7 @@ export default async function Home() {
                 <div className="mt-1 text-justify lg:text-justify text-sm font-karla lg:w-[400px] flex-1">
                   {noticia.bajada} 
                 </div>
+              </div>
               </div>
             </Link>
           ))}

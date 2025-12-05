@@ -6,12 +6,15 @@ import Link from "next/link";
 import heroImage from "@/assets/hero_sections.webp";
 import { Noticia } from "@/lib/sanityClasses";
 import ShareButtons from "@/components/share-buttons/shareButtons";
+import { SanityImage } from "@/lib/sanityClasses";
 
 export default async function NoticiaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const noticia = await sanityService.getNoticiaBySlug(slug);
   const otrasNoticias = await sanityService.getAllNoticias();
+
+  const galeria: SanityImage[] = noticia.galeria
 
   if (!noticia) {
     return <div className="p-10 text-center">Noticia no encontrada</div>;
@@ -34,6 +37,9 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
           <div className="max-w-4xl mx-auto my-10 px-4">
             {noticia?.cuerpo && <PortableText value={noticia.cuerpo} components={PortableTextComponents} />}
           </div>
+          <div className="flex gap-2">
+            {noticia.galeria?.map((imagen: SanityImage) => <Image key={imagen.asset._id} src={imagen.asset.url} width={400} height={200}alt=''/>)}
+          </div>
           <ShareButtons title={noticia?.titulo} />
         </article>
 
@@ -43,7 +49,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
         <aside className="my-9 px-4">
           <h2 className="font-bold text-xl mb-4">Otras Noticias</h2>
           <div className="space-y-4">
-            {otrasNoticias.filter((otra: Noticia) => otra.slug.current === noticia.slug).map((otra: Noticia) => (
+            {otrasNoticias.filter((otra: Noticia) => otra.slug.current !== noticia.slug.current).map((otra: Noticia) => (
               <Link
                 key={otra._id}
                 href={`/vinculacion/noticias/${otra.slug.current}`}
@@ -58,7 +64,8 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
                     className="rounded-lg object-cover w-full h-40 mb-2"
                   />
                 )}
-                <h3 className="font-semibold text-base line-clamp-2">{otra.titulo}</h3>
+                <h3 className="font-semibold text-base line-clamp-3">{otra.titulo}</h3>
+                <p className="pt-5">Leer más...</p>
               </Link>
             ))}
           </div>

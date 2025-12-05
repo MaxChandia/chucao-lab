@@ -41,7 +41,6 @@ export default async function QuienesSomos() {
         </div>
       </section>
 
-      {/* Componente cliente con la paginación */}
       <CarrouselItem equipo={equipo} />
     </div>
   );

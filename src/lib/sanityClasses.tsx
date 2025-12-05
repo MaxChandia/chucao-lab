@@ -76,6 +76,21 @@ export interface Noticia {
     galeria?: SanityImage[];
 }
 
+export interface Eje {
+    _id: string;
+    nombreEje: string;
+    slug: {
+        current: string;
+    };
+    imagen: {
+        url: string;
+        width: number;
+        height: number;
+        alt?: string;
+    }; 
+
+}
+
 /*Equipo*/
 export interface MiembroEquipo {
     _id: string;
