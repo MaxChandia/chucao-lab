@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
-import {Eje, Noticia} from "@/lib/sanityClasses";
+import {Eje, Noticia, ProyectoPrincipal} from "@/lib/sanityClasses";
 import { sanityService } from "@/lib/sanityService";
 
 
@@ -14,6 +14,7 @@ export default async function Home() {
 
   const noticias: Noticia[] = await sanityService.getAllNoticias();
   const ejes: Eje[] = await sanityService.getAllEjes();
+  const proyectoDestacado: ProyectoPrincipal = await sanityService.getProyectoPrincipalDestacado();
 
   return (
 
@@ -30,7 +31,7 @@ export default async function Home() {
           <div className="px-20 flex flex-col gap-20 w-full absolute inset-0 h-full justify-center items-start z-10">
               <div className="textHero flex flex-col gap-2 -lg:gap-0">
                   <h1 className="text-lg lg:text-2xl font-bold">
-                      ChucaoLab es un laboratorio interdisciplinario de gestión, diseño y creación del paisaje sonoro ambiental
+                      ChucaoLab es un laboratorio interdisciplinar de gestión, diseño y creación del paisaje sonoro ambiental
                   </h1>
                   <p className="text-lg lg:text-2xl w-full lg:w-1/2">
                       Nos enfocamos en la investigación, la enseñanza y la conexión activa con la comunidad
@@ -74,17 +75,22 @@ export default async function Home() {
                     className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 max-w-7xl mx-auto cursor-pointer group"
                 >
                     <div className="w-full lg:w-1/2 relative h-64 lg:h-96 rounded-xl overflow-hidden shadow-2xl">
-                        
+                        <Image 
+                            src={proyectoDestacado.imagenPrincipal.asset.url} 
+                            alt={proyectoDestacado.imagenPrincipal.alt || proyectoDestacado.titulo} 
+                            fill 
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
                     </div>
                     <div className="w-full lg:w-1/2 flex flex-col gap-6 p-4">
                         <h2 className="text-3xl lg:text-4xl font-bold font-jetbrains text-black transition-colors duration-300 group-hover:text-sage-green">
-                            Proyecto Jardín Sonoro Santiago
+                            {proyectoDestacado.titulo}
                         </h2>
                         <p className="text-lg font-karla leading-relaxed">
-                            Escuchar los sonidos de la naturaleza puede tener un impacto positivo en nuestra salud y bienestar. Las áreas verdes en la ciudad pueden recrear paisajes sonoros que nos conectan con el entorno natural, brindándonos esos beneficios restauradores.
+                            {proyectoDestacado.resumen}
                         </p>
                         <p className="text-sm font-karla font-bold text-gray-700">
-                            Fondecyt Iniciación 2024-2027.
+                            {proyectoDestacado.extra}
                         </p>
                         <button className="h-12 w-48 p-2 rounded-[30px] bg-black text-white font-jetbrains text-sm hover:bg-gray-700 flex items-center justify-center transition-colors duration-300 mt-4">
                             VER PROYECTO COMPLETO
