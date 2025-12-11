@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logoImage from '@/assets/logo-chucaolab.png';
@@ -13,7 +13,81 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenSection, setIsOpenSection] = useState<string | null>(null);
 
-    
+    // --- LÓGICA GOOGLE TRANSLATE + FIX DE ESTILOS ---
+    useEffect(() => {
+        // 1. Crear e inyectar el script de Google
+        const addScript = document.createElement("script");
+        addScript.setAttribute(
+            "src",
+            "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        );
+        document.body.appendChild(addScript);
+
+        // 2. Inicializar Google Translate
+        // @ts-ignore
+        window.googleTranslateElementInit = () => {
+            // @ts-ignore
+            new window.google.translate.TranslateElement(
+                {
+                    pageLanguage: "es",
+                    includedLanguages: "en,es",
+                    autoDisplay: false,
+                },
+                "google_translate_element"
+            );
+        };
+
+        // 3. MUTATION OBSERVER (EL FIX "A LA FUERZA")
+        // Este observador vigila si Google cambia los estilos del body o html y los resetea.
+        const observer = new MutationObserver(() => {
+            const body = document.body;
+            const html = document.documentElement;
+
+            // Forzar body a top 0 si cambia
+            if (body.style.top && body.style.top !== "0px") {
+                body.style.top = "0px";
+                body.style.position = "";
+            }
+            if (body.style.marginTop && body.style.marginTop !== "0px") {
+                body.style.marginTop = "0px";
+            }
+
+            // Forzar html a top 0 si cambia
+            if (html.style.top && html.style.top !== "0px") {
+                html.style.top = "0px";
+            }
+            if (html.style.marginTop && html.style.marginTop !== "0px") {
+                html.style.marginTop = "0px";
+            }
+        });
+
+        // Observar cambios de atributos de estilo en Body y HTML
+        observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+
+        // Limpieza al desmontar
+        return () => observer.disconnect();
+    }, []);
+
+    // Función para alternar idioma (Español <-> Inglés)
+    const handleLanguageToggle = () => {
+        const cookies = document.cookie.split(';');
+        const transCookie = cookies.find(c => c.trim().startsWith('googtrans='));
+        
+        if (transCookie && transCookie.includes('/es/en')) {
+            // Borrar cookie para volver a Español
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.chucaolab.cl; path=/;";
+             // Dominio genérico por si acaso
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+        } else {
+            // Crear cookie para Inglés
+            document.cookie = "googtrans=/es/en; path=/";
+        }
+        window.location.reload();
+    };
+    // ------------------------------------------------
+
     const handleCloseMenu = () => {
         setIsOpen(false);
     };
@@ -28,6 +102,9 @@ const Navbar = () => {
 
     return (
         <nav className="absolute z-50 h-[90px] w-full flex items-center justify-between px-4 sm:px-10 lg:px-20 bg-transparent border-b border-gray-100 text-black shadow-lg font-jetbrains">
+            
+            {/* Elemento oculto requerido por Google */}
+            <div id="google_translate_element" className="hidden"></div>
             
             {/* --- LOGO --- */}
             <Link href="/">
@@ -72,7 +149,15 @@ const Navbar = () => {
 
             {/* --- SOCIAL MEDIA ESCRITORIO --- */}
             <div className="socialMedia hidden lg:flex gap-4 items-center">
-                <div className='p-2'>ENG</div>
+                
+                {/* BOTÓN ENG ESCRITORIO */}
+                <button 
+                    onClick={handleLanguageToggle}
+                    className='p-2 font-bold hover:text-blue-500 transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white'
+                >
+                    ENG
+                </button>
+
                 <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 text-white" href="https://www.linkedin.com/company/chucaolab/" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faLinkedinIn} className='h-full w-full' />
                 </a>
@@ -110,7 +195,6 @@ const Navbar = () => {
 
                 {/* --- Links del Menú Móvil --- */}
                 <ul className="flex flex-col p-4 sm:p-10 gap-4 overflow-y-auto">
-                   
                     
                     {/* Menú Investigación */}
                     <li className="flex flex-col gap-2 pt-4">
@@ -162,7 +246,16 @@ const Navbar = () => {
                             <FontAwesomeIcon icon={faYoutube} className='h-full w-full' />
                         </a>
                     </div>
-                    <div className='p-2 text-center mt-2'>ENG</div>
+                    
+                    {/* BOTÓN ENG MÓVIL */}
+                    <div className='flex justify-center mt-4'>
+                        <button 
+                            onClick={handleLanguageToggle}
+                            className='p-2 px-6 border border-black rounded font-bold text-center w-fit hover:bg-black hover:text-white transition-colors'
+                        >
+                            ENG (Traducir)
+                        </button>
+                    </div>
                 </ul>
             </div>
         </nav>
