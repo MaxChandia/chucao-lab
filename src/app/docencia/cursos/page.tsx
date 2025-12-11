@@ -33,7 +33,7 @@ export default async function CursosPage() {
                         cursos.map((curso: Curso) => (
                             <Link 
                                 key={curso._id} 
-                                href={`/cursos/${curso.slug.current}`}
+                                href={`/docencia/cursos/${curso.slug.current}`}
                                 className="group flex flex-col md:flex-row bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 h-auto md:h-72"
                             >
                                 {/* LADO IZQUIERDO: TEXTO (Título y Resumen) */}

@@ -129,7 +129,7 @@ export interface Proyecto {
   titulo: string;
   slug: Slug;
   autor: string;
-  imagenDestacada: SanityImage; // Esta es la imagen principal "por fuera"
+  imagenDestacada: SanityImage; 
   fecha: string;
   secciones?: Seccion[]; // Array limpio de secciones
   cuerpo?: Array<PortableTextBlock | SanityImage>;
@@ -145,12 +145,11 @@ export interface Curso {
   contenido: Array<PortableTextBlock | SanityImage>;
 }
 
-/* NUEVO: Proyecto Principal (Destacado / Jardín Sonoro) */
 export interface ProyectoPrincipal {
   _id: string;
   titulo: string;
-  slug: Slug; // Link del botón
-  resumen: string; // Texto grande
-  extra?: string; // "Fondecyt..."
+  slug: Slug;
+  resumen: string;
+  extra?: string;
   imagenPrincipal: SanityImage;
 }
