@@ -60,6 +60,7 @@ export interface Seccion {
   subsecciones: Subseccion[];
 }
 
+
 export interface Noticia {
     _id: string;
     _type: 'noticia';
@@ -121,15 +122,35 @@ export interface MiembroEquipo {
 }
 
 export interface Proyecto {
-    _id: string;
-    _type: 'proyecto';
-    _createdAt: string;
-    _updatedAt: string;
-    titulo: string;
-    slug: Slug;
-    autor: string;
-    imagenDestacada: SanityImage;
-    fecha: string;
-    secciones?: Seccion[];
-    cuerpo?: Array<PortableTextBlock | SanityImage>;
+  _id: string;
+  _type: 'proyecto';
+  _createdAt: string;
+  _updatedAt: string;
+  titulo: string;
+  slug: Slug;
+  autor: string;
+  imagenDestacada: SanityImage; // Esta es la imagen principal "por fuera"
+  fecha: string;
+  secciones?: Seccion[]; // Array limpio de secciones
+  cuerpo?: Array<PortableTextBlock | SanityImage>;
+}
+
+/* NUEVO: Cursos */
+export interface Curso {
+  _id: string;
+  titulo: string;
+  slug: Slug;
+  resumen: string;
+  imagenPrincipal: SanityImage;
+  contenido: Array<PortableTextBlock | SanityImage>;
+}
+
+/* NUEVO: Proyecto Principal (Destacado / Jardín Sonoro) */
+export interface ProyectoPrincipal {
+  _id: string;
+  titulo: string;
+  slug: Slug; // Link del botón
+  resumen: string; // Texto grande
+  extra?: string; // "Fondecyt..."
+  imagenPrincipal: SanityImage;
 }

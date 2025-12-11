@@ -22,7 +22,7 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
                 fill
                 className="object-cover z-0"
             />
-            <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="absolute inset-0 flex items-center justify-center z-10 px-4 text-center">
                 <h2 className="lg:text-5xl text-3xl font-bold text-black">
                     {proyecto.titulo}
                 </h2>

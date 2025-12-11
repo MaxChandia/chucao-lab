@@ -2,16 +2,14 @@ import {client} from './sanity'
 
 export const sanityService = {
 
-/* Servicios Noticias*/
+  /* Servicios Noticias */
 
-    async getAllNoticias() {
-        try{
-            const query = `*[_type == "noticia"] | order(publishedAt desc){
-               _id,
+  async getAllNoticias() {
+    try {
+      const query = `*[_type == "noticia"] | order(publishedAt desc){
+                _id,
                 titulo,
-                slug {
-                    current
-                },
+                slug { current },
                 "imagenDestacadaUrl": imagenDestacada.asset->url,
                 autor,
                 fecha,
@@ -20,12 +18,12 @@ export const sanityService = {
                 cuerpo[] {
                     ...,
                     _type == "image" => {
-                    asset->,
-                    alt,
-                    caption
+                        asset->,
+                        alt,
+                        caption
                     },
                     _type == "youtube" => {
-                    url
+                        url
                     }
                 },
                 galeria[] {
@@ -35,25 +33,20 @@ export const sanityService = {
                     hotspot
                 }
             }`
-            const data = await client.fetch(query);
-            console.log('Noticias obtenidas:', data);
-            return data;
-        }catch (error){
-            console.error('Error no se encontraron las noticias', error);
-            return [];
-        }
-        
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error no se encontraron las noticias', error);
+      return [];
+    }
+  },
 
-    },
-
-    async getNoticiaBySlug(slug: string) {
-        try {
-            const query = `*[_type == "noticia" && slug.current == $slug][0]{
-               _id,
+  async getNoticiaBySlug(slug: string) {
+    try {
+      const query = `*[_type == "noticia" && slug.current == $slug][0]{
+                _id,
                 titulo,
-                slug {
-                    current
-                },
+                slug { current },
                 imagenDestacada {
                     asset->,
                     alt,
@@ -67,12 +60,12 @@ export const sanityService = {
                 cuerpo[] {
                     ...,
                     _type == "image" => {
-                    asset->,
-                    alt,
-                    caption
+                        asset->,
+                        alt,
+                        caption
                     },
                     _type == "youtube" => {
-                    url
+                        url
                     }
                 },
                 galeria[] {
@@ -82,22 +75,19 @@ export const sanityService = {
                     hotspot
                 }
             }`
+      const data = await client.fetch(query, { slug });
+      return data;
+    } catch (error) {
+      console.error('❌ Error en getNoticiaBySlug:', error);
+      return null;
+    }
+  },
 
-            const data = await client.fetch(query, { slug });
+  /* Servicios Equipo */
 
-            console.log('📄 Resultado para slug', slug, ':', data);
-            return data;
-        } catch (error) {
-            console.error('❌ Error en getNoticiaBySlug:', error);
-            return null;
-        }
-    },
-
-    /*Servicios Equipo*/
-
-    async getAllMiembros(){
-        try{
-            const query = `*[_type == "miembro" ] | order(_createdAt asc) {
+  async getAllMiembros() {
+    try {
+      const query = `*[_type == "miembro" ] | order(_createdAt asc) {
                 _id,
                 nombreCompleto,
                 slug,
@@ -110,18 +100,17 @@ export const sanityService = {
                 descripcion,
                 "foto": foto.asset->url,
             }`
-            const data = await client.fetch(query);
-            console.log('Miembros del equipo obtenidos:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener miembros del equipo:', error);
-            return [];
-        }
-    },
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error al obtener miembros del equipo:', error);
+      return [];
+    }
+  },
 
-    async getMiembroBySlug(slug: string) {
-        try {
-            const query = `*[_type == "miembro" && slug.current == $slug][0] {
+  async getMiembroBySlug(slug: string) {
+    try {
+      const query = `*[_type == "miembro" && slug.current == $slug][0] {
                 _id,
                 nombreCompleto,
                 "slug": slug.current,
@@ -134,20 +123,19 @@ export const sanityService = {
                 descripcion,
                 "foto": foto.asset->url,
             }`
-            const data = await client.fetch(query, { slug });
-            console.log('Miembros del equipo obtenidos:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener miembros del equipo:', error);
-            return [];
-        }
-    },
+      const data = await client.fetch(query, { slug });
+      return data;
+    } catch (error) {
+      console.error('Error al obtener miembros del equipo:', error);
+      return [];
+    }
+  },
 
-    /*Servicios Proyectos*/
+  /* Servicios Proyectos */
 
-    async getAllProyectos(){
-        try{
-            const query = `*[_type == "proyecto"] {
+  async getAllProyectos() {
+    try {
+      const query = `*[_type == "proyecto"] | order(fecha desc) {
                 _id,
                 _createdAt,
                 titulo,
@@ -160,28 +148,26 @@ export const sanityService = {
                     caption
                 },
                 cuerpo[] {
-                    ..., // Mantiene todos los campos del bloque o imagen
-                    // Si el bloque es una imagen, extrae la URL
+                    ...,
                     _type == "image" => {
-                    "url": asset->url,
-                    alt,
-                    caption
+                        "url": asset->url,
+                        alt,
+                        caption
                     }
                 }
-                }`
-            const data = await client.fetch(query)
-            console.log('Proyectos obtenido:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener los proyecto:', error)
-            return [];
-        }
+            }`
+      const data = await client.fetch(query)
+      return data;
+    } catch (error) {
+      console.error('Error al obtener los proyecto:', error)
+      return [];
+    }
+  },
 
-    },
-
-    async getAllProyectosBySlug(slug: string){
-        try{
-            const query = `*[_type == "proyecto" && slug.current == $slug][0]{
+  async getAllProyectosBySlug(slug: string) {
+    try {
+      // AQUÍ ESTÁ LA LÓGICA ACTUALIZADA PARA LAS SECCIONES MIXTAS
+      const query = `*[_type == "proyecto" && slug.current == $slug][0]{
                 _id,
                 _type,
                 _createdAt,
@@ -190,107 +176,197 @@ export const sanityService = {
                 slug,
                 autor,
                 imagenDestacada{
-                _type,
-                asset->{
-                    url,
-                    _id,
-                    metadata {
-                    dimensions {
-                        width,
-                        height
-                    }
-                    }
-                },
-                alt,
-                caption
+                    _type,
+                    asset->{
+                        url,
+                        _id,
+                        metadata { dimensions { width, height } }
+                    },
+                    alt,
+                    caption
                 },
                 fecha,
                 secciones[]{
-                _key,
-                _type,
-                tituloSeccion,
-                subsecciones[]{
                     _key,
                     _type,
-                    titulo,
-                    contenido[]{
-                    ...,
-                    _type == 'image' => {
-                        _type,
-                        _key,
-                        asset->{
-                        url,
-                        _id,
-                        metadata {
-                            dimensions {
-                            width,
-                            height
+                    // CASO 1: Si es una sección de texto
+                    _type == 'seccion' => {
+                        tituloSeccion,
+                        subsecciones[]{
+                            _key,
+                            _type,
+                            titulo,
+                            contenido[]{
+                                ...,
+                                _type == 'image' => {
+                                    _type,
+                                    _key,
+                                    asset->{
+                                        url,
+                                        metadata { dimensions { width, height } }
+                                    },
+                                    alt,
+                                    caption
+                                },
+                                _type == "youtube" => { url }
                             }
                         }
-                        },
-                        alt,
-                        caption
+                    },
+                    // CASO 2: Si es una imagen principal sola (sin caption)
+                    _type == 'imagenPrincipal' => {
+                         alt,
+                         asset->{
+                            url,
+                            _id,
+                            metadata { dimensions { width, height } }
+                        }
                     }
-                    }
-                }
                 },
                 cuerpo
             }`;
-            const data = await client.fetch(query, { slug})
-            console.log('Proyectos obtenido:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener los proyecto:', error)
-            return [];
-        }
+      const data = await client.fetch(query, { slug })
+      return data;
+    } catch (error) {
+      console.error('Error al obtener los proyecto:', error)
+      return [];
+    }
+  },
 
-    },
+  /* --- NUEVO: SERVICIOS PARA CURSOS --- */
 
-    async getAllEjes() {
-        try {
-            const query = `*[_type == "eje"] | order(_createdAt asc) {
+  async getAllCursos() {
+    try {
+      const query = `*[_type == "curso"] | order(_createdAt desc) {
+            _id,
+            titulo,
+            slug,
+            resumen,
+            imagenPrincipal {
+               asset->{
+                    url,
+                    metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo cursos:', error);
+      return [];
+    }
+  },
+
+  async getCursoBySlug(slug: string) {
+    try {
+      const query = `*[_type == "curso" && slug.current == $slug][0] {
+            _id,
+            titulo,
+            slug,
+            resumen,
+            imagenPrincipal {
+               asset->{
+                    url,
+                    metadata { dimensions { width, height } }
+               },
+               alt
+            },
+            contenido[]{
+                ...,
+                _type == "image" => {
+                   asset->{url},
+                   alt
+                },
+                 markDefs[]{
+                    ...,
+                    _type == "link" => {
+                        href
+                    }
+                }
+            }
+        }`;
+      const data = await client.fetch(query, { slug });
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo curso:', error);
+      return null;
+    }
+  },
+
+  /* --- NUEVO: SERVICIO PARA PROYECTO PRINCIPAL (Jardín Sonoro) --- */
+  
+  // Obtiene el último proyecto principal creado para mostrar en la home
+  async getProyectoPrincipalDestacado() {
+    try {
+        const query = `*[_type == "proyectoPrincipal"] | order(_createdAt desc)[0] {
+            _id,
+            titulo,
+            slug,
+            resumen,
+            extra,
+            imagenPrincipal {
+                asset->{
+                    url,
+                    metadata { dimensions { width, height } }
+                },
+                alt
+            }
+        }`;
+        const data = await client.fetch(query);
+        return data;
+    } catch (error) {
+        console.error('Error obteniendo proyecto principal:', error);
+        return null;
+    }
+  },
+
+
+  /* Servicios Ejes */
+
+  async getAllEjes() {
+    try {
+      const query = `*[_type == "eje"] | order(_createdAt asc) {
                 _id,
                 nombreEje,
                 slug { current },
                 "imagen": imagen.asset->{
-                url,
-                "width": metadata.dimensions.width,
-                "height": metadata.dimensions.height}
+                    url,
+                    "width": metadata.dimensions.width,
+                    "height": metadata.dimensions.height
+                }
             }`;
-            const data = await client.fetch(query);
-            console.log('Ejes obtenidos:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener ejes:', error);
-            return [];
-        }
-    },
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error al obtener ejes:', error);
+      return [];
+    }
+  },
 
-    async getEjeBySlug(slug: string) {
-        try {
-            // Nota: Aquí expandimos 'investigaciones' (->) para obtener los datos de la publicación referenciada
-            const query = `*[_type == "eje" && slug.current == $slug][0]{
-                __id,
+  async getEjeBySlug(slug: string) {
+    try {
+      const query = `*[_type == "eje" && slug.current == $slug][0]{
+                _id,
                 nombreEje,
                 slug { current },
                 "imagen": imagen.asset->{
-                url,
-                "width": metadata.dimensions.width,
-                "height": metadata.dimensions.height}
+                    url,
+                    "width": metadata.dimensions.width,
+                    "height": metadata.dimensions.height
+                }
             }`;
-            
-            const data = await client.fetch(query, { slug });
-            console.log('Eje obtenido:', data);
-            return data;
-        } catch (error) {
-            console.error('Error al obtener el eje:', error);
-            return null;
-        }
-    },
-    async getDocumentosPorCategoria(categoria: 'publicacion' | 'tesis') {
-        try {
-            // Filtramos por el campo categoría y ordenamos por año descendente (más nuevo primero)
-            const query = `*[_type == "publicacion" && categoria == $categoria] | order(anio desc) {
+
+      const data = await client.fetch(query, { slug });
+      return data;
+    } catch (error) {
+      console.error('Error al obtener el eje:', error);
+      return null;
+    }
+  },
+
+  async getDocumentosPorCategoria(categoria: 'publicacion' | 'tesis') {
+    try {
+      const query = `*[_type == "publicacion" && categoria == $categoria] | order(anio desc) {
                 _id,
                 titulo,
                 descripcion,
@@ -300,13 +376,13 @@ export const sanityService = {
                 "pdfUrl": archivoPdf.asset->url,
                 "imagenUrl": imagenDestacada.asset->url
             }`;
-            
-            const data = await client.fetch(query, { categoria });
-            console.log(`Documentos (${categoria}) obtenidos:`, data);
-            return data;
-        } catch (error) {
-            console.error(`Error al obtener ${categoria}:`, error);
-            return [];}
-    },
-        
+
+      const data = await client.fetch(query, { categoria });
+      return data;
+    } catch (error) {
+      console.error(`Error al obtener ${categoria}:`, error);
+      return [];
+    }
+  },
+
 }
