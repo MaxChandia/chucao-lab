@@ -176,3 +176,11 @@ export interface SeccionSobreNosotros {
   contenido: Array<PortableTextBlock>; 
   imagenDestacada: SanityImage;
 }
+
+export interface Infraestructura {
+  _id: string;
+  _type: 'infraestructura';
+  titulo: string;
+  imagen: SanityImage;
+  descripcion: Array<PortableTextBlock>;
+}
