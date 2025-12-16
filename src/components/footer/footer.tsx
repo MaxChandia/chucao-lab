@@ -12,12 +12,12 @@ const Footer = () => {
                 
               
                 <div className="footerItem w-full lg:w-1/4 flex items-center justify-center">
-                    <Image src={anidLogo} alt="ANID" className='w-[180px] object-contain' />
+                    <Image src={anidLogo} alt="ANID" className='w-[180px] h-[130px] object-contain' />
                 </div>
 
                 
                 <div className="footerItem w-full lg:w-1/4 flex items-center justify-center">
-                    <Image src={uchileLogo} alt="Universidad de Chile" className='w-[150px] object-contain' />
+                    <Image src={uchileLogo} alt="Universidad de Chile" className='w-[150px] h-[130px] object-contain' />
                 </div>
 
                
