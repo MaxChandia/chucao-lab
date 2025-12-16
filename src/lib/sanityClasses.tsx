@@ -131,7 +131,7 @@ export interface Proyecto {
   autor: string;
   imagenDestacada: SanityImage; 
   fecha: string;
-  secciones?: Seccion[]; // Array limpio de secciones
+  secciones?: Seccion[]; 
   cuerpo?: Array<PortableTextBlock | SanityImage>;
 }
 
@@ -152,4 +152,26 @@ export interface ProyectoPrincipal {
   resumen: string;
   extra?: string;
   imagenPrincipal: SanityImage;
+}
+
+export interface Practicante {
+  _id: string;
+  _type: 'practicante';
+  nombreCompleto: string;
+  carrera: string;
+  foto: SanityImage;
+}
+
+export interface SeccionHero {
+  _id: string;
+  _type: 'seccionHero';
+  tituloPrincipal: string;
+  bajada: string;
+}
+
+export interface SeccionSobreNosotros {
+  _id: string;
+  _type: 'seccionSobreNosotros';
+  contenido: Array<PortableTextBlock>; 
+  imagenDestacada: SanityImage;
 }
