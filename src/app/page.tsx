@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import { ejesChucao } from "@/lib/ejes";
-import {Eje, Noticia, ProyectoPrincipal} from "@/lib/sanityClasses";
+import {Eje, Noticia, ProyectoPrincipal, SeccionHero} from "@/lib/sanityClasses";
 import { sanityService } from "@/lib/sanityService";
 
 
@@ -14,6 +14,7 @@ export default async function Home() {
 
   const noticias: Noticia[] = await sanityService.getAllNoticias();
   const ejes: Eje[] = await sanityService.getAllEjes();
+  const hero: SeccionHero = await sanityService.getSeccionHero();
   const proyectoDestacado: ProyectoPrincipal = await sanityService.getProyectoPrincipalDestacado();
 
   return (
@@ -31,10 +32,10 @@ export default async function Home() {
           <div className="px-20 flex flex-col gap-20 w-full absolute inset-0 h-full justify-center items-start z-10">
               <div className="textHero flex flex-col gap-2 -lg:gap-0">
                   <h1 className="text-lg lg:text-2xl font-bold">
-                      ChucaoLab es un laboratorio interdisciplinar de gestión, diseño y creación del paisaje sonoro ambiental
+                      {hero.tituloPrincipal}
                   </h1>
                   <p className="text-lg lg:text-2xl w-full lg:w-1/2">
-                      Nos enfocamos en la investigación, la enseñanza y la conexión activa con la comunidad
+                      {hero.bajada}
                   </p>
               </div>
               <Link href="/quienes-somos">
