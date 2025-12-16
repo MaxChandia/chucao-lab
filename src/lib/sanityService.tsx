@@ -451,6 +451,27 @@ export const sanityService = {
       return [];
     }
   },
+  async getAllInfraestructura() {
+    try {
+      const query = `*[_type == "infraestructura"] | order(_createdAt asc) {
+            _id,
+            titulo,
+            descripcion,
+            imagen {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo infraestructura:', error);
+      return [];
+    }
+  },
 
 }
 
