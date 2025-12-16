@@ -89,6 +89,7 @@ export interface Eje {
         height: number;
         alt?: string;
     }; 
+    texto: Array<PortableTextBlock>;
 
 }
 
