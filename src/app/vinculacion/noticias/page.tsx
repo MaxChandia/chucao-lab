@@ -53,7 +53,7 @@ const Noticias = async () => {
                 />
                 <div className="absolute top-4 left-4">
                                                 <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-black">
-                                                    
+                                                    {noticia.categoria}
                                                 </span>
                                             </div>
                 </div>
