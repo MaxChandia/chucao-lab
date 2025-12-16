@@ -1,10 +1,12 @@
 import { sanityService } from "@/lib/sanityService";
 import Image from "next/image";
-import heroImage from '@/assets/hero_sections.webp';
+import heroImage from '@/assets/hero_sections.webp'
+import { SeccionSobreNosotros } from "@/lib/sanityClasses";
 import CarrouselItem from "@/lib/carrouselItem";
 
 export default async function QuienesSomos() {
   const equipo = await sanityService.getAllMiembros();
+  const quienesSomos: SeccionSobreNosotros = await sanityService.getSeccionSobreNosotros();
 
   return (
     <div>
