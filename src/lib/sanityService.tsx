@@ -353,11 +353,13 @@ export const sanityService = {
                 _id,
                 nombreEje,
                 slug { current },
+                texto,
                 "imagen": imagen.asset->{
                     url,
                     "width": metadata.dimensions.width,
                     "height": metadata.dimensions.height
-                }
+                },
+
             }`;
 
       const data = await client.fetch(query, { slug });
