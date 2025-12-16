@@ -5,6 +5,7 @@ import { faEnvelope, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-s
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { MiembroEquipo } from "@/lib/sanityClasses";
+import Image from "next/image";
 
 interface EquipoListProps {
   equipo: MiembroEquipo[];
@@ -48,7 +49,13 @@ export default function CarrouselItem({ equipo }: EquipoListProps) {
           {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
            <Link href={`/equipo/${miembro.slug.current}`} key={miembro._id}>
               <li className="flex flex-col items-center font-karla gap-5">
-                <span className="inline-block h-[130px] w-[130px] rounded-full bg-gray-300"></span>
+                <Image
+                  src={miembro.foto.asset.url}
+                  alt={miembro.nombreCompleto}
+                  width={150}
+                  height={150}
+                  className="rounded-full object-cover border-2 border-gray-300 shadow-md"
+                />
                 <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
                   <p className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors">
                     {miembro.nombreCompleto}
