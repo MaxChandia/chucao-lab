@@ -72,7 +72,7 @@ export default async function Home() {
       
       <section className="jardinSonoro w-full mt-20 px-10 py-20 lg:px-20">
                 <Link 
-                    href={`/investigacion/proyectos/proyecto-diseno-biofilico`} 
+                    href={proyectoDestacado.slug?`/investigacion/proyectos/${proyectoDestacado.slug.current}` : '#'}
                     className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20 max-w-7xl mx-auto cursor-pointer group"
                 >
                     <div className="w-full lg:w-1/2 relative h-64 lg:h-96 rounded-xl overflow-hidden shadow-2xl">
