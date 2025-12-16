@@ -10,7 +10,6 @@ import { Curso } from "@/lib/sanityClasses";
 export default async function CursoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  // 1. Obtener datos
   const curso: Curso = await sanityService.getCursoBySlug(slug);
   const otrosCursos = await sanityService.getAllCursos();
 
@@ -29,7 +28,7 @@ export default async function CursoPage({ params }: { params: Promise<{ slug: st
       <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full font-karla relative">
         <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" />
         <div className="absolute inset-0 flex items-center justify-center z-10 px-10 text-center">
-          <h2 className="lg:text-[20px] md:text-3xl font-bold text-black">{curso.titulo}</h2>
+          <h2 className="lg:text-6xl md:text-3xl font-bold text-black">{curso.titulo}</h2>
         </div>
         <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
       </section>
@@ -74,7 +73,6 @@ export default async function CursoPage({ params }: { params: Promise<{ slug: st
           </div>
         </section>
 
-        {/* --- TERCERA SECCIÓN: Otros Cursos (Grid de 3) --- */}
         <section className="mb-10">
           <h2 className="font-bold text-2xl mb-8 border-b-2 border-sage-green inline-block pb-2">
             Otros Cursos
