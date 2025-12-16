@@ -62,7 +62,7 @@ const Navbar = () => {
                         <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                         <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
                         <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
-                        <Link href="/vinculacion/contacto"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
+                        <Link href="/vinculacion/contactanos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
                     </ul>
                 </li>
                 {/* Link Quienes Somos */}
@@ -138,7 +138,7 @@ const Navbar = () => {
                             <Link href="/vinculacion/divulgacion-cientifica" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Divulgación Científica</li></Link>
                             <Link href="/vinculacion/noticias" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Noticias</li></Link>
                             <Link href="/vinculacion/eventos-y-actividades" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Eventos y actividades</li></Link>
-                            <Link href="/vinculacion/contacto" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Contáctanos</li></Link>
+                            <Link href="/vinculacion/contactanos" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Contáctanos</li></Link>
                         </ul>
                     </li>
 
