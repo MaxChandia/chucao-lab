@@ -58,8 +58,8 @@ const Navbar = () => {
                 <li className='relative group'>
                     <h2 className='group-hover:text-blue-500'>VINCULACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
-                        <Link href="/vinculacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
-                        <Link href="/vinculacion/colaboraciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
+                        <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
+                        <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                         <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
                         <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
                         <Link href="/vinculacion/contacto"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
@@ -134,8 +134,8 @@ const Navbar = () => {
                     <li className="flex flex-col gap-2 border-t pt-4">
                         <h2 className='text-xl font-bold' onClick={() => handleToggleSection('vinculacion')}>VINCULACIÓN <span>{isOpenSection === 'vinculacion' ? '-' : '+'}</span></h2>
                         <ul className={`flex-col pl-4 ${isOpenSection === 'vinculacion' ? 'flex' : 'hidden'}`}>
-                            <Link href="/vinculacion/proyectos" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Caminatas Sonoras</li></Link>
-                            <Link href="/vinculacion/colaboraciones" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Divulgación Científica</li></Link>
+                            <Link href="/vinculacion/caminatas-sonoras" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Caminatas Sonoras</li></Link>
+                            <Link href="/vinculacion/divulgacion-cientifica" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Divulgación Científica</li></Link>
                             <Link href="/vinculacion/noticias" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Noticias</li></Link>
                             <Link href="/vinculacion/eventos-y-actividades" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Eventos y actividades</li></Link>
                             <Link href="/vinculacion/contacto" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Contáctanos</li></Link>
