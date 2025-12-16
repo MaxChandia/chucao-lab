@@ -1,11 +1,14 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
-import { Documento } from "@/lib/sanityClasses";
+import { Documento, Practicante } from "@/lib/sanityClasses";
+import CarrouselPracticantes from "@/lib/carrouselPracticantes";
+import CarrouselItem from "@/lib/carrouselItem";
 
 const TesisYPracticas = async () => {
 
     const documentos: Documento[] = await sanityService.getDocumentosPorCategoria('tesis');
+    const practicantes: Practicante[] = await sanityService.getAllPracticantes();
 
     return (
         <div>
@@ -73,6 +76,9 @@ const TesisYPracticas = async () => {
                         <p className="text-center text-gray-500 italic py-10">No hay tesis registradas por el momento.</p>
                     )}
                 </div>
+            </section>
+            <section className="h-60vh w-full font-karla relative mb-20">
+                <CarrouselPracticantes practicantes={practicantes} />
             </section>
         </div>
     );
