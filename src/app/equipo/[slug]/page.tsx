@@ -33,7 +33,19 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
                 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8 border-b pb-4">
                     {/* Placeholder para la imagen de perfil */}
-                    <span className="inline-block h-[120px] w-[120px] rounded-full bg-gray-300 flex-shrink-0"></span>
+                    <div className="w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden border-4 border-sage-green shadow-md bg-gray-200 flex items-center justify-center">
+                        {miembro.foto?.asset?.url ? (
+                            <img
+                                src={miembro.foto.asset.url}
+                                alt={miembro.nombreCompleto}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                                Sin Foto
+                            </div>
+                        )}
+                    </div>
                     <div>
                         <h1 className="text-3xl font-bold text-gray-800">{miembro.nombreCompleto}</h1>
                         <p className="text-lg text-gray-600 mt-1">{miembro.rol}</p>
