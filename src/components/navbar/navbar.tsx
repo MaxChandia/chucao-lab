@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'; // <-- (1) Importar useState
 import Link from 'next/link';
 import Image from 'next/image';
 import logoImage from '@/assets/logo-chucaolab.png';
@@ -11,83 +11,9 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 const Navbar = () => {
     
     const [isOpen, setIsOpen] = useState(false);
-    const [isOpenSection, setIsOpenSection] = useState<string | null>(null);
+    const [isOpenSection, setIsOpenSection] = useState<String | null>(null);
 
-    // --- LÓGICA GOOGLE TRANSLATE + FIX DE ESTILOS ---
-    useEffect(() => {
-        // 1. Crear e inyectar el script de Google
-        const addScript = document.createElement("script");
-        addScript.setAttribute(
-            "src",
-            "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-        );
-        document.body.appendChild(addScript);
-
-        // 2. Inicializar Google Translate
-        // @ts-ignore
-        window.googleTranslateElementInit = () => {
-            // @ts-ignore
-            new window.google.translate.TranslateElement(
-                {
-                    pageLanguage: "es",
-                    includedLanguages: "en,es",
-                    autoDisplay: false,
-                },
-                "google_translate_element"
-            );
-        };
-
-        // 3. MUTATION OBSERVER (EL FIX "A LA FUERZA")
-        // Este observador vigila si Google cambia los estilos del body o html y los resetea.
-        const observer = new MutationObserver(() => {
-            const body = document.body;
-            const html = document.documentElement;
-
-            // Forzar body a top 0 si cambia
-            if (body.style.top && body.style.top !== "0px") {
-                body.style.top = "0px";
-                body.style.position = "";
-            }
-            if (body.style.marginTop && body.style.marginTop !== "0px") {
-                body.style.marginTop = "0px";
-            }
-
-            // Forzar html a top 0 si cambia
-            if (html.style.top && html.style.top !== "0px") {
-                html.style.top = "0px";
-            }
-            if (html.style.marginTop && html.style.marginTop !== "0px") {
-                html.style.marginTop = "0px";
-            }
-        });
-
-        // Observar cambios de atributos de estilo en Body y HTML
-        observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
-
-        // Limpieza al desmontar
-        return () => observer.disconnect();
-    }, []);
-
-    // Función para alternar idioma (Español <-> Inglés)
-    const handleLanguageToggle = () => {
-        const cookies = document.cookie.split(';');
-        const transCookie = cookies.find(c => c.trim().startsWith('googtrans='));
-        
-        if (transCookie && transCookie.includes('/es/en')) {
-            // Borrar cookie para volver a Español
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.chucaolab.cl; path=/;";
-             // Dominio genérico por si acaso
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
-        } else {
-            // Crear cookie para Inglés
-            document.cookie = "googtrans=/es/en; path=/";
-        }
-        window.location.reload();
-    };
-    // ------------------------------------------------
-
+    
     const handleCloseMenu = () => {
         setIsOpen(false);
     };
@@ -101,14 +27,11 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="absolute z-50 h-[90px] w-full flex items-center justify-between px-4 sm:px-10 lg:px-20 bg-transparent border-b border-gray-100 text-black shadow-lg font-jetbrains">
-            
-            {/* Elemento oculto requerido por Google */}
-            <div id="google_translate_element" className="hidden"></div>
+        <nav className="absolute z-50 h-[100] w-full flex items-center justify-between px-4 sm:px-10 lg:px-20 bg-transparent border-b border-gray-100 text-black shadow-lg font-jetbrains">
             
             {/* --- LOGO --- */}
             <Link href="/">
-                <Image src={logoImage} alt="ChucaoLab" className='h-[70px] w-[90px]' />
+                <Image src={logoImage} alt="ChucaoLab" className='h-[80px] w-[100px]' />
             </Link>
 
             {/* ---  MENÚ DE ESCRITORIO --- */}
@@ -116,8 +39,7 @@ const Navbar = () => {
             <ul className="sections gap-10 xl:gap-20 hidden lg:flex cursor-pointer">
                 {/* Menú Investigación */}
                 <li className='relative group'>
-                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>INVESTIGACIÓN </h2><span className='text-[8px]'>▼</span></div>
-                    
+                    <h2 className='group-hover:text-blue-500'>INVESTIGACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
                         <Link href="/investigacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Proyectos</li></Link>
                         <Link href="/investigacion/publicaciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Publicaciones</li></Link>
@@ -126,7 +48,7 @@ const Navbar = () => {
                 </li>
                 {/* Menú Docencia */}
                 <li className='relative group'>
-                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>DOCENCIA </h2><span className='text-[8px]'>▼</span></div>
+                    <h2 className='group-hover:text-blue-500'>DOCENCIA</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
                         <Link href="/docencia/cursos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Cursos</li></Link>
                         <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y prácticas</li></Link>
@@ -134,13 +56,13 @@ const Navbar = () => {
                 </li>
                 {/* Menú Vinculación */}
                 <li className='relative group'>
-                    <div className='flex items-center gap-2 group-hover:text-blue-500'><h2 className=''>VINCULACIÓN </h2><span className='text-[8px]'>▼</span></div>
+                    <h2 className='group-hover:text-blue-500'>VINCULACIÓN</h2>
                     <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
-                        <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
-                        <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
+                        <Link href="/vinculacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
+                        <Link href="/vinculacion/colaboraciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                         <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
                         <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
-                        <Link href="/vinculacion/contactanos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
+                        <Link href="/vinculacion/contacto"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Contáctanos</li></Link>
                     </ul>
                 </li>
                 {/* Link Quienes Somos */}
@@ -149,15 +71,7 @@ const Navbar = () => {
 
             {/* --- SOCIAL MEDIA ESCRITORIO --- */}
             <div className="socialMedia hidden lg:flex gap-4 items-center">
-                
-                {/* BOTÓN ENG ESCRITORIO */}
-                <button 
-                    onClick={handleLanguageToggle}
-                    className='p-2 font-bold hover:text-blue-500 transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white'
-                >
-                    ENG
-                </button>
-
+                <div className='p-2'>ENG</div>
                 <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 text-white" href="https://www.linkedin.com/company/chucaolab/" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faLinkedinIn} className='h-full w-full' />
                 </a>
@@ -195,6 +109,7 @@ const Navbar = () => {
 
                 {/* --- Links del Menú Móvil --- */}
                 <ul className="flex flex-col p-4 sm:p-10 gap-4 overflow-y-auto">
+                   
                     
                     {/* Menú Investigación */}
                     <li className="flex flex-col gap-2 pt-4">
@@ -246,16 +161,7 @@ const Navbar = () => {
                             <FontAwesomeIcon icon={faYoutube} className='h-full w-full' />
                         </a>
                     </div>
-                    
-                    {/* BOTÓN ENG MÓVIL */}
-                    <div className='flex justify-center mt-4'>
-                        <button 
-                            onClick={handleLanguageToggle}
-                            className='p-2 px-6 border border-black rounded font-bold text-center w-fit hover:bg-black hover:text-white transition-colors'
-                        >
-                            ENG (Traducir)
-                        </button>
-                    </div>
+                    <div className='p-2 text-center mt-2'>ENG</div>
                 </ul>
             </div>
         </nav>
