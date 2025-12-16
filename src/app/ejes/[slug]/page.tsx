@@ -2,11 +2,12 @@ import Image from "next/image";
 import { PortableText } from '@portabletext/react'; 
 import { sanityService } from "@/lib/sanityService";
 import heroImage from '@/assets/hero-landing.png';
+import { Eje } from "@/lib/sanityClasses";
 
 
 export default async function EjeDetalle({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const eje = await sanityService.getEjeBySlug(slug);
+    const eje: Eje = await sanityService.getEjeBySlug(slug);
 
 {
   return (
@@ -21,7 +22,7 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
             />
         
         <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-          <h2 className="lg:text-6xl md:text-4xl text-3xl font-bold text-black text-center uppercase tracking-wider drop-shadow-md">
+          <h2 className="lg:text-6xl md:text-4xl text-3xl font-bold text-black text-center uppercase tracking-wider drop-shadow-md font-karla">
             {eje.nombreEje || "Nombre del Eje"}
           </h2>
         </div>
@@ -39,8 +40,7 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
               Sobre este Eje
             </h3>
             <div className="prose prose-lg max-w-none">
-                {/* Si 'texto' es PortableText de Sanity */}
-                {eje.texto ? <PortableText value={eje.texto} /> : <p>Descripción no disponible.</p>}
+                {eje.texto && <PortableText value={eje.texto} />}
             </div>
           </div>
 
