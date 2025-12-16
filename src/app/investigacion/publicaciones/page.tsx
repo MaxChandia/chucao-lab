@@ -34,7 +34,7 @@ const Publicaciones = async () => {
                         documentos.map((doc: Documento) => (
                             <div key={doc._id} className="flex flex-col md:flex-row gap-6 bg-white border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                                 
-                                {/* Portada (Opcional, si existe imagen) */}
+                                {/* */}
                                 {doc.imagenUrl && (
                                     <div className="w-full md:w-48 h-64 relative shrink-0">
                                          <Image 
