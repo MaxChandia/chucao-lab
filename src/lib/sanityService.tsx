@@ -98,7 +98,11 @@ export const sanityService = {
                 facultad,
                 mail,
                 descripcion,
-                "foto": foto.asset->url,
+                foto {
+                    asset-> {
+                        url
+                    }
+                }
             }`
       const data = await client.fetch(query);
       return data;
@@ -385,4 +389,66 @@ export const sanityService = {
     }
   },
 
+  async getSeccionHero() {
+    try {
+      const query = `*[_type == "seccionHero"][0] {
+            _id,
+            tituloPrincipal,
+            bajada
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo sección Hero:', error);
+      return null;
+    }
+  },
+
+  // Obtiene la sección "Quiénes Somos" (Texto + Imagen)
+  async getSeccionSobreNosotros() {
+    try {
+      const query = `*[_type == "seccionSobreNosotros"][0] {
+            _id,
+            contenido,
+            imagenDestacada {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo sección Sobre Nosotros:', error);
+      return null;
+    }
+  },
+
+  /* --- SERVICIOS PRACTICANTES --- */
+
+  async getAllPracticantes() {
+    try {
+      const query = `*[_type == "practicante"] | order(_createdAt desc) {
+            _id,
+            nombreCompleto,
+            carrera,
+            foto {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo practicantes:', error);
+      return [];
+    }
+  },
+
 }
+
