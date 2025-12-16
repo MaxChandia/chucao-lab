@@ -33,7 +33,7 @@ export default function CarruselPracticantes({ practicantes }: PracticantesListP
   }
 
   return (
-    <section className="px-4 sm:px-10 lg:px-20 py-16 min-h-[50vh] flex flex-col justify-center items-center font-karla bg-gray-50">
+    <section className="px-4 sm:px-10 lg:px-20 py-16 min-h-[50vh] flex flex-col justify-center items-center font-karla">
       
       {/* Header de la Sección */}
       <div className="sectionHeader w-full flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
