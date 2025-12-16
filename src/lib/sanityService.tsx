@@ -125,7 +125,11 @@ export const sanityService = {
                 facultad,
                 mail,
                 descripcion,
-                "foto": foto.asset->url,
+                foto {
+                    asset-> {
+                        url
+                    }
+                }
             }`
       const data = await client.fetch(query, { slug });
       return data;
