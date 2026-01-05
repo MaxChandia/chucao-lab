@@ -477,5 +477,122 @@ export const sanityService = {
     }
   },
 
-}
+  async getFooterData() {
+    try {
+      const query = `*[_type == "footer"][0] {}`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo datos del footer:', error);
+      return null;
+    }
+  },
 
+  async getQuienesSomosContenido() {
+    try {
+      const query = `*[_type == "quienesSomos"][0] {
+            _id,
+            contenido,
+            imagenDestacada {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
+      return null;
+    }
+
+  },
+  async getDivulgacionCientificaContenido() {
+    try {
+      const query = `*[_type == "divulgacionCientifica"][0] {
+            _id,
+            contenido,
+            imagenDestacada {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
+      return null;
+    }
+
+  },
+  async getCaminataSonoraContenido() {
+    try {
+      const query = `*[_type == "caminataSonora"][0] {
+            _id,
+            contenido,
+            imagenDestacada {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
+      return null;
+    }
+
+  },
+  async getTesisyPracticanteContenido() {
+    try {
+      const query = `*[_type == "tesisypracticantes"][0] {
+            _id,
+            contenido,
+            imagenDestacada {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
+      return null;
+    }
+
+  },
+
+  async getAllColaboradores(){
+    try {
+    const query = `*[_type == "colaborador"] | order(_createdAt asc) {
+            _id,
+            nombreCompleto,
+            campo,
+            foto {
+               asset->{
+                   url,
+                   metadata { dimensions { width, height } }
+               },
+               alt
+            }
+        }`;
+    const data = await client.fetch(query);
+    return data;
+    } catch (error) {
+      console.error('Error obteniendo colaboradores:', error);
+      return [];
+
+    }
+  }
+}
