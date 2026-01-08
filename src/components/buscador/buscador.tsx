@@ -39,7 +39,7 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
     <div className="flex flex-col md:flex-row gap-8">
       {/* BARRA LATERAL DE FILTROS */}
       <aside className="w-full md:w-64 shrink-0">
-        <div className="sticky top-24 space-y-6 bg-gray-50 p-6 rounded-xl border border-gray-100 font-karla">
+        <div className="top-24 space-y-6 bg-gray-50 p-6 rounded-xl border border-gray-100 font-karla">
           <h4 className="font-bold text-lg border-b pb-2 text-black">Filtros</h4>
           
           <div>
