@@ -37,7 +37,7 @@ export default async function Home() {
                   </p>
               </div>
               <Link href="/quienes-somos">
-                  <button className="h-12 w-36 p-1 rounded-[30px] bg-black text-white font-jetbrains text-sm hover:bg-gray-700 flex items-center justify-center gap-2">
+                  <button className="h-12 w-36 p-1 rounded-[30px] bg-black text-white font-jetbrains text-sm hover:bg-gray-700 flex items-center justify-center gap-2 transition-colors duration-300">
                       QUIÉNES SOMOS
                   </button>
               </Link>
@@ -50,18 +50,18 @@ export default async function Home() {
         <div className="sectionHeader flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
           <h3 className="text-sm font-jetbrains">EJES TEMÁTICOS</h3>
         </div>
-        <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20 group-hover:scale-110">
+        <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20 group-hover:scale-110 transition-transform duration-300">
           {ejes.map((eje)=>(
-            <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem w-full lg:w-1/3 cursor-pointer hover:scale-101 transition-transform duration-300">
+            <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem w-full lg:w-1/3 cursor-pointer hover:text-sage-green transition-colors duration-300">
               <Image src={eje.imagen.url} 
                 alt={eje.nombreEje} 
                 width={eje.imagen.width} 
                 height={eje.imagen.height} className="rounded-md "/>
-              <div className="flex gap-2 mt-3">
+              <div className="flex gap-2 mt-3 ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                 </svg>
-                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight">{eje.nombreEje}</h2>
+                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight ">{eje.nombreEje}</h2>
               </div>
             </Link>
           ))}
