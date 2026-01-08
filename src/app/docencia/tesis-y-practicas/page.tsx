@@ -1,14 +1,14 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
-import { Documento, Practicante } from "@/lib/sanityClasses";
+import { Practicante, SeccionInformativa } from "@/lib/sanityClasses";
 import CarrouselPracticantes from "@/lib/carrouselPracticantes";
-import CarrouselItem from "@/lib/carrouselItem";
+import { PortableText } from 'next-sanity'; 
 
 const TesisYPracticas = async () => {
 
-    const documentos: Documento[] = await sanityService.getDocumentosPorCategoria('tesis');
     const practicantes: Practicante[] = await sanityService.getAllPracticantes();
+    const tesisypracticas: SeccionInformativa = await sanityService.getContenido('tesisypracticantes');
 
     return (
         <div>
@@ -27,55 +27,18 @@ const TesisYPracticas = async () => {
                 </div>
                 <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
             </section>
+            <section className="w-full mx-auto px-6 sm:px-10 lg:px-20 py-20 font-karla">
+                    {/* Decorative header */}
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-16 h-1 bg-sage-green"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="text-sage-green" viewBox="0 0 16 16">
+                            <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                    </div>
 
-            {/* LISTA DE TESIS */}
-            <section className="container mx-auto px-6 py-16">
-                <div className="max-w-4xl mx-auto flex flex-col gap-10">
-                    {documentos && documentos.length > 0 ? (
-                        documentos.map((doc: Documento) => (
-                            <div key={doc._id} className="border-b border-gray-200 pb-8 last:border-0">
-                                {/* Título */}
-                                <h3 className="text-2xl font-bold font-karla text-black mb-2 text-justify">
-                                    {doc.titulo}
-                                </h3>
-
-                                {/* Datos: Año y Autor */}
-                                <div className="text-sm text-gray-600 font-jetbrains mb-4 flex gap-2 items-center">
-                                    <span className="bg-gray-100 text-black px-2 py-0.5 rounded font-bold">
-                                        {doc.anio}
-                                    </span>
-                                    <span className="text-gray-400">|</span>
-                                    <span className="italic text-lg">{doc.autor}</span>
-                                </div>
-
-                                {/* Descripción */}
-                                <p className="text-gray-700 leading-relaxed mb-4 text-base">
-                                    {doc.descripcion}
-                                </p>
-
-                                {/* Enlace de descarga simple */}
-                                {doc.pdfUrl ? (
-                                    <a 
-                                        href={`${doc.pdfUrl}?dl=`} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-sage-green font-bold hover:underline hover:text-black transition-colors"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-                                        </svg>
-                                        Descargar PDF
-                                    </a>
-                                ) : (
-                                    <span className="text-gray-400 text-sm italic">PDF no disponible</span>
-                                )}
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-center text-gray-500 italic py-10">No hay tesis registradas por el momento.</p>
-                    )}
-                </div>
+                    <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                        <PortableText value={tesisypracticas.contenido} />
+                    </div>
             </section>
             <section className="h-60vh w-full font-karla relative mb-20">
                 <CarrouselPracticantes practicantes={practicantes} />
