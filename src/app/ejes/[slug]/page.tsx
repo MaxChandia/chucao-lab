@@ -12,22 +12,12 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
 {
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. SECCIÓN HERO (Título) */}
-      <section className="hero h-[50vh] sm:h-[60vh] md:h-[70vh] w-full font-karla relative">
-        <Image
-                src={heroImage}
-                alt="Hero Section"
-                fill
-                className="object-cover z-0"
-            />
-        
-        <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-          <h2 className="lg:text-6xl md:text-4xl text-3xl font-bold text-black text-center uppercase tracking-wider drop-shadow-md font-karla">
-            {eje.nombreEje || "Nombre del Eje"}
-          </h2>
-        </div>
-        
-        <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
+      <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full relative">
+              <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" priority />
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <h2 className="lg:text-5xl md:text-3xl font-karla font-bold text-black">{eje.nombreEje.toLocaleLowerCase().charAt(0).toUpperCase() + eje.nombreEje.toLocaleLowerCase().slice(1)}</h2>
+          </div>
+          <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
       </section>
 
       {/* 2. DIVISIÓN: DESCRIPCIÓN E IMAGEN */}
@@ -35,7 +25,7 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* Izquierda: Texto del Eje */}
-          <div className="font-karla text-lg text-gray-800 leading-relaxed">
+          <div className="font-karla text-lg text-gray-800 leading-relaxed px-20 text-justify">
             <h3 className="text-2xl font-bold mb-6 text-black border-b-2 border-sage-green inline-block pb-2">
               Sobre este Eje
             </h3>
@@ -51,7 +41,7 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
                     src={eje.imagen.url}
                     alt={eje.nombreEje || "Imagen del eje"}
                     fill
-                    className="object-cover rounded-lg shadow-xl border-4 border-white"
+                    className="object-cover px-20"
                 />
              ) : (
                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
