@@ -75,6 +75,8 @@ const Navbar = () => {
                 style={{ display: 'none' }}
             ></div>
 
+            
+
             <nav className="absolute z-50 w-full flex items-center justify-between px-4 sm:px-10 lg:px-20 py-4 bg-transparent border-b border-gray-100 text-black shadow-lg font-jetbrains">
                 
                 {/* --- LOGO --- */}
@@ -98,7 +100,7 @@ const Navbar = () => {
                         <h2 className='group-hover:text-blue-500'>DOCENCIA</h2>
                         <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
                             <Link href="/docencia/cursos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Cursos</li></Link>
-                            <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y prácticas</li></Link>
+                            <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y practicantes</li></Link>
                         </ul>
                     </li>
                     {/* Menú Vinculación */}
@@ -122,7 +124,7 @@ const Navbar = () => {
                     {/* BOTÓN ENG ESCRITORIO */}
                     <button 
                         onClick={handleLanguageToggle}
-                        className='p-2 font-bold hover:text-blue-500 transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white'
+                        className='p-2 font-bold  transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white'
                         aria-label="Cambiar a inglés"
                     >
                         ENG
@@ -181,7 +183,7 @@ const Navbar = () => {
                             <h2 className='text-xl font-bold cursor-pointer' onClick={() => handleToggleSection('docencia')}>DOCENCIA <span>{isOpenSection === 'docencia' ? '-' : '+'}</span></h2>
                             <ul className={`flex-col pl-4 ${isOpenSection === 'docencia' ? 'flex' : 'hidden'}`}>
                                 <Link href="/docencia/cursos" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Cursos</li></Link>
-                                <Link href="/docencia/tesis-y-practicas" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Tesis y prácticas</li></Link>
+                                <Link href="/docencia/tesis-y-practicas" onClick={handleCloseMenu}><li className='py-2 text-gray-700 hover:text-blue-500'>Tesis y practicantes</li></Link>
                             </ul>
                         </li>
                         
