@@ -1,78 +1,86 @@
 'use client';
 
 import { useState } from 'react';
-import { faEnvelope, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { MiembroEquipo } from "@/lib/sanityClasses";
 import Image from "next/image";
 
-interface EquipoListProps {
-  equipo: MiembroEquipo[];
-}
+export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const total = equipo.length;
+  const itemsVisibles = 5; // Forzado a 5 como solicitaste
+  const gap = 80; // Espaciado entre miembros
 
-export default function CarrouselItem({ equipo }: EquipoListProps) {
-  const [startIndex, setStartIndex] = useState(0);
-  const membersPerPage = 5;
-
-  const handleNext = () => {
-    if (startIndex + membersPerPage < equipo.length) {
-      setStartIndex(startIndex + membersPerPage);
+  const nextSlide = () => {
+    if (currentIndex >= total - itemsVisibles) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
-  const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - membersPerPage);
+  const prevSlide = () => {
+    if (currentIndex <= 0) {
+      setCurrentIndex(total - itemsVisibles);
+    } else {
+      setCurrentIndex(currentIndex - 1);
     }
   };
 
   return (
-    <section className="px-4 sm:px-10 lg:px-20 py-16 min-h-screen lg:min-h-[70vh] flex flex-col justify-center items-center font-karla">
-      <div className="sectionHeader w-full flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
-        <h3 className="text-xl font-bold font-jetbrains">EQUIPO</h3>
-        <div className="h-5 lg:h-5 w-20 gap-8 flex">
-          <FontAwesomeIcon 
-            icon={faArrowLeft} 
-            onClick={handlePrev} 
-            className="text-black cursor-pointer"
-          />
-          <FontAwesomeIcon 
-            icon={faArrowRight} 
-            onClick={handleNext} 
-            className="text-black cursor-pointer" 
-          />
+    <section className="px-4 sm:px-10 lg:px-20 py-20 w-full overflow-hidden font-karla">
+      <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-2">
+        <h3 className="text-xl font-bold font-jetbrains uppercase">EQUIPO</h3>
+        <div className="flex gap-8">
+          <button onClick={prevSlide} className="hover:scale-110 transition-transform">
+            <FontAwesomeIcon icon={faArrowLeft} className="text-xl text-black" />
+          </button>
+          <button onClick={nextSlide} className="hover:scale-110 transition-transform">
+            <FontAwesomeIcon icon={faArrowRight} className="text-xl text-black" />
+          </button>
         </div>
       </div>
-      <div className="w-full">
-        <ul className="mt-10 px-3 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-[120px] flex-wrap">
-          {equipo.slice(startIndex, startIndex + membersPerPage).map((miembro) => (
-           <Link href={`/equipo/${miembro.slug.current}`} key={miembro._id}>
-              <li className="flex flex-col items-center font-karla gap-5">
-                <Image
-                  src={miembro.foto.asset.url}
-                  alt={miembro.nombreCompleto}
-                  width={150}
-                  height={150}
-                  className="rounded-full object-cover border-2 border-gray-300 shadow-md"
-                />
-                <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
-                  <p className="font-bold text-center cursor-pointer hover:text-blue-600 transition-colors">
-                    {miembro.nombreCompleto}
-                  </p>
-                  <p>{miembro.rol}</p>
-                  {miembro.departamento && <p>{miembro.departamento}</p>}
-                  {miembro.facultad && <p>{miembro.facultad}</p>}
-                  <p>{miembro.universidad}</p>
-                  <div className="flex items-center gap-1 justify-center mt-1">
-                    <FontAwesomeIcon icon={faEnvelope} className="h-3 w-3"/>
-                    <p>{miembro.mail}</p>
+
+      <div className="relative w-full overflow-hidden">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ 
+            transform: `translateX(calc(-${currentIndex * (100 / itemsVisibles)}% - ${currentIndex * (gap / itemsVisibles)}px))`,
+            gap: `${gap}px`
+          }}
+        >
+          {equipo.map((miembro) => (
+            <div 
+              key={miembro._id} 
+              className="flex-shrink-0" 
+              style={{ width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})` }}
+            >
+              <Link href={`/equipo/${miembro.slug.current}`} className="group">
+                <li className="flex flex-col items-center font-karla gap-5 list-none">
+                  <Image
+                    src={miembro.foto?.asset.url}
+                    alt={miembro.nombreCompleto}
+                    width={150}
+                    height={150}
+                    className="rounded-full object-cover border-2 border-gray-300 shadow-md  w-[150px] h-[150px]"
+                  />
+                  <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
+                    <p className="font-bold text-center group-hover:text-sage-green transition-colors uppercase font-jetbrains">
+                      {miembro.nombreCompleto}
+                    </p>
+                    <p>{miembro.rol}</p>
+                    {miembro.departamento && <p>{miembro.departamento}</p>}
+                    {miembro.facultad && <p>{miembro.facultad}</p>}
+                    <p>{miembro.universidad}</p>
                   </div>
-                </div>
-              </li>
-            </Link>
+                </li>
+              </Link>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
