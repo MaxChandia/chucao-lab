@@ -4,97 +4,89 @@ import { useState } from 'react';
 import { faArrowRight, faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-// Asegúrate de importar la interfaz correcta de tus clases de Sanity
 import { Practicante } from "@/lib/sanityClasses";
 
-interface PracticantesListProps {
-  practicantes: Practicante[];
-}
+export default function CarruselPracticantes({ practicantes }: { practicantes: Practicante[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const total = practicantes.length;
+  const itemsVisibles = 5; 
+  const gap = 80; 
 
-export default function CarruselPracticantes({ practicantes }: PracticantesListProps) {
-  const [startIndex, setStartIndex] = useState(0);
-  const membersPerPage = 5;
-
-  const handleNext = () => {
-    if (startIndex + membersPerPage < practicantes.length) {
-      setStartIndex(startIndex + membersPerPage);
+  const nextSlide = () => {
+    if (currentIndex >= total - itemsVisibles) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
-  const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - membersPerPage);
+  const prevSlide = () => {
+    if (currentIndex <= 0) {
+      setCurrentIndex(total - itemsVisibles);
+    } else {
+      setCurrentIndex(currentIndex - 1);
     }
   };
 
-  // Si no hay practicantes, no renderizamos la sección
-  if (!practicantes || practicantes.length === 0) {
-    return null;
-  }
+  if (!practicantes || total === 0) return null;
 
   return (
-    <section className="px-4 sm:px-10 lg:px-20 py-16 min-h-[50vh] flex flex-col justify-center items-center font-karla">
-      
-      {/* Header de la Sección */}
-      <div className="sectionHeader w-full flex justify-between items-center gap-4 mb-10 border-b-2 border-dotted border-black pb-2">
+    <section className="px-4 sm:px-10 lg:px-20 py-16 w-full overflow-hidden font-karla">
+      <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-2">
         <h3 className="text-xl font-bold font-jetbrains uppercase">PRACTICANTES</h3>
-        
-        {/* Controles del Carrusel (solo se muestran si hay más de 5) */}
-        {practicantes.length > membersPerPage && (
-        <div className="h-5 lg:h-5 w-20 gap-8 flex">
-          <FontAwesomeIcon 
-            icon={faArrowLeft} 
-            onClick={handlePrev} 
-            className={`text-black cursor-pointer transition-opacity ${startIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:text-blue-600'}`}
-          />
-          <FontAwesomeIcon 
-            icon={faArrowRight} 
-            onClick={handleNext} 
-            className={`text-black cursor-pointer transition-opacity ${startIndex + membersPerPage >= practicantes.length ? 'opacity-30 cursor-not-allowed' : 'hover:text-blue-600'}`}
-          />
-        </div>
+        {total > itemsVisibles && (
+          <div className="flex gap-8">
+            <button onClick={prevSlide} className="hover:scale-110 transition-transform">
+              <FontAwesomeIcon icon={faArrowLeft} className="text-xl text-black" />
+            </button>
+            <button onClick={nextSlide} className="hover:scale-110 transition-transform">
+              <FontAwesomeIcon icon={faArrowRight} className="text-xl text-black" />
+            </button>
+          </div>
         )}
       </div>
 
-      {/* Lista de Practicantes */}
-      <div className="w-full">
-        <ul className="mt-10 px-3 flex flex-col lg:flex-row items-start justify-center gap-10 lg:gap-[80px] flex-wrap">
-          {practicantes.slice(startIndex, startIndex + membersPerPage).map((practicante) => {
-             
-             // Extracción segura de la imagen
-             const imageUrl = practicante.foto?.asset?.url;
-
-             return (
-            <li key={practicante._id} className="flex flex-col items-center font-karla gap-4 max-w-[180px]">
-              
-              {/* Foto o Placeholder */}
-              {imageUrl ? (
+      <div className="relative w-full overflow-hidden">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ 
+            transform: `translateX(calc(-${currentIndex * (100 / itemsVisibles)}% - ${currentIndex * (gap / itemsVisibles)}px))`,
+            gap: `${gap}px`
+          }}
+        >
+          {practicantes.map((practicante) => (
+            <div 
+              key={practicante._id} 
+              className="flex-shrink-0" 
+              style={{ width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})` }}
+            >
+              <li className="flex flex-col items-center font-karla gap-4 list-none">
+                {practicante.foto?.asset?.url ? (
                   <Image
-                  src={imageUrl}
-                  alt={practicante.nombreCompleto}
-                  width={150}
-                  height={150}
-                  // Importante: forzar w y h en clase para mantener el círculo perfecto
-                  className="rounded-full object-cover border-2 border-gray-300 shadow-md w-[150px] h-[150px]"
+                    src={practicante.foto.asset.url}
+                    alt={practicante.nombreCompleto}
+                    width={150}
+                    height={150}
+                    className="rounded-full object-cover border-2 border-gray-300 shadow-md w-[150px] h-[150px]"
                   />
-              ) : (
+                ) : (
                   <div className="w-[150px] h-[150px] rounded-full bg-gray-200 border-2 border-gray-300 shadow-md flex items-center justify-center text-gray-400">
-                       <FontAwesomeIcon icon={faUser} className="h-12 w-12" />
+                    <FontAwesomeIcon icon={faUser} className="h-12 w-12" />
                   </div>
-              )}
-
-              {/* Info de Texto (Más simple que el de Equipo) */}
-              <div className="w-full flex flex-col items-center justify-start text-center">
-                <p className="font-bold text-lg leading-tight">
-                  {practicante.nombreCompleto}
-                </p>
-                <p className="text-sm italic text-gray-600 mt-1">
+                )}
+                <div className="w-full flex flex-col items-center justify-start text-center">
+                  <p className="font-bold text-lg leading-tight font-jetbrains uppercase">
+                    {practicante.nombreCompleto}
+                  </p>
+                  <p className="text-sm italic text-gray-600 mt-1">
                     {practicante.carrera}
-                </p>
-              </div>
-            </li>
-          )})}
-        </ul>
+                  </p>
+                </div>
+              </li>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
