@@ -2,35 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- HACK PARA ELIMINAR LA BARRA DE GOOGLE TRANSLATE --- */
-
-/* 1. Ocultar el iframe de la barra superior */
-.goog-te-banner-frame {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    width: 0 !important;
-}
-
-iframe.skiptranslate {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-/* 2. IMPORTANTE: Forzar a HTML y BODY a subir (Google a veces empuja HTML) */
-html, body {
+body {
     top: 0 !important;
     position: static !important;
-    margin-top: 0 !important;
-    transform: none !important; /* Prevenir transformaciones extrañas */
 }
 
-/* 3. Opcional: Ocultar tooltips y limpiar resaltados */
-.goog-tooltip {
+/* Evita que Google cambie el fondo o las fuentes */
+.skiptranslate, 
+#google_translate_element, 
+.goog-te-banner-frame {
     display: none !important;
 }
-.goog-text-highlight {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+
+body > .skiptranslate {
+    display: none !important;
+}
+
+/* Forzar que el fondo de tu app se mantenga */
+html, body {
+    background-color: white !important; /* O el color de tu diseño */
 }
