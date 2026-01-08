@@ -1,12 +1,15 @@
 import { sanityService } from "@/lib/sanityService";
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp'
-import { SeccionSobreNosotros } from "@/lib/sanityClasses";
+import { Colaborador, SeccionInformativa, SeccionSobreNosotros } from "@/lib/sanityClasses";
 import CarrouselItem from "@/lib/carrouselItem";
+import { PortableText } from "next-sanity";
+import PortableTextComponents from "@/lib/portableTextComponents";
 
 export default async function QuienesSomos() {
   const equipo = await sanityService.getAllMiembros();
-  const quienesSomos: SeccionSobreNosotros = await sanityService.getSeccionSobreNosotros();
+  const quienesSomos: SeccionInformativa = await sanityService.getContenido('quienesSomos');
+  const colaboradores: Colaborador[] = await sanityService.getAllColaboradores();
 
   return (
     <div>
@@ -25,25 +28,43 @@ export default async function QuienesSomos() {
         <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
       </section>
       
-      <section className="px-10 py-16 lg:px-20 min-h-[70vh] w-full flex flex-col lg:flex-row items-center justify-center gap-6 font-karla">
+      <section className="px-10 py-2 lg:px-20 min-h-[70vh] w-full flex flex-col lg:flex-row items-center justify-center gap-6 font-karla">
         <div className="px-5 w-full lg:w-2/4 h-full flex flex-col justify-center leading-relaxed text-justify lg:text-lef gap-4 lg:gap-0">
-          <p className="lg:text-md text-base mt-4 line-height-5">
-            En <b>ChucaoLab</b> exploramos el Paisaje Sonoro como una forma de entender y conectar con nuestro entorno.
-          </p>
-          <p>
-            Somos un laboratorio dedicado a la investigación, enseñanza y difusión de los sonidos naturales en entornos urbanos, inspirados por el Chucao, un ave nativa de Chile que simboliza la riqueza acústica de la naturaleza.
-          </p>
-          <p>Nuestro trabajo busca fomentar el bienestar y la conciencia ambiental a través del sonido.</p>
-          <p className="mt-10 italic">
-            ChucaoLab es un laboratorio de Paisaje Sonoro situado en la Facultad de Artes, perteneciente al Departamento de Sonido de la Universidad de Chile.
-          </p>
+          <PortableText value={quienesSomos.contenido} components={PortableTextComponents} />
         </div>
         <div className="chucaoImg w-2/3 h-full flex items-center justify-center">
-          <span className="w-[700px] h-[300px] rounded-[20px] bg-gray-300 inline-block"></span>
+         <Image
+            src={quienesSomos.imagenDestacada?.asset.url || ''}
+            alt={quienesSomos.imagenDestacada?.alt || 'Imagen'}
+            width={500}
+            height={250}
+            className="rounded-lg shadow-lg"
+          />
         </div>
       </section>
 
       <CarrouselItem equipo={equipo} />
+
+      <section className="Colaboradores">
+        <div className="container mx-auto px-6 py-10"></div>
+          <h2 className="text-3xl font-bold mb-6 text-center font-karla">Colaboradores</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {colaboradores.map((colaborador) => (
+              <div key={colaborador._id} className="flex flex-col items-center">
+                <Image
+                  src={colaborador.foto?.asset.url || ''}
+                  alt={colaborador.nombreCompleto || 'Colaborador'}
+                  width={200}
+                  height={200}
+                  className="rounded-full object-cover w-48 h-48"
+                />
+                <p className="mt-4 text-center font-karla">{colaborador.nombreCompleto}</p>
+                <p className="mt-4 text-center font-karla">{colaborador.campo}</p>
+              </div>
+            ))}
+          </div>
+      </section>
+
     </div>
   );
 }
