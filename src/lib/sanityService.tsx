@@ -374,9 +374,9 @@ export const sanityService = {
     }
   },
 
-  async getDocumentosPorCategoria(categoria: 'publicacion' | 'tesis') {
+  async getAllDocumentos() {
     try {
-      const query = `*[_type == "publicacion" && categoria == $categoria] | order(anio desc) {
+      const query = `*[_type == "publicacion"] | order(anio desc) {
                 _id,
                 titulo,
                 descripcion,
@@ -387,10 +387,10 @@ export const sanityService = {
                 "imagenUrl": imagenDestacada.asset->url
             }`;
 
-      const data = await client.fetch(query, { categoria });
+      const data = await client.fetch(query);
       return data;
     } catch (error) {
-      console.error(`Error al obtener ${categoria}:`, error);
+      console.error(`Error al obtener documentos:`, error);
       return [];
     }
   },
@@ -410,7 +410,7 @@ export const sanityService = {
     }
   },
 
-  // Obtiene la sección "Quiénes Somos" (Texto + Imagen)
+
   async getSeccionSobreNosotros() {
     try {
       const query = `*[_type == "seccionSobreNosotros"][0] {
@@ -488,9 +488,9 @@ export const sanityService = {
     }
   },
 
-  async getQuienesSomosContenido() {
+  async getContenido(Seccion: string) {
     try {
-      const query = `*[_type == "quienesSomos"][0] {
+      const query = `*[_type == "${Seccion}"][0] {
             _id,
             contenido,
             imagenDestacada {
@@ -509,70 +509,6 @@ export const sanityService = {
     }
 
   },
-  async getDivulgacionCientificaContenido() {
-    try {
-      const query = `*[_type == "divulgacionCientifica"][0] {
-            _id,
-            contenido,
-            imagenDestacada {
-               asset->{
-                   url,
-                   metadata { dimensions { width, height } }
-               },
-               alt
-            }
-        }`;
-      const data = await client.fetch(query);
-      return data;
-    } catch (error) {
-      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
-      return null;
-    }
-
-  },
-  async getCaminataSonoraContenido() {
-    try {
-      const query = `*[_type == "caminataSonora"][0] {
-            _id,
-            contenido,
-            imagenDestacada {
-               asset->{
-                   url,
-                   metadata { dimensions { width, height } }
-               },
-               alt
-            }
-        }`;
-      const data = await client.fetch(query);
-      return data;
-    } catch (error) {
-      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
-      return null;
-    }
-
-  },
-  async getTesisyPracticanteContenido() {
-    try {
-      const query = `*[_type == "tesisypracticantes"][0] {
-            _id,
-            contenido,
-            imagenDestacada {
-               asset->{
-                   url,
-                   metadata { dimensions { width, height } }
-               },
-               alt
-            }
-        }`;
-      const data = await client.fetch(query);
-      return data;
-    } catch (error) {
-      console.error('Error obteniendo contenido de "Quiénes Somos":', error);
-      return null;
-    }
-
-  },
-
   async getAllColaboradores(){
     try {
     const query = `*[_type == "colaborador"] | order(_createdAt asc) {
