@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -9,10 +9,24 @@ import Image from "next/image";
 
 export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsVisibles, setItemsVisibles] = useState(5);
   
   const total = equipo.length;
-  const itemsVisibles = 5; 
   const gap = 80;
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) setItemsVisibles(1);
+      else if (window.innerWidth < 1024) setItemsVisibles(3);
+      else setItemsVisibles(5);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+
+  })
+
 
   const nextSlide = () => {
     if (currentIndex >= total - itemsVisibles) {
