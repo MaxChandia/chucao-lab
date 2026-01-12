@@ -4,9 +4,9 @@ import { PortableTextComponents } from "@/lib/portableTextComponents";
 import Image from "next/image";
 import Link from "next/link";
 import heroImage from "@/assets/hero_sections.webp";
-import { Noticia } from "@/lib/sanityClasses";
+import { Noticia } from "@/lib/types/contenido";
 import ShareButtons from "@/components/share-buttons/shareButtons";
-import { SanityImage } from "@/lib/sanityClasses";
+import { SanityImage } from "@/lib/types/sanity";
 
 export default async function NoticiaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -25,7 +25,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
       <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full font-karla relative">
         <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" />
         <div className="absolute inset-0 flex items-center justify-center z-10 px-10 text-center">
-          <h2 className="lg:text-4xl md:text-3xl font-bold text-black">{noticia?.titulo}</h2>
+          <h2 className="lg:text-4xl text-3xl font-bold text-black">{noticia?.titulo}</h2>
         </div>
         <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
       </section>
