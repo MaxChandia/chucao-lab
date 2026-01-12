@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { MiembroEquipo } from "@/lib/sanityClasses";
+import { MiembroEquipo } from "@/lib/types/miembros";
 import Image from "next/image";
 
 export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const total = equipo.length;
-  const itemsVisibles = 5; // Forzado a 5 como solicitaste
-  const gap = 80; // Espaciado entre miembros
+  const itemsVisibles = 5; 
+  const gap = 80;
 
   const nextSlide = () => {
     if (currentIndex >= total - itemsVisibles) {
@@ -60,13 +60,15 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
             >
               <Link href={`/equipo/${miembro.slug.current}`} className="group">
                 <li className="flex flex-col items-center font-karla gap-5 list-none">
-                  <Image
-                    src={miembro.foto?.asset.url}
-                    alt={miembro.nombreCompleto}
-                    width={150}
-                    height={150}
-                    className="rounded-full object-cover border-2 border-gray-300 shadow-md  w-[150px] h-[150px]"
-                  />
+                  {miembro.foto?.asset.url && (
+                    <Image
+                      src={miembro.foto.asset.url}
+                      alt={miembro.nombreCompleto}
+                      width={150}
+                      height={150}
+                      className="rounded-full object-cover border-2 border-gray-300 shadow-md  w-[150px] h-[150px]"
+                    />
+                  )}
                   <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
                     <p className="font-bold text-center group-hover:text-sage-green transition-colors uppercase font-jetbrains">
                       {miembro.nombreCompleto}
