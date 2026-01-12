@@ -2,7 +2,7 @@ import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService"; 
 import { PortableText } from '@portabletext/react';
-import { Infraestructura } from "@/lib/sanityClasses"; 
+import { Infraestructura } from "@/lib/types/contenido"; 
 
 export default async function InfraestructuraYEquipamiento() {
     
@@ -29,7 +29,7 @@ export default async function InfraestructuraYEquipamiento() {
 
                 <div className="absolute inset-0 flex items-center justify-center z-10">
 
-                    <h2 className="lg:text-5xl md:text-3xl font-bold text-black">
+                    <h2 className="lg:text-5xl text-3xl font-bold text-black text-center">
 
                         Infraestructura y Equipamiento
 
