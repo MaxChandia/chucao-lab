@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Documento } from "@/lib/sanityClasses";
+import { Documento } from "@/lib/types/contenido";
 
 export default function FilterableList({ documentos }: { documentos: Documento[] }) {
   // Estados para filtros
