@@ -1,6 +1,6 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
-import { Proyecto } from "@/lib/sanityClasses";
+import { Proyecto } from "@/lib/types/proyecto";
 import { sanityService } from "@/lib/sanityService";
 
 const Proyectos = async () => {
@@ -17,7 +17,7 @@ const Proyectos = async () => {
                     className="object-cover z-0"
                 />
                 <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <h2 className="lg:text-5xl md:text-3xl font-bold text-black">
+                    <h2 className="lg:text-5xl text-3xl font-bold text-black">
                         Proyectos
                     </h2>
                 </div>
