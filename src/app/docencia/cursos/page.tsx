@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import heroImage from '@/assets/hero_sections.webp'; 
 import { sanityService } from '@/lib/sanityService';
-import { Curso } from "@/lib/sanityClasses";
+import { Curso } from '@/lib/types/contenido';
 
 export default async function CursosPage() {
     const cursos = await sanityService.getAllCursos();
@@ -19,7 +19,7 @@ export default async function CursosPage() {
                     priority
                 />
                 <div className="absolute inset-0 flex items-center justify-center z-10 px-10 text-center">
-                    <h2 className="lg:text-5xl md:text-3xl font-bold text-black bg-white/60 p-6 rounded-xl backdrop-blur-sm">
+                    <h2 className="lg:text-5xl text-3xl font-bold text-black bg-white/60 p-6 rounded-xl backdrop-blur-sm">
                         Nuestros Cursos
                     </h2>
                 </div>
@@ -28,7 +28,7 @@ export default async function CursosPage() {
 
    
             <section className="mx-auto px-4 py-20 font-karla items-center flex flex-col">
-                <div className="flexflex-col w-3/4 gap-8">
+                <div className="flexflex-col w-3/4 gap-5 ">
                     {cursos?.length > 0 ? (
                         cursos.map((curso: Curso) => (
                             <Link 
@@ -64,7 +64,6 @@ export default async function CursosPage() {
                                             <span className="text-gray-400">Sin imagen</span>
                                         </div>
                                     )}
-                                    {/* Overlay sutil al hacer hover */}
                                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
                                 </div>
                             </Link>
