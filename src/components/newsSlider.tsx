@@ -1,17 +1,31 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Noticia } from "@/lib/sanityClasses";
+import { Noticia } from "@/lib/types/contenido";
 
 export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+  const [itemsVisibles, setItemsVisibles] = useState(3);
+
   const totalNoticias = noticias.length;
-  const itemsVisibles = 3;
   const gap = 100; 
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) setItemsVisibles(1);
+      else if (window.innerWidth < 1024) setItemsVisibles(2);
+      else setItemsVisibles(3);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+
+
+  })
 
   const nextSlide = () => {
 
