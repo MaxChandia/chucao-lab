@@ -33,7 +33,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${jetbrains.variable} ${karla.variable}`}>
       <body className="bg-white bg-no-repeat bg-[radial-gradient(circle_at_top_left,_theme(colors.yellow.100),_transparent_40%),radial-gradient(circle_at_top_right,_theme(colors.pink.100),_transparent_40%),radial-gradient(circle_at_bottom_left,_theme(colors.cyan.100),_transparent_50%)]">
-        <ChucaoSound />
         <Navbar />
         
         <main className="min-h-screen">
