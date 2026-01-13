@@ -35,3 +35,10 @@ export interface Colaborador {
   campo: string;
   foto: SanityImage;
 }
+
+export interface ColaboradorAsociado {
+  _id: string;
+  _type: 'colaboradorAsociado';
+  nombreCompleto: string;
+  foto: SanityImage;
+}
