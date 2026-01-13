@@ -55,7 +55,7 @@ const TesisYPracticas = async () => {
                 </div>
             </section>
             <section className="h-60vh w-full font-karla relative mb-20">
-                <CarrouselPracticantes practicantes={practicantes} />
+                <CarrouselPracticantes miembros={practicantes} />
             </section>
         </div>
     );
