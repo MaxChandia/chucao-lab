@@ -87,10 +87,9 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
                     <p className="font-bold text-center group-hover:text-sage-green transition-colors uppercase font-jetbrains">
                       {miembro.nombreCompleto}
                     </p>
-                    <p>{miembro.rol}</p>
-                    {miembro.departamento && <p>{miembro.departamento}</p>}
-                    {miembro.facultad && <p>{miembro.facultad}</p>}
-                    <p>{miembro.universidad}</p>
+                    {miembro.campoCarrusel1 && <p>{miembro.campoCarrusel1}</p>}
+                    {miembro.campoCarrusel2 && <p>{miembro.campoCarrusel2}</p>}
+                    {miembro.campoCarrusel3 && <p>{miembro.campoCarrusel3}</p>}
                   </div>
                 </li>
               </Link>
