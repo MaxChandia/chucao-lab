@@ -45,7 +45,7 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
   };
 
   return (
-    <section className="px-4 sm:px-10 lg:px-20 py-20 w-full overflow-hidden font-karla">
+    <section className="px-4 sm:px-10 lg:px-20 py-10 w-full overflow-hidden font-karla">
       <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-2">
         <h3 className="text-xl font-bold font-jetbrains uppercase">EQUIPO</h3>
         <div className="flex gap-8">
