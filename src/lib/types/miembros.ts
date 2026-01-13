@@ -13,9 +13,9 @@ export interface MiembroEquipo {
   facultad: string;
   departamento: string;
   mail: string;
-  campo1: string;
-  campo2?: string;
-  campo3?: string;
+  campoCarrusel1: string;
+  campoCarrusel2?: string;
+  campoCarrusel3?: string;
   foto: SanityImage;
   descripcion: Array<PortableTextBlock>;
 }
@@ -24,7 +24,7 @@ export interface Practicante {
   _id: string;
   _type: 'practicante';
   nombreCompleto: string;
-  carrera: string;
+  carrera?: string;
   foto: SanityImage;
 }
 
