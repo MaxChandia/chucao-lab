@@ -70,7 +70,7 @@ export default function CarruselPracticantes({ miembros }: { miembros: CarruselI
   }
 
   return (
-    <section className="px-6 sm:px-10 lg:px-20 py-16 w-full overflow-hidden font-karla">
+    <section className="px-6 sm:px-10 lg:px-20 py-16 w-full overflow-hidden font-karla ">
       <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-4">
         <h3 className="text-lg sm:text-xl font-bold font-jetbrains uppercase tracking-tighter">
           {titleCarrusel}
@@ -93,7 +93,7 @@ export default function CarruselPracticantes({ miembros }: { miembros: CarruselI
         onTouchEnd={onTouchEnd}
       >
         <div 
-          className="flex transition-transform duration-500 ease-out"
+          className="flex transition-transform duration-500 ease-out "
           style={{ 
             transform: `translateX(calc(-${currentIndex * (100 / itemsVisibles)}% - ${currentIndex * (gap / itemsVisibles)}px))`,
             gap: `${gap}px`
@@ -105,7 +105,7 @@ export default function CarruselPracticantes({ miembros }: { miembros: CarruselI
               className="flex-shrink-0" 
               style={{ width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})` }}
             >
-              <div className="flex flex-col items-center text-center gap-4">
+              <div className="flex flex-col items-center text-center gap-4 hover:text-sage-green transition-colors duration-300">
                 <div className="relative w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40">
                   {miembro.foto?.asset?.url ? (
                     <Image
@@ -113,7 +113,7 @@ export default function CarruselPracticantes({ miembros }: { miembros: CarruselI
                       alt={miembro.nombreCompleto}
                       fill
                       sizes="(max-width: 640px) 112px, (max-width: 1024px) 128px, 160px"
-                      className="rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300 border border-gray-200"
+                      className="rounded-full object-cover border border-gray-200"
                     />
                   ) : (
                     <div className="w-full h-full rounded-full bg-gray-100 flex items-center justify-center text-gray-400 border border-gray-200">
@@ -122,7 +122,7 @@ export default function CarruselPracticantes({ miembros }: { miembros: CarruselI
                   )}
                 </div>
 
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 ">
                   <span className="font-bold text-sm sm:text-base font-jetbrains uppercase leading-none">
                     {miembro.nombreCompleto}
                   </span>
