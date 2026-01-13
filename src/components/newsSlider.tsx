@@ -11,7 +11,7 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
   const [itemsVisibles, setItemsVisibles] = useState(3);
 
   const totalNoticias = noticias.length;
-  const gap = 100; 
+  const gap = 80; 
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,11 +61,7 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
 
       {/* VIEWPORT DEL SLIDER */}
       <div className="relative w-full overflow-hidden ">
-        <div 
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ 
-        
-            transform: `translateX(calc(-${currentIndex * (100 / itemsVisibles)}% - ${currentIndex * (gap / itemsVisibles)}px))`,
+        <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(calc(-${currentIndex * (100 / itemsVisibles)}% - ${currentIndex * (gap / itemsVisibles)}px))`,
             gap: `${gap}px`
           }}
         >
@@ -74,28 +70,33 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
               key={noticia._id} 
               className="flex-shrink-0 " 
               style={{ 
-     
-                width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})` 
+                width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})`, maxWidth: '400px'
               }}
             >
               <Link href={`/vinculacion/noticias/${noticia.slug.current}`} className="group block h-full">
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col transition-all duration-300 transform hover:-translate-y-2 group-hover:text-gray-500">
                   
     
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-100 ">
-                    {noticia.imagenDestacadaUrl && (
+                  {noticia.imagenDestacadaUrl && (
+                  <div className="relative w-full aspect-[16/10]">
                       <Image 
                         src={noticia.imagenDestacadaUrl}
                         alt={noticia.titulo} 
-                        fill
-                        className=""
+                        width={400} 
+                        height={250} 
+                        className="rounded-md object-cover"
                       />
-                    )}
+                      <div className="absolute top-4 left-4">
+                        <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-black">
+                          {noticia.categoria}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                     <div className="absolute top-4 left-4 z-10">
                       <span className="px-4 py-1.5 rounded-full text-[10px] font-bold bg-white text-black shadow-sm uppercase font-jetbrains">
                         {noticia.categoria}
                       </span>
-                    </div>
                   </div>
 
                   {/* CONTENIDO TEXTO */}
@@ -104,12 +105,12 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="shrink-0 group-hover:text-sage-green transition-colors" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                       </svg>
-                      <h2 className="font-bold font-jetbrains text-md leading-tight uppercase line-clamp-2 min-h-[2.5rem]">
+                      <h2 className="font-bold font-jetbrains text-sm leading-tight uppercase line-clamp-2 min-h-[2.5rem]">
                         {noticia.titulo}
                       </h2>
                     </div>
 
-                    <p className="text-[15px] font-karla text-gray-700 leading-relaxed text-justify line-clamp-3">
+                    <p className="text-sm font-karla text-black leading-relaxed text-justify line-clamp-6">
                       {noticia.bajada} 
                     </p>
                   </div>
