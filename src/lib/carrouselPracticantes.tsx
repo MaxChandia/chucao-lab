@@ -5,14 +5,17 @@ import { faArrowRight, faArrowLeft, faUser } from "@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { Practicante } from "@/lib/types/miembros";
+import { Colaborador } from '@/lib/types/miembros';
 
-export default function CarruselPracticantes({ practicantes }: { practicantes: Practicante[] }) {
+type CarruselItem = Practicante | Colaborador;
+
+export default function CarruselPracticantes({ miembros }: { miembros: CarruselItem[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsVisibles, setItemsVisibles] = useState(5);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   
-  const total = practicantes.length;
+  const total = miembros.length;
   const gap = 20; 
 
   useEffect(() => {
@@ -56,13 +59,21 @@ export default function CarruselPracticantes({ practicantes }: { practicantes: P
     if (isRightSwipe) prevSlide();
   };
 
-  if (!practicantes || total === 0) return null;
+  if (!miembros || total === 0) return null;
+
+  let titleCarrusel = '';
+
+  if (miembros[0]._type === 'practicante') {
+    titleCarrusel = 'PRACTICANTES';
+  } else if (miembros[0]._type === 'colaborador') {
+    titleCarrusel = 'COLABORADORES';
+  }
 
   return (
     <section className="px-6 sm:px-10 lg:px-20 py-16 w-full overflow-hidden font-karla">
       <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-4">
         <h3 className="text-lg sm:text-xl font-bold font-jetbrains uppercase tracking-tighter">
-          PRACTICANTES
+          {titleCarrusel}
         </h3>
         
         <div className="flex gap-4 sm:gap-8">
@@ -88,18 +99,18 @@ export default function CarruselPracticantes({ practicantes }: { practicantes: P
             gap: `${gap}px`
           }}
         >
-          {practicantes.map((practicante) => (
+          {miembros.map((miembro) => (
             <div 
-              key={practicante._id} 
+              key={miembro._id} 
               className="flex-shrink-0" 
               style={{ width: `calc((100% - ${gap * (itemsVisibles - 1)}px) / ${itemsVisibles})` }}
             >
               <div className="flex flex-col items-center text-center gap-4">
                 <div className="relative w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40">
-                  {practicante.foto?.asset?.url ? (
+                  {miembro.foto?.asset?.url ? (
                     <Image
-                      src={practicante.foto.asset.url}
-                      alt={practicante.nombreCompleto}
+                      src={miembro.foto.asset.url}
+                      alt={miembro.nombreCompleto}
                       fill
                       sizes="(max-width: 640px) 112px, (max-width: 1024px) 128px, 160px"
                       className="rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300 border border-gray-200"
@@ -113,10 +124,13 @@ export default function CarruselPracticantes({ practicantes }: { practicantes: P
 
                 <div className="flex flex-col gap-1">
                   <span className="font-bold text-sm sm:text-base font-jetbrains uppercase leading-none">
-                    {practicante.nombreCompleto}
+                    {miembro.nombreCompleto}
                   </span>
                   <span className="text-xs sm:text-sm text-gray-500 italic">
-                    {practicante.carrera}
+                    {miembro._type === 'practicante' 
+                      ? (miembro as Practicante).carrera 
+                      : (miembro as Colaborador).campo
+  }
                   </span>
                 </div>
               </div>
