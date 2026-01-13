@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
-import {Eje, Noticia, ProyectoPrincipal, SeccionHero} from "@/lib/sanityClasses";
+import {Eje, Noticia } from "@/lib/types/contenido";
+import { ProyectoPrincipal } from "@/lib/types/proyecto";
+import { SeccionHero } from "@/lib/types/pages";
 import { sanityService } from "@/lib/sanityService";
 import NewsSlider from "@/components/newsSlider";
 
@@ -52,11 +54,13 @@ export default async function Home() {
         </div>
         <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20 group-hover:scale-110 transition-transform duration-300">
           {ejes.map((eje)=>(
-            <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem w-full lg:w-1/3 cursor-pointer hover:text-sage-green transition-colors duration-300">
-              <Image src={eje.imagen.url} 
-                alt={eje.nombreEje} 
-                width={eje.imagen.width} 
-                height={eje.imagen.height} className="rounded-md "/>
+            <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem group w-full lg:w-1/3 cursor-pointer hover:text-sage-green transition-colors duration-300">
+              <div className="w-full relative rounded-xl overflow-hidden shadow-2xl">
+                <Image src={eje.imagen.url} 
+                  alt={eje.nombreEje} 
+                  width={eje.imagen.width} 
+                  height={eje.imagen.height} className="rounded-md group-hover:scale-105 transition-transform duration-500"/>
+              </div>
               <div className="flex gap-2 mt-3 ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
