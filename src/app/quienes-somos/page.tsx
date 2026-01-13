@@ -2,15 +2,15 @@ import { sanityService } from "@/lib/sanityService";
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp'
 import {SeccionInformativa} from "@/lib/types/pages";
-import {Colaborador} from "@/lib/types/miembros";
 import CarrouselItem from "@/lib/carrouselEquipo";
 import { PortableText } from "next-sanity";
 import PortableTextComponents from "@/lib/portableTextComponents";
+import CarrouselPracticantes from "@/lib/carrouselPracticantes";
 
 export default async function QuienesSomos() {
   const equipo = await sanityService.getAllMiembros();
   const quienesSomos: SeccionInformativa = await sanityService.getContenido('quienesSomos');
-  const colaboradores: Colaborador[] = await sanityService.getAllColaboradores();
+  const colaboradores = await sanityService.getAllColaboradores();
 
   return (
     <div>
@@ -57,25 +57,7 @@ export default async function QuienesSomos() {
 
       <CarrouselItem equipo={equipo} />
 
-      <section className="Colaboradores">
-        <div className="container mx-auto px-6 py-10"></div>
-          <h2 className="text-3xl font-bold mb-6 text-center font-karla">Colaboradores</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            {colaboradores.map((colaborador) => (
-              <div key={colaborador._id} className="flex flex-col items-center">
-                <Image
-                  src={colaborador.foto?.asset.url || ''}
-                  alt={colaborador.nombreCompleto || 'Colaborador'}
-                  width={200}
-                  height={200}
-                  className="rounded-full object-cover w-48 h-48"
-                />
-                <p className="mt-4 text-center font-karla">{colaborador.nombreCompleto}</p>
-                <p className="mt-4 text-center font-karla">{colaborador.campo}</p>
-              </div>
-            ))}
-          </div>
-      </section>
+      <CarrouselPracticantes miembros={colaboradores} />
 
     </div>
   );
