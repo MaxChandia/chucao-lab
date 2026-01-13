@@ -477,15 +477,23 @@ export const sanityService = {
     }
   },
 
-  async getFooterData() {
-    try {
-      const query = `*[_type == "footer"][0] {}`;
+  async getAllLogosFooter (){
+    try{
+      const query = `*[_type == "footer"][0] {
+        "logos": logos[] {
+          "alt": alt,
+          "url": asset->url,
+          "_key": _key
+        }
+      }`;
       const data = await client.fetch(query);
       return data;
+
     } catch (error) {
-      console.error('Error obteniendo datos del footer:', error);
+      console.error('Error obteniendo contenido de "Logos":', error);
       return null;
     }
+
   },
 
   async getContenido(Seccion: string) {
