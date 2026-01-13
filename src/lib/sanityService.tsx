@@ -143,6 +143,26 @@ export const sanityService = {
     }
   },
 
+  async getAllColaboradoresAsociados(){
+    try {
+      const query = `*[_type == "colaboradorAsociado"] | order(_createdAt asc) {
+            _id,
+            _type,
+            nombreCompleto,
+            foto {
+                asset-> {
+                    url
+                }
+            }
+        }`
+      const data = await client.fetch(query);
+      return data;
+    } catch (error) {
+      console.error('Error al obtener colaboradores asociados:', error);
+      return [];
+    }
+  },
+
   /* Servicios Proyectos */
 
   async getAllProyectos() {
