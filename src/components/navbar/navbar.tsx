@@ -65,7 +65,12 @@ const Navbar = () => {
         } else {
             setIsOpenSection(section);
         }
-    };
+    }; 
+
+    const birdSound = () => {
+        const audio = new Audio('/sounds/chucao.mp3');
+        audio.play();
+    }
 
     return (
         <>
@@ -81,15 +86,15 @@ const Navbar = () => {
                 
                 {/* --- LOGO --- */}
                 <Link href="/">
-                    <Image src={logoImage} alt="ChucaoLab" className='h-[70px] w-[90px]' />
+                    <Image src={logoImage} onClick={birdSound} alt="ChucaoLab" className='h-[70px] w-[90px]' />
                 </Link>
 
                 {/* ---  MENÚ DE ESCRITORIO --- */}
                 <ul className="sections gap-10 xl:gap-20 hidden lg:flex cursor-pointer">
                     {/* Menú Investigación */}
                     <li className='relative group'>
-                        <h2 className='group-hover:text-blue-500'>INVESTIGACIÓN</h2>
-                        <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer'>
+                        <h2 className='group-hover:text-sage-green'>INVESTIGACIÓN</h2>
+                        <ul className='absolute opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto bg-white shadow-lg rounded pt-2 py-2 w-[200px] rounded-b cursor-pointer transition-opacity duration-300'>
                             <Link href="/investigacion/proyectos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Proyectos</li></Link>
                             <Link href="/investigacion/publicaciones"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Publicaciones</li></Link>
                             <Link href="/investigacion/infraestructura-y-equipamiento"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Infraestructura y equipamiento</li></Link>
@@ -97,16 +102,16 @@ const Navbar = () => {
                     </li>
                     {/* Menú Docencia */}
                     <li className='relative group'>
-                        <h2 className='group-hover:text-blue-500'>DOCENCIA</h2>
-                        <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
+                        <h2 className='group-hover:text-sage-green'>DOCENCIA</h2>
+                        <ul className='absolute opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer transition-opacity duration-300'>
                             <Link href="/docencia/cursos"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Cursos</li></Link>
                             <Link href="/docencia/tesis-y-practicas"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Tesis y practicantes</li></Link>
                         </ul>
                     </li>
                     {/* Menú Vinculación */}
                     <li className='relative group'>
-                        <h2 className='group-hover:text-blue-500'>VINCULACIÓN</h2>
-                        <ul className='absolute hidden group-hover:block bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer'>
+                        <h2 className='group-hover:text-sage-green'>VINCULACIÓN</h2>
+                        <ul className='absolute opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer transition-opacity duration-300'>
                             <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
                             <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                             <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
@@ -115,7 +120,7 @@ const Navbar = () => {
                         </ul>
                     </li>
                     {/* Link Quienes Somos */}
-                    <Link className="hover:text-blue-500" href="/quienes-somos">QUIÉNES SOMOS</Link>
+                    <Link className="hover:text-sage-green" href="/quienes-somos">QUIÉNES SOMOS</Link>
                 </ul>
 
                 {/* --- SOCIAL MEDIA ESCRITORIO --- */}
@@ -124,19 +129,19 @@ const Navbar = () => {
                     {/* BOTÓN ENG ESCRITORIO */}
                     <button 
                         onClick={handleLanguageToggle}
-                        className='p-2 font-bold  transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white'
+                        className='p-2 font-bold  transition-colors border border-black rounded px-3 text-sm hover:bg-black hover:text-white duration-300'
                         aria-label="Cambiar a inglés"
                     >
                         ENG
                     </button>
 
-                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 text-white" href="https://www.linkedin.com/company/chucaolab/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 transition-colors duration-300 text-white" href="https://www.linkedin.com/company/chucaolab/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                         <FontAwesomeIcon icon={faLinkedinIn} className='h-full w-full' />
                     </a>
-                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 text-white" href="https://www.instagram.com/chucao.lab/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 transition-colors duration-300 text-white" href="https://www.instagram.com/chucao.lab/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <FontAwesomeIcon icon={faInstagram} className='h-full w-full' />
                     </a>
-                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 text-white" href="https://www.youtube.com/@chucao_lab" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <a className="socialMediaLink h-10 w-10 rounded-full p-2 bg-black hover:bg-gray-700 transition-colors duration-300 text-white" href="https://www.youtube.com/@chucao_lab" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                         <FontAwesomeIcon icon={faYoutube} className='h-full w-full' />
                     </a>
                 </div>
@@ -201,7 +206,7 @@ const Navbar = () => {
 
                         {/* Link Quienes Somos */}
                         <li className="border-t pt-4">
-                            <Link className="text-xl font-bold hover:text-blue-500 py-2 block" href="/quienes-somos" onClick={handleCloseMenu}>
+                            <Link className="text-xl font-bold hover:text-sage-green py-2 block" href="/quienes-somos" onClick={handleCloseMenu}>
                                 QUIÉNES SOMOS
                             </Link>
                         </li>
