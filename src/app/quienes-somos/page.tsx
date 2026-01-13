@@ -6,11 +6,13 @@ import CarrouselItem from "@/lib/carrouselEquipo";
 import { PortableText } from "next-sanity";
 import PortableTextComponents from "@/lib/portableTextComponents";
 import CarrouselPracticantes from "@/lib/carrouselPracticantes";
+import CarrouselColaboradoresAsociados from "@/lib/carrouselColaboradoresAsociados";
 
 export default async function QuienesSomos() {
   const equipo = await sanityService.getAllMiembros();
   const quienesSomos: SeccionInformativa = await sanityService.getContenido('quienesSomos');
   const colaboradores = await sanityService.getAllColaboradores();
+  const colaboradoresAsociados = await sanityService.getAllColaboradoresAsociados();
 
   return (
     <div>
@@ -58,6 +60,8 @@ export default async function QuienesSomos() {
       <CarrouselItem equipo={equipo} />
 
       <CarrouselPracticantes miembros={colaboradores} />
+
+      <CarrouselColaboradoresAsociados miembros={colaboradoresAsociados} />
 
     </div>
   );
