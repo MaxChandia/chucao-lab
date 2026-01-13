@@ -78,7 +78,7 @@ export const sanityService = {
       const data = await client.fetch(query, { slug });
       return data;
     } catch (error) {
-      console.error('❌ Error en getNoticiaBySlug:', error);
+      console.error('Error en getNoticiaBySlug:', error);
       return null;
     }
   },
@@ -97,6 +97,9 @@ export const sanityService = {
                 departamento,
                 facultad,
                 mail,
+                campoCarrusel1,
+                campoCarrusel2,
+                campoCarrusel3,
                 descripcion,
                 foto {
                     asset-> {
@@ -105,6 +108,7 @@ export const sanityService = {
                 }
             }`
       const data = await client.fetch(query);
+      console.log('Miembros fetched:', data); // Debug log
       return data;
     } catch (error) {
       console.error('Error al obtener miembros del equipo:', error);
@@ -438,6 +442,7 @@ export const sanityService = {
     try {
       const query = `*[_type == "practicante"] | order(_createdAt desc) {
             _id,
+            _type,
             nombreCompleto,
             carrera,
             foto {
@@ -521,6 +526,7 @@ export const sanityService = {
     try {
     const query = `*[_type == "colaborador"] | order(_createdAt asc) {
             _id,
+            _type,
             nombreCompleto,
             campo,
             foto {
