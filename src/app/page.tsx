@@ -29,8 +29,8 @@ export default async function Home() {
                 fill
                 className="object-cover z-0"
             />
-          <div className="px-20 flex flex-col gap-20 w-full absolute inset-0 h-full justify-center items-start z-10">
-              <div className="textHero flex flex-col gap-2 -lg:gap-0">
+          <div className="px-20 flex flex-col gap-10 w-full absolute inset-0 h-full justify-center items-start z-10">
+              <div className="textHero flex flex-col gap-2 lg:gap-0">
                   <h1 className="text-lg lg:text-2xl font-bold">
                       {hero.tituloPrincipal}
                   </h1>
@@ -85,11 +85,11 @@ export default async function Home() {
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                     </div>
-                    <div className="w-full lg:w-1/2 flex flex-col gap-6 p-4">
+                    <div className="w-full lg:w-1/2 flex flex-col gap-6 p-4 items-center lg:items-start text-center lg:text-left">
                         <h2 className="text-3xl lg:text-4xl font-bold font-jetbrains text-black transition-colors duration-300 group-hover:text-sage-green">
                             {proyectoDestacado.titulo}
                         </h2>
-                        <p className="text-lg font-karla leading-relaxed">
+                        <p className="text-lg font-karla leading-relaxed text-justify lg:text-left">
                             {proyectoDestacado.resumen}
                         </p>
                         <p className="text-sm font-karla font-bold text-gray-700">
