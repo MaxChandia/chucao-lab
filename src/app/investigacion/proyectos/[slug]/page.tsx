@@ -3,7 +3,7 @@ import heroImage from '@/assets/hero_sections.webp';
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import PortableTextComponents from "@/lib/portableTextComponents";
-import { Proyecto } from "@/lib/sanityClasses";
+import { Proyecto } from "@/lib/types/proyecto";
 
 export default async function ProyectoPage({params}:{params: Promise<{slug:string}>}) {
     const {slug} = await params;
