@@ -168,26 +168,31 @@ export const sanityService = {
   async getAllProyectos() {
     try {
       const query = `*[_type == "proyecto"] | order(fecha desc) {
-                _id,
-                _createdAt,
-                titulo,
-                autor,
-                slug,
-                fecha,
-                imagenDestacada {
-                    "url": asset->url,
-                    alt,
-                    caption
-                },
-                cuerpo[] {
-                    ...,
-                    _type == "image" => {
-                        "url": asset->url,
-                        alt,
-                        caption
-                    }
-                }
-            }`
+              _id,
+              _createdAt,
+              titulo,
+              autor,
+              slug,
+              fecha,
+              imagenDestacada {
+                  asset->{
+                      _id,
+                      url
+                  },
+                  alt,
+                  caption
+              },
+              cuerpo[] {
+                  ...,
+                  _type == "image" => {
+                      asset->{
+                          url
+                      },
+                      alt,
+                      caption
+                  }
+              }
+          }`
       const data = await client.fetch(query)
       return data;
     } catch (error) {
