@@ -1,6 +1,6 @@
 import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
-import { Noticia } from "@/lib/sanityClasses";
+import { Noticia } from "@/lib/types/contenido";
 import { sanityService } from "@/lib/sanityService";
 import Link from "next/link";
 
@@ -26,7 +26,7 @@ const EventosYActividades = async () => {
                     className="object-cover z-0"
                 />
                 <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <h2 className="lg:text-5xl md:text-3xl font-bold text-black">
+                    <h2 className="text-3xl lg:text-5xl md:text-3xl font-bold text-black">
                         Eventos y Actividades
                     </h2>
                 </div>
