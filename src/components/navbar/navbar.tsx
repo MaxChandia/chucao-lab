@@ -231,7 +231,7 @@ const Navbar = () => {
                                 className='p-2 px-6 border border-black rounded font-bold text-center w-fit hover:bg-black hover:text-white transition-colors'
                                 aria-label="Cambiar a inglés"
                             >
-                                ENG (Traducir)
+                                ENG
                             </button>
                         </div>
                     </ul>
