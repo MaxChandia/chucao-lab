@@ -1,24 +1,33 @@
 import Link from "next/link";
 import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
-import {Eje, Noticia } from "@/lib/types/contenido";
-import { ProyectoPrincipal } from "@/lib/types/proyecto";
-import { SeccionHero } from "@/lib/types/pages";
+import {Eje} from "@/lib/types/contenido";
 import { sanityService } from "@/lib/sanityService";
 import NewsSlider from "@/components/newsSlider";
+import dynamic from "next/dynamic";
+import { Metadata } from "next";
 
+const NewSlider = dynamic(() => import("@/components/newsSlider"), { ssr: true });
 
+export async function generateMetadata(): Promise<Metadata> {
+  const hero = await sanityService.getSeccionHero();
+  return {
+    title: hero.tituloPrincipal,
+    description: hero.bajada,
+  };
+}
 
 export default async function Home() {
 
-
-  const noticias: Noticia[] = await sanityService.getAllNoticias();
-  const ejes: Eje[] = await sanityService.getAllEjes();
-  const hero: SeccionHero = await sanityService.getSeccionHero();
-  const proyectoDestacado: ProyectoPrincipal = await sanityService.getProyectoPrincipalDestacado();
+  const [noticias, ejes, hero, proyectoDestacado] = await Promise.all([
+    sanityService.getAllNoticias(),
+    sanityService.getAllEjes(),
+    sanityService.getSeccionHero(),
+    sanityService.getProyectoPrincipalDestacado()
+  ]);
+  
 
   return (
-
 
     <div>
       {/*Hero section*/}
@@ -28,6 +37,7 @@ export default async function Home() {
                 alt="Hero Section"
                 fill
                 className="object-cover z-0"
+                priority
             />
           <div className="px-20 flex flex-col gap-10 w-full absolute inset-0 h-full justify-center items-start z-10">
               <div className="textHero flex flex-col gap-2 lg:gap-0">
@@ -53,7 +63,7 @@ export default async function Home() {
           <h3 className="text-sm font-jetbrains">EJES TEMÁTICOS</h3>
         </div>
         <div className="axisContainer flex flex-col lg:flex-row justify-center gap-20 group-hover:scale-110 transition-transform duration-300">
-          {ejes.map((eje)=>(
+          {ejes.map((eje: Eje) => (
             <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem group w-full lg:w-1/3 cursor-pointer hover:text-sage-green transition-colors duration-300">
               <div className="w-full relative rounded-xl overflow-hidden shadow-2xl">
                 <Image src={eje.imagen.url} 
@@ -71,7 +81,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      
+      {/*Proyecto destacado */}
       <section className="jardinSonoro w-full mt-20 px-10 py-20 lg:px-20">
                 <Link 
                     href={proyectoDestacado.slug?`/investigacion/proyectos/${proyectoDestacado.slug.current}` : '#'}
@@ -101,7 +111,8 @@ export default async function Home() {
                         </button>
                     </div>
                 </Link>
-            </section>
+      </section>
+      {/*Noticias */}
       <NewsSlider noticias={noticias} />
       
     </div>
