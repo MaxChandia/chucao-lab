@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Documento } from "@/lib/types/contenido";
 
 export default function FilterableList({ documentos }: { documentos: Documento[] }) {
-  // Estados para filtros
+  
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   
@@ -12,25 +13,20 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Obtener opciones únicas para los filtros
-  const categories = Array.from(new Set(documentos.map((d) => d.categoria)));
-  const years = Array.from(new Set(documentos.map((d) => d.anio))).sort().reverse();
+  const categories = [ 'Publicación', 'Tesis', 'Congreso', 'Policy Brief' ];
 
-  // 1. Aplicar Filtros
   const filteredDocs = documentos.filter((doc) => {
-    const matchesName = doc.titulo.toLowerCase().includes(search.toLowerCase()) || 
-                        doc.autor.toLowerCase().includes(search.toLowerCase());
+    const matchesName = doc.titulo.toLowerCase().includes(search.toLowerCase()) || doc.autor.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = category === "" || doc.categoria === category;
     return matchesName && matchesCategory;
   });
 
-  // 2. Lógica de Paginación
   const totalPages = Math.ceil(filteredDocs.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredDocs.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Resetear a la página 1 cuando se cambia un filtro
+
   useEffect(() => {
     setCurrentPage(1);
   }, [search, category]);
@@ -68,15 +64,10 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
 
       {/* LISTA DE RESULTADOS Y PAGINACIÓN */}
       <div className="flex-grow flex flex-col">
-        <div className="space-y-8 flex-grow">
+        <div className="flex flex-col gap-8 flex-grow">
           {currentItems.length > 0 ? (
             currentItems.map((doc) => (
               <div key={doc._id} className="flex flex-col md:flex-row gap-6 bg-white border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow animate-fadeIn">
-                 {doc.imagenUrl && (
-                    <div className="w-full md:w-48 h-64 relative shrink-0">
-                        <Image src={doc.imagenUrl} alt={doc.titulo} fill className="object-cover rounded shadow-sm" />
-                    </div>
-                  )}
                   <div className="flex flex-col flex-grow">
                       <div className="flex items-center gap-3 mb-2">
                           <span className="bg-black text-white text-xs px-2 py-1 rounded font-bold font-jetbrains">{doc.anio}</span>
@@ -98,7 +89,7 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
           )}
         </div>
 
-        {/* PAGINADOR (Solo se muestra si hay más de 1 página) */}
+        {/* PAGINADOR */}
         {totalPages > 1 && (
           <div className="mt-12 flex justify-center items-center gap-2 font-karla">
             <button
