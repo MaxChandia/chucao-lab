@@ -35,7 +35,7 @@ export interface Documento {
   descripcion: string;
   autor: string;
   anio: number;
-  categoria: 'publicacion' | 'tesis';
+  categoria: 'Publicación' | 'Tesis' | 'Congreso' | 'Policy Brief';
   pdfUrl?: string;    
   imagenUrl?: string; 
 }
