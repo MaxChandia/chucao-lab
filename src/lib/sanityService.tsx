@@ -203,7 +203,6 @@ export const sanityService = {
 
   async getAllProyectosBySlug(slug: string) {
     try {
-      // AQUÍ ESTÁ LA LÓGICA ACTUALIZADA PARA LAS SECCIONES MIXTAS
       const query = `*[_type == "proyecto" && slug.current == $slug][0]{
                 _id,
                 _type,
@@ -269,7 +268,7 @@ export const sanityService = {
     }
   },
 
-  /* --- NUEVO: SERVICIOS PARA CURSOS --- */
+  /* Servicios Cursos */
 
   async getAllCursos() {
     try {
@@ -330,9 +329,8 @@ export const sanityService = {
     }
   },
 
-  /* --- NUEVO: SERVICIO PARA PROYECTO PRINCIPAL (Jardín Sonoro) --- */
+  /* Servicio Proyecto Principal */
   
-  // Obtiene el último proyecto principal creado para mostrar en la home
   async getProyectoPrincipalDestacado() {
     try {
         const query = `*[_type == "proyectoPrincipal"] | order(_createdAt desc)[0] {
@@ -403,6 +401,8 @@ export const sanityService = {
     }
   },
 
+  /* Servicios Documentos */
+
   async getAllDocumentos() {
     try {
       const query = `*[_type == "publicacion"] | order(anio desc) {
@@ -423,6 +423,8 @@ export const sanityService = {
       return [];
     }
   },
+
+  /* Servicios Secciones Generales */
 
   async getSeccionHero() {
     try {
@@ -461,7 +463,7 @@ export const sanityService = {
     }
   },
 
-  /* --- SERVICIOS PRACTICANTES --- */
+  /* Servicios Practicantes */
 
   async getAllPracticantes() {
     try {
@@ -485,6 +487,9 @@ export const sanityService = {
       return [];
     }
   },
+
+  /* Servicios Infraestructura */
+
   async getAllInfraestructura() {
     try {
       const query = `*[_type == "infraestructura"] | order(_createdAt asc) {
@@ -507,6 +512,8 @@ export const sanityService = {
     }
   },
 
+  /* Servicio Footer */
+
   async getAllLogosFooter (){
     try{
       const query = `*[_type == "footer"][0] {
@@ -525,6 +532,8 @@ export const sanityService = {
     }
 
   },
+
+  /* Servicio Quiénes Somos */
 
   async getContenido(Seccion: string) {
     try {
@@ -547,6 +556,7 @@ export const sanityService = {
     }
 
   },
+  /* Servicios Colaboradores */
   async getAllColaboradores(){
     try {
     const query = `*[_type == "colaborador"] | order(_createdAt asc) {
