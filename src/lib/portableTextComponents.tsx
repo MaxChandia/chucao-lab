@@ -12,7 +12,12 @@ function getYouTubeID(url?: string) {
 
 export const PortableTextComponents: PTComponentsType = {
   block:{
-    normal:({children}) => <p className="mb-4 text-justify">{children}</p>
+    normal:({children}) => <p className="mb-4 text-justify">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="mb-4 text-justify">{children}
+      </blockquote>
+    ),
+    h2: ({ children }) => <h2 className="mb-4 text-justify">{children}</h2>,
   },
   types: {
     image: ({ value }) => {
