@@ -60,15 +60,18 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
             <h3 className="text-3xl font-bold text-center mb-12 font-karla">
                 Investigaciones Relacionadas
             </h3>
-            <li className="gap-2">
-            {publicaciones.filter(doc => doc.ejes === eje.nombreEje).map((doc) => (
-              <ul key={doc._id} className="flex align-center justify-center mb-4">   
-                  <a href={`${doc.pdfUrl}?dl=`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
-                    {doc.titulo}
-                  </a>            
-              </ul>
+            <ul className="flex flex-col items-center justify-center gap-4">
+            {publicaciones
+              .filter(doc => doc.ejes?.trim().toLowerCase() === eje.nombreEje?.trim().toLowerCase())
+              .map((doc) => (
+                <li key={doc._id} className="flex items-center gap-2"> 
+                    <p className="font-bold">-</p>
+                    <a href={`${doc.pdfUrl}?dl=`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
+                      {doc.titulo}
+                    </a>            
+                </li>
             ))}
-            </li>
+            </ul>
         </div>
       </section>
     </div>
