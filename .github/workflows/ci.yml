@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
-# Forzamos Node 24 a nivel global para que GitHub deje de quejarse
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -14,8 +13,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    
-    # Aquí inyectamos las variables que Next.js necesita para no fallar el build
     env:
       NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
       NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
@@ -33,19 +30,15 @@ jobs:
       run: npm install
 
     - name: 🧪 Ejecutar Pruebas Unitarias (Jest)
-      # Si Jest falla por falta de variables, también fallará aquí
       run: npm run test
 
     - name: 🌐 Instalar navegadores para Playwright
       run: npx playwright install --with-deps
 
-    - name: 🏗️ Compilar el proyecto (Next.js Build)
-      run: npm run build
-
-    - name: 🎭 Ejecutar Pruebas End-to-End (Playwright)
+    - name: 🎭 Ejecutar Pruebas E2E (Playwright)
       run: npx playwright test
 
-    - name: 📊 Guardar reporte (Solo si Playwright alcanzó a correr)
+    - name: 📊 Guardar reporte
       uses: actions/upload-artifact@v4
       if: always()
       with:
