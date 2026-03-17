@@ -1,6 +1,6 @@
 
 
-import { MiembroEquipo } from "@/lib/sanityClasses";
+import { MiembroEquipo } from "@/lib/types/miembros";
 import { sanityService } from "@/lib/sanityService";
 import { faEnvelope, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
