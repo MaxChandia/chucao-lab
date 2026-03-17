@@ -4,6 +4,7 @@ import { sanityService } from "@/lib/sanityService";
 import heroImage from '@/assets/hero-landing.png';
 import { Documento, Eje } from "@/lib/types/contenido";
 
+export const revalidate = 60;
 
 export default async function EjeDetalle({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -59,16 +60,15 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
             <h3 className="text-3xl font-bold text-center mb-12 font-karla">
                 Investigaciones Relacionadas
             </h3>
+            <li className="gap-2">
             {publicaciones.filter(doc => doc.ejes === eje.nombreEje).map((doc) => (
-              <ul key={doc._id} className="flex align-center justify-center mb-4">
-                <li className="flex items-center gap-2">
-                  <p className="font-bold">-</p>
+              <ul key={doc._id} className="flex align-center justify-center mb-4">   
                   <a href={`${doc.pdfUrl}?dl=`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
                     {doc.titulo}
-                  </a>
-                </li>
+                  </a>            
               </ul>
             ))}
+            </li>
         </div>
       </section>
     </div>
