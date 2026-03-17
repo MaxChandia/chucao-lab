@@ -3,7 +3,7 @@ import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
 import { Practicante } from "@/lib/types/miembros";
 import { SeccionInformativa } from "@/lib/types/pages";
-import CarrouselPracticantes from "@/lib/carrouselPracticantes";
+import CarrouselPracticantes from "@/components/carrouselPracticantes";
 import { PortableText } from 'next-sanity'; 
 import PortableTextComponents from "@/lib/portableTextComponents";
 

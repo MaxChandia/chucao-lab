@@ -3,17 +3,16 @@ import Image from "next/image";
 import heroImage from '@/assets/hero-landing.png';
 import {Eje} from "@/lib/types/contenido";
 import { sanityService } from "@/lib/sanityService";
-import NewsSlider from "@/components/newsSlider";
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
 
-const NewSlider = dynamic(() => import("@/components/newsSlider"), { ssr: true });
+const NewsSlider = dynamic(() => import("@/components/newsSlider"), { ssr: true });
 
 export async function generateMetadata(): Promise<Metadata> {
   const hero = await sanityService.getSeccionHero();
   return {
-    title: hero.tituloPrincipal,
-    description: hero.bajada,
+    title: 'ChucaoLab',
+    description: hero.tituloPrincipal + ' - ' + hero.bajada,
   };
 }
 
@@ -67,7 +66,7 @@ export default async function Home() {
             <Link key={eje._id} href={`/ejes/${eje.slug.current}`} className="ejeItem group w-full lg:w-1/3 cursor-pointer hover:text-sage-green transition-colors duration-300">
               <div className="w-full relative rounded-xl overflow-hidden shadow-2xl">
                 <Image src={eje.imagen.url} 
-                  alt={eje.nombreEje} 
+                  alt={eje.nombreEje.toUpperCase()} 
                   width={eje.imagen.width} 
                   height={eje.imagen.height} className="rounded-md group-hover:scale-105 transition-transform duration-500"/>
               </div>
@@ -75,7 +74,7 @@ export default async function Home() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                 </svg>
-                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight ">{eje.nombreEje}</h2>
+                <h2 className="font-bold font-jetbrains text-justify lg:text-left text-md leading-tight ">{eje.nombreEje.toUpperCase()}</h2>
               </div>
             </Link>
           ))}
