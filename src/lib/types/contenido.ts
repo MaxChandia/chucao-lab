@@ -35,6 +35,7 @@ export interface Documento {
   descripcion: string;
   autor: string;
   anio: number;
+  ejes: 'Bienestar Urbano' | 'Ecosistemas Naturales' | 'Diseño y Creación';
   categoria: 'Publicación' | 'Tesis' | 'Congreso' | 'Policy Brief';
   pdfUrl?: string;    
   imagenUrl?: string; 
