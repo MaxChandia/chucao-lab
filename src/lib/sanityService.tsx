@@ -411,6 +411,7 @@ export const sanityService = {
                 descripcion,
                 autor,
                 anio,
+                ejes,
                 categoria,
                 "pdfUrl": archivoPdf.asset->url,
                 "imagenUrl": imagenDestacada.asset->url
