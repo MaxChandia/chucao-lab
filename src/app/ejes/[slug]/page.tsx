@@ -2,20 +2,21 @@ import Image from "next/image";
 import { PortableText } from '@portabletext/react'; 
 import { sanityService } from "@/lib/sanityService";
 import heroImage from '@/assets/hero-landing.png';
-import { Eje } from "@/lib/sanityClasses";
+import { Documento, Eje } from "@/lib/types/contenido";
 
 
 export default async function EjeDetalle({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const eje: Eje = await sanityService.getEjeBySlug(slug);
+    const publicaciones: Documento[] = await sanityService.getAllDocumentos();
 
 {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="min-h-screen">
       <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full relative">
               <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" priority />
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <h2 className="lg:text-5xl md:text-3xl font-karla font-bold text-black">{eje.nombreEje.toLocaleLowerCase().charAt(0).toUpperCase() + eje.nombreEje.toLocaleLowerCase().slice(1)}</h2>
+                  <h2 className="lg:text-5xl md:text-3xl font-karla font-bold text-black">{eje.nombreEje}</h2>
           </div>
           <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
       </section>
@@ -53,12 +54,21 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
       </section>
 
       {/* 3. LISTA DE INVESTIGACIONES RELACIONADAS */}
-      <section className="bg-gray-50 py-16 border-t border-gray-200">
+      <section className="bg-white py-16 border-t border-gray-200">
         <div className="container mx-auto px-4">
             <h3 className="text-3xl font-bold text-center mb-12 font-karla">
                 Investigaciones Relacionadas
             </h3>
-
+            {publicaciones.filter(doc => doc.ejes === eje.nombreEje).map((doc) => (
+              <ul key={doc._id} className="flex align-center justify-center mb-4">
+                <li className="flex items-center gap-2">
+                  <p className="font-bold">-</p>
+                  <a href={`${doc.pdfUrl}?dl=`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
+                    {doc.titulo}
+                  </a>
+                </li>
+              </ul>
+            ))}
         </div>
       </section>
     </div>
