@@ -10,6 +10,12 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      # Esto quita el error de "Node 20 is deprecated" de una vez
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      # Inyectamos las variables de Sanity para que el build no falle
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
 
     steps:
     - name: 📥 Descargar el código
@@ -18,7 +24,7 @@ jobs:
     - name: ⚙️ Configurar Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '24' 
+        node-version: '24'
 
     - name: 📦 Instalar dependencias
       run: npm install
@@ -30,7 +36,6 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: 🏗️ Compilar el proyecto (Next.js Build)
-
       run: npm run build
 
     - name: 🎭 Ejecutar Pruebas End-to-End (Playwright)
