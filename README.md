@@ -20,7 +20,7 @@
 
 ## 🔎 ¿Qué es este proyecto?
 
-Este es el sitio web oficial del **Laboratorio de Paisaje Sonoro (Chucaolab)**, desarrollado con el objetivo de difundir las labores, actividades y noticias del laboratorio, sirviendo como un canal de comunicación entre el ámbito académico y la comunidad.
+Este es el sitio web oficial del **Laboratorio de Paisaje Sonoro (Chucaolab)** de la Universidad de Chile, desarrollado con el objetivo de difundir las labores, actividades y noticias del laboratorio, sirviendo como un canal de comunicación entre el ámbito académico y la comunidad.
 
 El repositorio contiene **dos partes integradas**:
 - **`/web`** — El sitio público construido con Next.js
@@ -105,7 +105,7 @@ chucaolab/
 
 ---
 
-## 🚀 Cómo instalar y ejecutar el proyecto
+## Cómo instalar y ejecutar el proyecto
 
 El proyecto tiene dos partes independientes. Ambas deben instalarse por separado.
 
@@ -139,7 +139,7 @@ El sitio estará disponible en `http://localhost:3000`.
 
 #### Variables de entorno — `/web`
 
-> ⚠️ Nunca subas `.env.local` al repositorio. Usa `.env.example` como referencia.
+>  Usa `.env.example` como referencia.
 
 | Variable | Descripción | Cómo obtenerla |
 |---|---|---|
@@ -177,7 +177,7 @@ El panel de administración estará disponible en `http://localhost:3333`.
 
 ---
 
-## 📝 Gestión de contenido (CMS)
+##  Gestión de contenido (CMS)
 
 El contenido del sitio se administra desde **Sanity Studio** sin necesidad de tocar código. El sitio consulta ese contenido usando **GROQ**, el lenguaje de consultas de Sanity, que permite obtener exactamente la información necesaria para cada sección.
 
@@ -207,7 +207,7 @@ Abrir Studio → Crear documento → Completar campos → Guardar borrador → P
 
 ---
 
-## 🧪 Pruebas y calidad del código
+## Pruebas y calidad del código
 
 ### Pruebas unitarias — Jest
 
@@ -239,12 +239,12 @@ npm run test:e2e
 
 ---
 
-## 📬 Contacto y mantención
+##  Contacto y mantención
 
 | Rol | Nombre | Contacto |
 |---|---|---|
-| Desarrollador principal | _Tu nombre_ | _tu@email.com_ |
-| Responsable del laboratorio | _Nombre del cliente_ | _email_ |
+| Desarrollador principal | Maximiliano Chandía Flores | maximiliano.chandiaf@gmail.com |
+| Responsable del laboratorio | Pablo Kogan | pablo.kogan@uchile.cl |
 
 > Para actualizar contenidos puede hacerse de forma autónoma desde Sanity Studio. Para cambios estructurales al sitio, contactar al desarrollador.
 
