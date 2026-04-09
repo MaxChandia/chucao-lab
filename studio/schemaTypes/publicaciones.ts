@@ -34,10 +34,12 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Publicación', value: 'Publicación' },
-          { title: 'Tesis', value: 'Tesis' },
-          { title: 'Congreso', value: 'Congreso' },
-          { title: 'Policy Brief', value: 'Policy Brief' },
+          { title: 'Revistas científicas', value: 'Revistas científicas' },
+          { title: 'Capítulos de libro', value: 'Capítulos de libro' },
+          { title: 'Actas de Congreso', value: 'Actas de Congreso' },
+          { title: 'Revistas profesionales', value: 'Revistas profesionales' },
+          { title: 'Otras publicaciones', value: 'Otras publicaciones' },
+          { title: 'Policy brief y diseminación', value: 'Policy brief y diseminación' },
         ],
         layout: 'radio',
       },

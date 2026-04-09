@@ -9,11 +9,10 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   
-  // Estados para paginación
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const categories = [ 'Publicación', 'Tesis', 'Congreso', 'Policy Brief' ];
+  const categories = [ 'Revistas científicas', 'Capítulos de libro', 'Actas de Congreso', 'Revistas profesionales', 'Otras publicaciones', 'Policy brief y diseminación' ];
 
   const filteredDocs = documentos.filter((doc) => {
     const matchesName = doc.titulo.toLowerCase().includes(search.toLowerCase()) || doc.autor.toLowerCase().includes(search.toLowerCase());
@@ -33,7 +32,6 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
 
   return (
     <div className="flex flex-col md:flex-row gap-8">
-      {/* BARRA LATERAL DE FILTROS */}
       <aside className="w-full md:w-64 shrink-0">
         <div className="top-24 space-y-6 bg-gray-50 p-6 rounded-xl border border-gray-100 font-karla">
           <h4 className="font-bold text-lg border-b pb-2 text-black">Filtros</h4>
@@ -56,13 +54,12 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
               value={category}
             >
               <option value="">Todas</option>
-              {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              {categories.filter((cat) => filteredDocs.some((doc) => doc.categoria === cat)).map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           </div>
         </div>
       </aside>
 
-      {/* LISTA DE RESULTADOS Y PAGINACIÓN */}
       <div className="flex-grow flex flex-col">
         <div className="flex flex-col gap-8 flex-grow">
           {currentItems.length > 0 ? (

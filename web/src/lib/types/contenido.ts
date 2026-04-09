@@ -8,7 +8,8 @@ export interface Noticia {
   titulo: string;
   slug: Slug;
   autor: string;
-  categoria: 'Divulgación' | 'Eventos' | 'Caminatas Sonoras' | 'publicaciones';
+  categoria: 'Divulgación' | 'Eventos' | 'Caminatas Sonoras' ;
+  catogoriaIngles: 'Dissemination' | 'Events' | 'Soundwalks' ;
   fecha: string;
   bajada: string;
   imagenDestacadaUrl: string; 
@@ -36,7 +37,7 @@ export interface Documento {
   autor: string;
   anio: number;
   ejes: 'Bienestar Urbano' | 'Ecosistemas Naturales' | 'Diseño y Creación';
-  categoria: 'Publicación' | 'Tesis' | 'Congreso' | 'Policy Brief';
+  categoria: 'Revistas científicas' | 'Capítulos de libro' | 'Actas de Congreso' | 'Revistas profesionales' | 'Otras publicaciones' | 'Policy brief y diseminación';
   pdfUrl?: string;    
   imagenUrl?: string; 
 }

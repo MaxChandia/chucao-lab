@@ -14,6 +14,7 @@ export const sanityService = {
                 autor,
                 fecha,
                 categoria,
+                categoriaIngles,
                 bajada,
                 cuerpo[] {
                     ...,
@@ -56,6 +57,7 @@ export const sanityService = {
                 autor,
                 fecha,
                 categoria,
+                categoriaIngles,
                 bajada,
                 cuerpo[] {
                     ...,

@@ -79,6 +79,19 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+      defineField({
+      name: 'categoriaIngles',
+      title: 'Categoría en inglés',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Dissemination', value: 'Dissemination' },
+          { title: 'Events', value: 'Events' },
+          { title: 'Soundwalks', value: 'Soundwalks' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({
       name: 'bajada',
       title: 'Bajada',
