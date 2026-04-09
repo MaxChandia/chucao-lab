@@ -12,10 +12,14 @@ const Navbar = () => {
     
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenSection, setIsOpenSection] = useState<string | null>(null);
+    const [isEnglish, setIsEnglish] = useState(false);
+
+
 
     // --- LÓGICA GOOGLE TRANSLATE ---
     useEffect(() => {
         // 1. Crear e inyectar el script de Google
+        setIsEnglish(document.cookie.includes('googtrans=/es/en')); // Verificar idioma actual al cargar
         const addScript = document.createElement("script");
         addScript.setAttribute(
             "src",
@@ -112,7 +116,7 @@ const Navbar = () => {
                     <li className='relative group'>
                         <h2 className='group-hover:text-sage-green'>VINCULACIÓN</h2>
                         <ul className='absolute opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto bg-white shadow-lg rounded pt-2 py-2 w-[200px] cursor-pointer transition-opacity duration-300'>
-                            <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Caminatas Sonoras</li></Link>
+                            <Link href="/vinculacion/caminatas-sonoras"><li className='block text-sm px-10 py-2 hover:bg-gray-100 notranslate'>{isEnglish ? "Soundwalks" : "Caminatas Sonoras"}</li></Link>
                             <Link href="/vinculacion/divulgacion-cientifica"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Divulgación Científica</li></Link>
                             <Link href="/vinculacion/noticias"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Noticias</li></Link>
                             <Link href="/vinculacion/eventos-y-actividades"><li className='block text-sm px-10 py-2 hover:bg-gray-100'>Eventos y actividades</li></Link>
