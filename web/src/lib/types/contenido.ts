@@ -9,7 +9,7 @@ export interface Noticia {
   slug: Slug;
   autor: string;
   categoria: 'Divulgación' | 'Eventos' | 'Caminatas Sonoras' ;
-  catogoriaIngles: 'Dissemination' | 'Events' | 'Soundwalks' ;
+  categoriaIngles: 'Dissemination' | 'Events' | 'Soundwalks' ;
   fecha: string;
   bajada: string;
   imagenDestacadaUrl: string; 
