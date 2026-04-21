@@ -28,6 +28,7 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
 
   useEffect(() => {
     setCurrentPage(1);
+    
   }, [search, category]);
 
   return (
@@ -78,6 +79,7 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
                           Leer Publicación Completa
                         </a>
                       )}
+                     
                   </div>
               </div>
             ))
