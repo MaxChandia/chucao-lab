@@ -38,8 +38,8 @@ export interface Documento {
   anio: number;
   ejes: 'Bienestar Urbano' | 'Ecosistemas Naturales' | 'Diseño y Creación';
   categoria: 'Revistas científicas' | 'Capítulos de libro' | 'Actas de Congreso' | 'Revistas profesionales' | 'Otras publicaciones' | 'Policy brief y diseminación';
-  pdfUrl?: string;    
-  imagenUrl?: string; 
+  pdfUrl?: string;  
+  citaUrl?: string; 
 }
 
 export interface Infraestructura {
