@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Documento } from "@/lib/types/contenido";
 import { PortableText } from '@portabletext/react';
+import { PortableTextComponents } from "@/lib/portableTextComponents";
 
 export default function FilterableList({ documentos }: { documentos: Documento[] }) {
   
@@ -74,9 +75,9 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
                       </div>
                       <h3 className="text-2xl font-bold font-karla mb-2 text-black">{doc.titulo}</h3>
                       <p className="text-sage-green font-semibold italic mb-4 text-sm">{doc.autor}</p>
-                      <p className="text-gray-600 mb-6 leading-relaxed">
-                        <PortableText value={doc.descripcion}/>
-                      </p>
+                      <div className="text-gray-600 mb-6 leading-relaxed">
+                        <PortableText value={doc.descripcion} components={PortableTextComponents}/>
+                      </div>
                       <div className="flex gap-5">
                       {doc.pdfUrl && (
                         <a href={`${doc.pdfUrl} `} target="_blank" rel="noopener noreferrer" className="mt-auto self-start flex items-center gap-2 text-black hover:text-sage-green font-bold transition-colors underline decoration-2 underline-offset-4">

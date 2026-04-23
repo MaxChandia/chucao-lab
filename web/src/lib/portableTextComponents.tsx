@@ -59,9 +59,9 @@ export const PortableTextComponents: PTComponentsType = {
   },
   marks: {
     link: ({ children, value }) => {
-      const href = value?.href || value?.href; 
+      const href = value?.href || ""; 
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="underline">
+        <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-600 underline decoration-2 underline-offset-2 hover:text-sage-green transition-colors">
           {children}
         </a>
       );
