@@ -14,8 +14,34 @@ export default defineType({
     defineField({
       name: 'descripcion',
       title: 'Descripción / Resumen',
-      type: 'text',
-      rows: 4,
+      type: 'array',
+      of: [
+    {
+      type: 'block',
+      marks: {
+        decorators: [
+          {title: 'Negrita', value: 'strong'},
+          {title: 'Itálica', value: 'em'},
+          {title: 'Subrayado', value: 'underline'},
+          {title: 'Tachado', value: 'strike-through'},
+        ],
+        annotations: [
+          {
+            name: 'link',
+            type: 'object',
+            title: 'Enlace',
+            fields: [
+              {
+                name: 'href',
+                type: 'url',
+                title: 'URL'
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
     }),
     defineField({
       name: 'autor',
@@ -68,15 +94,14 @@ export default defineType({
       },
       description: 'Sube el documento PDF aquí',
     }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+     defineField({
+      name: 'archivoCita',
+      title: 'Archivo Cita',
+      type: 'file',
       options: {
-        source: 'titulo',
-        maxLength: 96,
+        accept: '.pdf',
       },
-      validation: (Rule) => Rule.required(),
+      description: 'Sube el documento para citar aquí',
     }),
   ],
   preview: {

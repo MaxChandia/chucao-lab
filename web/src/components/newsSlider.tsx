@@ -100,7 +100,6 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
               );
             }
 
-            // RENDER DE LA TARJETA DE NOTICIA NORMAL
             const noticia = item.data;
             return (
               <div 
