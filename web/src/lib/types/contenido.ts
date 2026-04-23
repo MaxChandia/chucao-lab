@@ -33,7 +33,7 @@ export interface Eje {
 export interface Documento {
   _id: string;
   titulo: string;
-  descripcion: string;
+  descripcion:  Array<PortableTextBlock>;
   autor: string;
   anio: number;
   ejes: 'Bienestar Urbano' | 'Ecosistemas Naturales' | 'Diseño y Creación';
