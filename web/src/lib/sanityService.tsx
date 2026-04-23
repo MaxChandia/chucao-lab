@@ -34,7 +34,7 @@ export const sanityService = {
                     hotspot
                 }
             }`
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error no se encontraron las noticias', error);
@@ -77,7 +77,7 @@ export const sanityService = {
                     hotspot
                 }
             }`
-      const data = await client.fetch(query, { slug });
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error en getNoticiaBySlug:', error);
@@ -109,8 +109,8 @@ export const sanityService = {
                     }
                 }
             }`
-      const data = await client.fetch(query);
-      console.log('Miembros fetched:', data); // Debug log
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
+      console.log('Miembros fetched:', data);
       return data;
     } catch (error) {
       console.error('Error al obtener miembros del equipo:', error);
@@ -137,7 +137,7 @@ export const sanityService = {
                     }
                 }
             }`
-      const data = await client.fetch(query, { slug });
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener miembros del equipo:', error);
@@ -157,7 +157,7 @@ export const sanityService = {
                 }
             }
         }`
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener colaboradores asociados:', error);
@@ -195,7 +195,7 @@ export const sanityService = {
                   }
               }
           }`
-      const data = await client.fetch(query)
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener los proyecto:', error)
@@ -262,7 +262,7 @@ export const sanityService = {
                 },
                 cuerpo
             }`;
-      const data = await client.fetch(query, { slug })
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener los proyecto:', error)
@@ -287,7 +287,7 @@ export const sanityService = {
                alt
             }
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo cursos:', error);
@@ -323,7 +323,7 @@ export const sanityService = {
                 }
             }
         }`;
-      const data = await client.fetch(query, { slug });
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo curso:', error);
@@ -349,7 +349,7 @@ export const sanityService = {
                 alt
             }
         }`;
-        const data = await client.fetch(query);
+        const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
         return data;
     } catch (error) {
         console.error('Error obteniendo proyecto principal:', error);
@@ -372,7 +372,7 @@ export const sanityService = {
                     "height": metadata.dimensions.height
                 }
             }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener ejes:', error);
@@ -395,7 +395,7 @@ export const sanityService = {
 
             }`;
 
-      const data = await client.fetch(query, { slug });
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error al obtener el eje:', error);
@@ -416,10 +416,11 @@ export const sanityService = {
                 ejes,
                 categoria,
                 "pdfUrl": archivoPdf.asset->url,
+                "citaUrl": archivoCita.asset->url,
                 "imagenUrl": imagenDestacada.asset->url
             }`;
 
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error(`Error al obtener documentos:`, error);
@@ -436,7 +437,7 @@ export const sanityService = {
             tituloPrincipal,
             bajada
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo sección Hero:', error);
@@ -458,7 +459,7 @@ export const sanityService = {
                alt
             }
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo sección Sobre Nosotros:', error);
@@ -483,7 +484,7 @@ export const sanityService = {
                alt
             }
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo practicantes:', error);
@@ -507,7 +508,7 @@ export const sanityService = {
                alt
             }
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo infraestructura:', error);
@@ -526,7 +527,7 @@ export const sanityService = {
           "_key": _key
         }
       }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
 
     } catch (error) {
@@ -551,7 +552,7 @@ export const sanityService = {
                alt
             }
         }`;
-      const data = await client.fetch(query);
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
       return data;
     } catch (error) {
       console.error('Error obteniendo contenido de "Quiénes Somos":', error);
@@ -575,7 +576,7 @@ export const sanityService = {
                alt
             }
         }`;
-    const data = await client.fetch(query);
+    const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
     return data;
     } catch (error) {
       console.error('Error obteniendo colaboradores:', error);
