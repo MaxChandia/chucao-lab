@@ -99,7 +99,7 @@ export default defineType({
       title: 'Archivo Cita',
       type: 'file',
       options: {
-        accept: '.pdf',
+        accept: '.pdf, application/pdf, .txt, text/plain, .bib, application/x-bibtex, text/x-bibtex',
       },
       description: 'Sube el documento para citar aquí',
     }),
