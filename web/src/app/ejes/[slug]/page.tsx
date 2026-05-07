@@ -67,7 +67,7 @@ export default async function EjeDetalle({ params }: { params: Promise<{ slug: s
                 <li key={doc._id} className="flex items-center gap-2"> 
                     <p className="font-bold">-</p>
                     {doc.pdfUrl ? (
-                    <a href={`${doc.pdfUrl}?dl=`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
+                    <a href={`${doc.pdfUrl}`} className="text-sm underline hover:text-gray-500 transition-colors" target="_blank" rel="noopener noreferrer">
                       {doc.titulo}
                     </a> ): ( <p  className="text-sm underline hover:text-gray-500 transition-colors">
                       {doc.titulo}

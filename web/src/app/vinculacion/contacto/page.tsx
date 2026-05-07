@@ -6,6 +6,7 @@ import heroImage from '@/assets/hero_sections.webp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faSpinner, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faYoutube, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 
 const Contactanos = () => {
     const [formData, setFormData] = useState({ nombre: '', correo: '', mensaje: '' });
@@ -35,7 +36,7 @@ const Contactanos = () => {
         <div className="bg-white">
             {/* HERO SECTION */}
             <section className="hero h-[60vh] sm:h-[70vh] md:h-[80vh] w-full font-karla relative">
-                <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" priority />
+                <Image src={heroImage} alt="Hero Section" fill className="object-cover z-0" priority placeholder="blur" blurDataURL={HERO_BLUR_DATA_URL} />
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                     <h2 className="lg:text-5xl md:text-3xl text-3xl font-bold text-black bg-white/70 px-6 py-2 rounded-sm backdrop-blur-sm">
                         Contáctanos

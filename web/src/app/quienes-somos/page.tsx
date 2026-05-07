@@ -5,6 +5,7 @@ import { PortableText } from "next-sanity";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService";
 import PortableTextComponents from "@/lib/portableTextComponents";
+import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 
 const CarrouselItem = dynamic(() => import("@/components/carrouselEquipo"), { ssr: true });
 const CarrouselPracticantes = dynamic(() => import("@/components/carrouselPracticantes"), { ssr: true });
@@ -38,6 +39,8 @@ export default async function QuienesSomos() {
           alt="Equipo de trabajo"
           fill
           priority
+          placeholder="blur"
+          blurDataURL={HERO_BLUR_DATA_URL}
           className="object-cover z-0"
         />
         <div className="absolute inset-0 flex items-center justify-center z-10">

@@ -21,6 +21,7 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
                 alt="Hero Section"
                 fill
                 className="object-cover z-0"
+                lazy-loading
             />
             <div className="absolute inset-0 flex items-center justify-center z-10 px-4 text-center">
                 <h2 className="lg:text-5xl text-3xl font-bold text-black">
@@ -30,7 +31,7 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
             <span className="absolute bottom-0 left-0 w-full h-5 bg-sage-green border-y-2 border-black z-10"></span>
         </section>
         <section className="flex font-karla w-full p-20">
-            <div className="Menu hidden lg:block w-[350px] p-10 shadow-lg">
+        <aside className="Menu hidden lg:block shrink-0 w-[350px] p-10 shadow-lg sticky top-8 h-fit max-h-[100vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
             <div className="flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="items-center bi bi-soundwave shrink-0" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
@@ -58,11 +59,11 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
                         ))}
                     </ul>
                 </div>)}
-            </div>
+            </aside>
     
             <div className="Texto w-full lg:ml-50  lg:pt-10">
                 <div className="flex justify-center"> 
-                    <div className="max-w-3xl w-full ">
+                    <div className="max-w-4xl w-full ">
                         {proyecto.secciones?.map((seccion) => (
                             <div key={seccion._key}>
                                 {seccion.subsecciones.map((subseccion) => (

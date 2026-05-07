@@ -2,6 +2,7 @@ import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { Proyecto } from "@/lib/types/proyecto";
 import { sanityService } from "@/lib/sanityService";
+import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 
 const Proyectos = async () => {
 
@@ -15,6 +16,9 @@ const Proyectos = async () => {
                     alt="Hero Section"
                     fill
                     className="object-cover z-0"
+                    priority
+                    placeholder="blur"
+                    blurDataURL={HERO_BLUR_DATA_URL}
                 />
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                     <h2 className="lg:text-5xl text-3xl font-bold text-black">

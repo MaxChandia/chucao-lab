@@ -23,6 +23,9 @@ const karla = Karla({
 export const metadata: Metadata = {
   title: 'ChucaoLab',
   description: 'Laboratorio de Paisaje Sonoro',
+  other: {
+    preload: '<link rel="preload" as="image" href="/assets/hero_sections.webp" imageSrcSet="/assets/hero_sections.webp" imageSizes="100vw" />'
+  }
 };
 
 export default function RootLayout({

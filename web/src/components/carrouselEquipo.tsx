@@ -11,6 +11,10 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsVisibles, setItemsVisibles] = useState(5);
   
+  // Estados para el control táctil
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  
   const total = equipo.length;
   const gap = 80;
 
@@ -24,9 +28,7 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-
-  })
-
+  }, []); 
 
   const nextSlide = () => {
     if (currentIndex >= total - itemsVisibles) {
@@ -44,6 +46,29 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
     }
   };
 
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) nextSlide();
+    if (isRightSwipe) prevSlide();
+  };
+
+  if (!equipo || total === 0) return null;
+
   return (
     <section className="px-4 sm:px-10 lg:px-20 py-10 w-full overflow-hidden font-karla">
       <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-2">
@@ -58,7 +83,12 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
         </div>
       </div>
 
-      <div className="relative w-full overflow-hidden">
+      <div 
+        className="relative w-full touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <div 
           className="flex transition-transform duration-500 ease-in-out"
           style={{ 
@@ -80,7 +110,7 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
                       alt={miembro.nombreCompleto}
                       width={150}
                       height={150}
-                      className="rounded-full object-cover border-2 border-gray-300 shadow-md  w-[150px] h-[150px]"
+                      className="rounded-full object-cover border-2 border-gray-300 shadow-md w-[150px] h-[150px]"
                     />
                   )}
                   <div className="h-40 w-full flex flex-col items-center justify-start text-center text-sm">
@@ -96,6 +126,16 @@ export default function CarrouselEquipo({ equipo }: { equipo: MiembroEquipo[] })
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Puntitos indicadores (Solo visibles en celular) */}
+      <div className="flex justify-center gap-2 sm:hidden">
+        {Array.from({ length: total }).map((_, i) => (
+          <div 
+            key={i} 
+            className={`h-1.5 rounded-full transition-all ${currentIndex === i ? 'w-6 bg-black' : 'w-2 bg-gray-300'}`}
+          />
+        ))}
       </div>
     </section>
   );

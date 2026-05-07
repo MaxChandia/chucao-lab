@@ -3,6 +3,7 @@ import Link from "next/link";
 import heroImage from '@/assets/hero_sections.webp'; 
 import { sanityService } from '@/lib/sanityService';
 import { Curso } from '@/lib/types/contenido';
+import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 
 export default async function CursosPage() {
     const cursos = await sanityService.getAllCursos();
@@ -17,6 +18,8 @@ export default async function CursosPage() {
                     fill
                     className="object-cover z-0"
                     priority
+                    placeholder="blur"
+                    blurDataURL={HERO_BLUR_DATA_URL}
                 />
                 <div className="absolute inset-0 flex items-center justify-center z-10 px-10 text-center">
                     <h2 className="lg:text-5xl text-3xl font-bold text-black bg-white/60 p-6 rounded-xl backdrop-blur-sm">

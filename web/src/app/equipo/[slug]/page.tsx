@@ -32,7 +32,7 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
             <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg border border-gray-200">
                 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8 border-b pb-4">
-                    {/* Placeholder para la imagen de perfil */}
+             
                     <div className="w-32 h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden border-4 border-sage-green shadow-md bg-gray-200 flex items-center justify-center">
                         {miembro.foto?.asset?.url ? (
                             <img
@@ -64,7 +64,7 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
 
                 <div className="profile-details">
                     <h2 className="text-xl font-semibold mb-4 border-l-4 border-gray-400 pl-3">Trayectoria y Rol</h2>
-                <div className="text-gray-700 space-y-4">
+                <div className="text-gray-700 space-y-4 text-justify">
                     {miembro.descripcion && <PortableText value={miembro.descripcion} />}
                 </div>
                 </div>

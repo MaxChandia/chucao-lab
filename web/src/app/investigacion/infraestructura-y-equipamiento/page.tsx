@@ -2,7 +2,8 @@ import Image from "next/image";
 import heroImage from '@/assets/hero_sections.webp';
 import { sanityService } from "@/lib/sanityService"; 
 import { PortableText } from '@portabletext/react';
-import { Infraestructura } from "@/lib/types/contenido"; 
+import { Infraestructura } from "@/lib/types/contenido";
+import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 
 export default async function InfraestructuraYEquipamiento() {
     
@@ -24,6 +25,10 @@ export default async function InfraestructuraYEquipamiento() {
                     fill
 
                     className="object-cover z-0"
+
+                    priority
+                    placeholder="blur"
+                    blurDataURL={HERO_BLUR_DATA_URL}
 
                 />
 
