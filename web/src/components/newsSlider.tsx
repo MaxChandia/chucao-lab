@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Noticia } from "@/lib/types/contenido";
 
-// Creamos un tipo para manejar tanto noticias como la tarjeta de "Ver más"
+
 type CarruselItem = 
   | { type: 'noticia'; data: Noticia }
   | { type: 'ver-mas'; _id: string };
@@ -17,10 +17,9 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
   const [isEnglish, setIsEnglish] = useState(false);
 
    useEffect(() => {
-        setIsEnglish(document.cookie.includes('googtrans=/es/en')); // Verificar idioma actual al cargar
+        setIsEnglish(document.cookie.includes('googtrans=/es/en')); 
     }, []);
 
-  // 1. Filtramos a max 5 noticias y agregamos la tarjeta extra
   const itemsCarrusel: CarruselItem[] = [
     ...noticias.slice(0, 5).map((n) => ({ type: 'noticia' as const, data: n })),
     { type: 'ver-mas' as const, _id: 'card-ver-mas' },
@@ -30,16 +29,15 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
 
   useEffect(() => {
     const handleResize = () => {
-      // Mantenemos responsividad para que no se rompa en celulares
       if (window.innerWidth < 640) setItemsVisibles(1);
       else if (window.innerWidth < 1024) setItemsVisibles(2);
-      else setItemsVisibles(3); // Siempre 3 en escritorio
+      else setItemsVisibles(3); 
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []); // <-- Se agregó el array vacío para evitar renders infinitos
+  }, []); 
 
   const nextSlide = () => {
     if (currentIndex >= totalItems - itemsVisibles) {
@@ -77,14 +75,12 @@ export default function NewsSlider({ noticias }: { noticias: Noticia[] }) {
 
       {/* SLIDER */}
       <div className="relative w-full overflow-hidden">
-        {/* Contenedor Flex con la transición matemática para el desplazamiento */}
         <div 
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * (100 / itemsVisibles)}%)` }}
         >
           {itemsCarrusel.map((item) => {
             
-            // RENDER DE LA TARJETA "VER MÁS"
             if (item.type === 'ver-mas') {
               return (
                 <div 

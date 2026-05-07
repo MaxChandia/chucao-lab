@@ -47,10 +47,10 @@ export default async function ProyectoPage({params}:{params: Promise<{slug:strin
                     </h3>
                     <ul className="space-y-1 text-sm">
                         {seccion.subsecciones.map((subseccion) => (
-                            <li key={subseccion._key} className="hover:text-blue-600 cursor-pointer flex gap-2">
+                            <li key={subseccion._key} className="hover:text-sage-green cursor-pointer flex gap-2">
                             <a 
                                             href={`#${seccion._key}-${subseccion._key}`} 
-                                            className="hover:text-blue-600 flex gap-2 items-start transition duration-150"
+                                            className="hover:text-sage-green flex gap-2 items-start transition duration-150"
                                         >
                                             <p className="font-bold shrink-0">↘</p> 
                                             {subseccion.titulo}

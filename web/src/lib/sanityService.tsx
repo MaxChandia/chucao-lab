@@ -6,7 +6,7 @@ export const sanityService = {
 
   async getAllNoticias() {
     try {
-      const query = `*[_type == "noticia"] | order(publishedAt desc){
+      const query = `*[_type == "noticia"] | order(fecha desc){
                 _id,
                 titulo,
                 slug { current },
