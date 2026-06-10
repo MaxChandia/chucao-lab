@@ -24,7 +24,7 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
     return (
         <div className="min-h-screen pt-20 pb-16 px-5 sm:px-10 lg:px-20 font-karla bg-gray-50">
             <section className="mt-[100px]">
-            <Link href="/quienes-somos" className="flex items-center text-black hover:text-blue-600 transition-colors mb-8 w-fit">
+            <Link href="/quienes-somos" className="flex items-center text-black hover:text-sage-green transition-colors mb-8 w-fit">
                 <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4 mr-2"/>
                 Volver al equipo
             </Link>
@@ -63,10 +63,9 @@ export default async function MiembroPage({params}:{params: Promise<{slug: strin
                 </div>
 
                 <div className="profile-details">
-                    <h2 className="text-xl font-semibold mb-4 border-l-4 border-gray-400 pl-3">Trayectoria y Rol</h2>
-                <div className="text-gray-700 space-y-4 text-justify">
-                    {miembro.descripcion && <PortableText value={miembro.descripcion} />}
-                </div>
+                    <div className="text-gray-700 space-y-4 text-justify">
+                        {miembro.descripcion && <PortableText value={miembro.descripcion} />}
+                    </div>
                 </div>
             </div>
             </section>
