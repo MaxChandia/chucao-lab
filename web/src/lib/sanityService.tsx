@@ -85,6 +85,89 @@ export const sanityService = {
     }
   },
 
+  /* Servicios Novedades y Actividades */
+
+  async getAllNovedadesActividades() {
+    try {
+      const query = `*[_type == "novedadActividad"] | order(fecha desc){
+                _id,
+                titulo,
+                slug { current },
+                "imagenDestacadaUrl": imagenDestacada.asset->url,
+                autor,
+                fecha,
+                categoria,
+                categoriaIngles,
+                bajada,
+                cuerpo[] {
+                    ...,
+                    _type == "image" => {
+                        asset->,
+                        alt,
+                        caption
+                    },
+                    _type == "youtube" => {
+                        url
+                    }
+                },
+                galeria[] {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                }
+            }`
+      const data = await client.fetch(query, {}, { next: { revalidate: 60 } });
+      return data;
+    } catch (error) {
+      console.error('Error no se encontraron las novedades y actividades', error);
+      return [];
+    }
+  },
+
+  async getNovedadActividadBySlug(slug: string) {
+    try {
+      const query = `*[_type == "novedadActividad" && slug.current == $slug][0]{
+                _id,
+                titulo,
+                slug { current },
+                imagenDestacada {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                }
+                autor,
+                fecha,
+                categoria,
+                categoriaIngles,
+                bajada,
+                cuerpo[] {
+                    ...,
+                    _type == "image" => {
+                        asset->,
+                        alt,
+                        caption
+                    },
+                    _type == "youtube" => {
+                        url
+                    }
+                },
+                galeria[] {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot
+                }
+            }`
+      const data = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
+      return data;
+    } catch (error) {
+      console.error('Error en getNovedadActividadBySlug:', error);
+      return null;
+    } 
+  },
+
   /* Servicios Equipo */
 
   async getAllMiembros() {
