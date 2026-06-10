@@ -17,6 +17,23 @@ export interface Noticia {
   galeria?: SanityImage[];
 }
 
+export interface NovedadActividad {
+  _id: string;
+  _type: 'novedadActividad';
+  _createdAt: string;
+  _updatedAt: string;
+  titulo: string;
+  slug: Slug;
+  autor: string;
+  categoria: 'Divulgación' | 'Eventos' | 'Caminatas Sonoras';
+  categoriaIngles: 'Dissemination' | 'Events' | 'Soundwalks';
+  fecha: string;
+  bajada: string;
+  imagenDestacadaUrl: string; 
+  cuerpo: Array<PortableTextBlock | SanityImage | YouTubeEmbed>;
+  galeria?: Array<SanityImage & { alt?: string; caption?: string }>;
+}
+
 export interface Eje {
   _id: string;
   nombreEje: string;
