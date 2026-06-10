@@ -14,7 +14,7 @@ export default function FilterableList({ documentos }: { documentos: Documento[]
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const categories = [ 'Revistas científicas', 'Capítulos de libro', 'Actas de Congreso', 'Revistas profesionales', 'Otras publicaciones', 'Policy brief y diseminación' ];
+  const categories = [ 'Revistas científicas', 'Capítulos de libro', 'Actas de Congreso', 'Revistas profesionales', 'Otras publicaciones', 'Policy brief y diseminación', 'Tesis' ];
 
   const filteredDocs = documentos.filter((doc) => {
     const matchesName = doc.titulo.toLowerCase().includes(search.toLowerCase()) || doc.autor.toLowerCase().includes(search.toLowerCase());
