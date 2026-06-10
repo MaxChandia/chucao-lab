@@ -89,7 +89,7 @@ export const sanityService = {
 
   async getAllMiembros() {
     try {
-      const query = `*[_type == "miembro" ] | order(_createdAt asc) {
+      const query = `*[_type == "miembro" ] | order(orderRank asc) {
                 _id,
                 nombreCompleto,
                 slug,
@@ -147,7 +147,7 @@ export const sanityService = {
 
   async getAllColaboradoresAsociados(){
     try {
-      const query = `*[_type == "colaboradorAsociado"] | order(_createdAt asc) {
+      const query = `*[_type == "colaboradorAsociado"] | order(orderRank asc) {
             _id,
             _type,
             nombreCompleto,
@@ -471,7 +471,7 @@ export const sanityService = {
 
   async getAllPracticantes() {
     try {
-      const query = `*[_type == "practicante"] | order(_createdAt desc) {
+      const query = `*[_type == "practicante"] | order(orderRank asc) {
             _id,
             _type,
             nombreCompleto,
@@ -563,7 +563,7 @@ export const sanityService = {
   /* Servicios Colaboradores */
   async getAllColaboradores(){
     try {
-    const query = `*[_type == "colaborador"] | order(_createdAt asc) {
+    const query = `*[_type == "colaborador"] | order(orderRank asc) {
             _id,
             _type,
             nombreCompleto,
