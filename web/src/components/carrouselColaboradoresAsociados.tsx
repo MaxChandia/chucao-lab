@@ -62,7 +62,7 @@ export default function CarruselColaboradoresAsociados({ miembros }: { miembros:
     <section className="px-6 sm:px-10 lg:px-20 py-16 w-full overflow-hidden font-karla ">
       <div className="sectionHeader w-full flex justify-between items-center mb-10 border-b-2 border-dotted border-black pb-4">
         <h3 className="text-lg sm:text-xl font-bold font-jetbrains uppercase tracking-tighter">
-          COLABORADORES ASOCIADOS
+          Organismos Asociados
         </h3>
         
         <div className="flex gap-4 sm:gap-8">
