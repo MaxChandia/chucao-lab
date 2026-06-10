@@ -87,7 +87,7 @@ const Contactanos = () => {
                                 <div className="h-10 w-10 rounded-full bg-black flex items-center justify-center text-white group-hover:bg-sage-green transition-colors">
                                     <FontAwesomeIcon icon={faEnvelope} />
                                 </div>
-                                chucaolab@uchile.cl
+                                chucao.lab@uchile.cl
                             </a>
                         </div>
 
