@@ -136,7 +136,7 @@ export const sanityService = {
                     alt,
                     caption,
                     hotspot
-                }
+                },
                 autor,
                 fecha,
                 categoria,
