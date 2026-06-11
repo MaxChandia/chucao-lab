@@ -1,19 +1,49 @@
 import type { StructureResolver } from 'sanity/structure'
+import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 
-export const structure: StructureResolver = (S) =>
+
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title('Panel de Control Chucao Lab')
     .items([
       S.documentTypeListItem('noticia').title('Noticias'),
+      S.documentTypeListItem('novedadActividad').title('Novedades y Actividades'),
       S.documentTypeListItem('proyecto').title('Proyectos'),
       S.documentTypeListItem('publicacion').title('Publicaciones'),
-      S.documentTypeListItem('miembro').title('Equipo'),
-      S.documentTypeListItem('practicante').title('Practicantes (Lista)'),
+      
+      orderableDocumentListDeskItem({
+        type: 'miembro',
+        title: 'Equipo',
+        S,
+        context,
+      }),
+      
+      
+      orderableDocumentListDeskItem({
+        type: 'practicante',
+        title: 'Practicantes',
+        S,
+        context,
+      }),
+      
       S.documentTypeListItem('curso').title('Cursos'),
       S.documentTypeListItem('infraestructura').title('Infraestructura y Equipamiento'),
       S.documentTypeListItem('eje').title('Ejes de Investigación'),
-      S.documentTypeListItem('colaborador').title('Colaboradores'),
-      S.documentTypeListItem('colaboradorAsociado').title('Colaboradores Asociados'),
+      
+      orderableDocumentListDeskItem({
+        type: 'colaborador',
+        title: 'Colaboradores',
+        S,
+        context,
+      }),
+      
+      
+      orderableDocumentListDeskItem({
+        type: 'colaboradorAsociado',
+        title: 'Colaboradores Asociados',
+        S,
+        context,
+      }),
       
       S.divider(),
 
@@ -29,7 +59,6 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title('Proyecto Principal Destacado')
                 .child(S.document().schemaType('proyectoPrincipal').documentId('proyectoPrincipal')),
-              
             ])
         ),
 
@@ -42,7 +71,7 @@ export const structure: StructureResolver = (S) =>
             .title('Contenidos Fijos')
             .items([
               S.listItem()
-                .title('Caminata Sonora (Descripción)' )
+                .title('Caminata Sonora (Descripción)')
                 .child(S.document().schemaType('caminataSonora').documentId('caminataSonora')),
               S.listItem()
                 .title('Divulgación Científica (Descripción)')
@@ -54,7 +83,7 @@ export const structure: StructureResolver = (S) =>
                 .title('Quiénes Somos (Descripción)')
                 .child(S.document().schemaType('quienesSomos').documentId('quienesSomos')),
               S.listItem()
-                .title('Footer (Logos')
+                .title('Footer (Logos)')
                 .child(S.document().schemaType('footer').documentId('footer')),
             ])
         ),

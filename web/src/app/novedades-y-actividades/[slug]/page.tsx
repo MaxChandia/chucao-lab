@@ -12,8 +12,8 @@ export default async function NovedadActividadPage({ params }: { params: Promise
   const novedad: NovedadActividad = await sanityService.getNovedadActividadBySlug(slug);
 
   if (!novedad) {
-    return <div className="p-10 text-center">Contenido no encontrado</div>;
-  }
+    return <div className="p-10 text-center ">Contenido no encontrado</div>;
+  } 
 
   return (
     <div>

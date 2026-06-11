@@ -66,6 +66,7 @@ export default defineType({
           { title: 'Revistas profesionales', value: 'Revistas profesionales' },
           { title: 'Otras publicaciones', value: 'Otras publicaciones' },
           { title: 'Policy brief y diseminación', value: 'Policy brief y diseminación' },
+          { title: 'Tesis', value: 'Tesis' },
         ],
         layout: 'radio',
       },

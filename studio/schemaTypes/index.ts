@@ -16,5 +16,6 @@ import caminataSonora from './caminataSonora'
 import footer from './footer'
 import colaboradores from './colaboradores'
 import colaboradoresAsociados from './colaboradoresAsociados'
+import novedadesActividades from './novedadesActividades'
 
-export const schemaTypes = [noticias, blockContent, publicaciones, proyectos, equipo, ejes, curso, proyectoPrincipal, quienesSomos, practicantes, descripcionInicio, equipamiento, tesisypracticantes, divulgacionCIentifica, caminataSonora, footer, colaboradores, colaboradoresAsociados]
+export const schemaTypes = [noticias, blockContent, publicaciones, proyectos, equipo, ejes, curso, proyectoPrincipal, quienesSomos, practicantes, descripcionInicio, equipamiento, tesisypracticantes, divulgacionCIentifica, caminataSonora, footer, colaboradores, colaboradoresAsociados, novedadesActividades]
