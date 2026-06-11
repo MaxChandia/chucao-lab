@@ -66,7 +66,7 @@ const TesisYPracticas = async () => {
             <section className="relative flex flex-col items-center justify-center w-full px-4 sm:px-10 lg:px-20 py-20 font-karla bg-gray-50">
                 <div className="text-center mb-12 w-full">
                     <h2 className="text-4xl font-bold text-gray-900 mb-6 tracking-tight">
-                        Tesis de practicantes
+                        Tesis
                     </h2>
                     <div className="flex justify-center items-center gap-4">
                         <div className="w-16 h-1 bg-sage-green rounded-full"></div>
