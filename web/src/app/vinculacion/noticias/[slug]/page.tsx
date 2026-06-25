@@ -7,18 +7,23 @@ import heroImage from "@/assets/hero_sections.webp";
 import { Noticia } from "@/lib/types/contenido";
 import ShareButtons from "@/components/share-buttons/shareButtons";
 import { SanityImage } from "@/lib/types/sanity";
+import GaleriaCarousel from "@/components/GaleriaCarrusel/GaleriaCarrusel";
 
 export default async function NoticiaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const noticia = await sanityService.getNoticiaBySlug(slug);
+  const decodeSlug = decodeURIComponent(slug);
+
+  const noticia = await sanityService.getNoticiaBySlug(decodeSlug);
+
+   if (!noticia) {
+    return <div className="p-10 flex items-center justify-center">Noticia no encontrada</div>;
+  }
   const otrasNoticias = await sanityService.getAllNoticias();
 
   const galeria: SanityImage[] = noticia.galeria
 
-  if (!noticia) {
-    return <div className="p-10 text-center">Noticia no encontrada</div>;
-  }
+ 
   return (
     <div>
       {/* Sección hero */}
@@ -37,9 +42,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
           <div className="max-w-4xl mx-auto my-10 px-4">
             {noticia?.cuerpo && <PortableText value={noticia.cuerpo} components={PortableTextComponents} />}
           </div>
-          <div className="flex gap-2">
-            {noticia.galeria?.map((imagen: SanityImage) => <Image key={imagen.asset._id} src={imagen.asset.url} width={400} height={200}alt=''/>)}
-          </div>
+          <GaleriaCarousel imagenes={galeria} />
           <ShareButtons title={noticia?.titulo} />
         </article>
 
