@@ -77,7 +77,7 @@ export default async function CursoPage({ params }: { params: Promise<{ slug: st
               cursosSugeridos.map((otro: Curso) => (
                 <Link
                   key={otro._id}
-                  href={`/cursos/${otro.slug.current}`}
+                  href={`/docencia/cursos/${otro.slug.current}`}
                   className="block group bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   <div className="relative h-48 w-full">
