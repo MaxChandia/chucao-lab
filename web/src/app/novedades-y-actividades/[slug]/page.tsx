@@ -5,6 +5,8 @@ import Image from "next/image";
 import heroImage from "@/assets/hero_sections.webp";
 import ShareButtons from "@/components/share-buttons/shareButtons";
 import { NovedadActividad } from "@/lib/types/contenido";
+// Asegúrate de que esta ruta coincida con la ubicación real de tu componente
+import GaleriaCarousel from "@/components/GaleriaCarousel"; 
 
 export default async function NovedadActividadPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -35,26 +37,9 @@ export default async function NovedadActividadPage({ params }: { params: Promise
             {novedad.cuerpo && <PortableText value={novedad.cuerpo} components={PortableTextComponents} />}
           </div>
 
-          {/* Galería de imágenes con títulos */}
+          {/* Galería de imágenes (Componente Carrusel) */}
           {novedad.galeria && novedad.galeria.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 my-10">
-              {novedad.galeria.map((imagen) => (
-                <figure key={imagen.asset._id} className="flex flex-col items-center">
-                  <Image 
-                    src={imagen.asset.url} 
-                    width={400} 
-                    height={300} 
-                    className="rounded-lg object-cover w-full h-auto"
-                    alt={imagen.alt || 'Imagen de la galería'} 
-                  />
-                  {imagen.caption && (
-                    <figcaption className="mt-3 text-sm text-gray-600 text-center italic">
-                      {imagen.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
-            </div>
+            <GaleriaCarousel imagenes={novedad.galeria} />
           )}
 
           <div className="mt-10">
