@@ -7,19 +7,22 @@ import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 import Paginador from "@/components/paginador/Paginador";
 
 interface PageProps {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }
 
 export default async function Noticias({ searchParams }: PageProps) {
     const noticias: Noticia[] = (await sanityService.getAllNoticias()) || [];
 
-    // Paginación
-    const currentPage = Number(searchParams?.page) || 1;
+
+    const resolvedSearchParams = await searchParams;
+    const currentPage = Number(resolvedSearchParams?.page) || 1;
     const itemsPerPage = 9;
     const totalPages = Math.ceil(noticias.length / itemsPerPage);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentNoticias = noticias.slice(startIndex, startIndex + itemsPerPage);
+
+
 
     return (
         <div className="bg-[#eefbfc] min-h-screen"> 

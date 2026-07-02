@@ -10,18 +10,18 @@ import { HERO_BLUR_DATA_URL } from "@/lib/imageOptimization";
 import Paginador from "@/components/paginador/Paginador";
 
 interface PageProps {
-    searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }
+
 
 export default async function DivulgacionCientifica({ searchParams }: PageProps) {
     const allNoticias: Noticia[] = (await sanityService.getAllNoticias()) || [];
     const divulgacionDescripcion: SeccionInformativa = await sanityService.getContenido('divulgacionCientifica');
 
-    // 1. Primero filtramos solo las noticias que son de Divulgación
     const divulgacionNoticias = allNoticias.filter(noticia => noticia.categoria === "Divulgación");
 
-    // 2. Lógica de Paginación (máximo 9 por página)
-    const currentPage = Number(searchParams?.page) || 1;
+   const resolvedSearchParams = await searchParams;
+    const currentPage = Number(resolvedSearchParams?.page) || 1;
     const itemsPerPage = 9;
     const totalPages = Math.ceil(divulgacionNoticias.length / itemsPerPage);
 
@@ -120,7 +120,7 @@ export default async function DivulgacionCientifica({ searchParams }: PageProps)
                                                     <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5"/>
                                                 </svg>
                                                 {/* Hover sage-green original del componente mantenido */}
-                                                <h3 className="font-bold font-jetbrains text-left text-[15px] leading-snug text-black group-hover:text-sage-green transition-colors">
+                                                <h3 className="font-bold font-jetbrains h-10 text-left text-[15px] leading-snug text-black group-hover:text-sage-green transition-colors">
                                                     {noticia.titulo}
                                                 </h3>
                                             </div>
