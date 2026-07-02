@@ -78,16 +78,16 @@ export default async function Noticias({ searchParams }: PageProps) {
                                         <div className="mt-5 flex flex-col flex-1">
                                             {/* Título con Icono */}
                                             <div className="flex gap-3 items-start">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="bi bi-soundwave shrink-0 mt-1 text-black group-hover:text-gray-600 transition-colors" viewBox="0 0 16 16">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-soundwave shrink-0 text-sage-green" viewBox="0 0 16 16">
                                                     <path fillRule="evenodd" d="M8.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11a.5.5 0 0 1 .5-.5m-2 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5m-6 1.5A.5.5 0 0 1 5 6v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m-10 1A.5.5 0 0 1 3 7v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5m12 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0V7a.5.5 0 0 1 .5-.5" />
                                                 </svg>
-                                                <h3 className="font-bold font-jetbrains text-left text-[15px] leading-snug text-black group-hover:text-gray-600 transition-colors">
+                                                <h3 className="font-bold font-jetbrains text-left text-[15px] leading-snug text-black group-hover:text-sage-green transition-colors">
                                                     {noticia.titulo}
                                                 </h3>
                                             </div>
                                             
                                             {/* Bajada */}
-                                            <div className="mt-3 text-left text-[14px] font-karla flex-1 text-gray-600 leading-relaxed">
+                                            <div className="mt-3 text-justify text-[14px] font-karla flex-1 text-gray-600 leading-relaxed">
                                                 {noticia.bajada}
                                             </div>
                                         </div>
