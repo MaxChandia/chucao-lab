@@ -6,7 +6,7 @@ import heroImage from "@/assets/hero_sections.webp";
 import ShareButtons from "@/components/share-buttons/shareButtons";
 import { NovedadActividad } from "@/lib/types/contenido";
 // Asegúrate de que esta ruta coincida con la ubicación real de tu componente
-import GaleriaCarousel from "@/components/GaleriaCarousel"; 
+import GaleriaCarousel from "@/components/GaleriaCarousel/GaleriaCarousel";
 
 export default async function NovedadActividadPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
